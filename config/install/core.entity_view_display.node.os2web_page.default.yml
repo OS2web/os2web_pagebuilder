@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.os2web_page.field_os2web_page_contact_hide
+    - field.field.node.os2web_page.field_os2web_page_description
+    - field.field.node.os2web_page.field_os2web_page_heading
+    - field.field.node.os2web_page.field_os2web_page_image
+    - field.field.node.os2web_page.field_os2web_page_intro
+    - field.field.node.os2web_page.field_os2web_page_paragraph
+    - field.field.node.os2web_page.field_os2web_page_related_hide
+    - node.type.os2web_page
+  module:
+    - entity_reference_revisions
+    - text
+    - user
+id: node.os2web_page.default
+targetEntityType: node
+bundle: os2web_page
+mode: default
+content:
+  field_os2web_page_description:
+    type: text_default
+    weight: 2
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_os2web_page_heading:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_os2web_page_image:
+    type: entity_reference_entity_view
+    weight: 3
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_os2web_page_intro:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_os2web_page_paragraph:
+    type: entity_reference_revisions_entity_view
+    weight: 4
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_os2web_page_contact_hide: true
+  field_os2web_page_related_hide: true
+  links: true
