@@ -4,6 +4,7 @@ description: Page builder set for os2web.
 core: 8.x
 package: OS2Web
 dependencies:
+  - media
   - node
   - paragraphs
   - os2web_spotbox
