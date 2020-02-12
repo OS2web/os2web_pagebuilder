@@ -5,3 +5,5 @@ core: 8.x
 package: OS2Web
 dependencies:
   - node
+  - paragraphs
+  - os2web_spotbox

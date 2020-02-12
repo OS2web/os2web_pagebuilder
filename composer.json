@@ -3,7 +3,9 @@
   "description": "Page builder set for os2web",
   "type": "drupal-module",
   "require": {
-    "drupal/core": "*"
+    "drupal/core": "*",
+    "drupal/paragraphs": "*",
+    "os2web/os2web_spotbox": "dev-develop"
   },
   "license": "EUPL-1.2",
   "minimum-stability": "dev"
