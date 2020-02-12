@@ -2,6 +2,7 @@ langcode: da
 status: true
 dependencies:
   config:
+    - field.field.node.os2web_page.field_os2web_page_contact
     - field.field.node.os2web_page.field_os2web_page_contact_hide
     - field.field.node.os2web_page.field_os2web_page_description
     - field.field.node.os2web_page.field_os2web_page_heading
@@ -13,6 +14,7 @@ dependencies:
     - field.field.node.os2web_page.field_os2web_page_section
     - node.type.os2web_page
   module:
+    - inline_entity_form
     - paragraphs
     - path
     - text
@@ -27,6 +29,22 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_os2web_page_contact:
+    weight: 28
+    settings:
+      match_operator: CONTAINS
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      allow_new: true
+      allow_existing: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
   field_os2web_page_contact_hide:
     weight: 6
     settings:

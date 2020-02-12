@@ -12,3 +12,4 @@ dependencies:
   - menu_ui
   - paragraphs
   - os2web_spotbox
+  - os2web_contact
