@@ -11,5 +11,6 @@ dependencies:
   - path
   - menu_ui
   - paragraphs
+  - taxonomy
   - os2web_spotbox
   - os2web_contact
