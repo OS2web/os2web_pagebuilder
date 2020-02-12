@@ -6,5 +6,9 @@ package: OS2Web
 dependencies:
   - media
   - node
+  - options
+  - link
+  - path
+  - menu_ui
   - paragraphs
   - os2web_spotbox
