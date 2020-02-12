@@ -7,8 +7,10 @@ dependencies:
     - field.field.node.os2web_page.field_os2web_page_heading
     - field.field.node.os2web_page.field_os2web_page_image
     - field.field.node.os2web_page.field_os2web_page_intro
+    - field.field.node.os2web_page.field_os2web_page_kle
     - field.field.node.os2web_page.field_os2web_page_paragraph
     - field.field.node.os2web_page.field_os2web_page_related_hide
+    - field.field.node.os2web_page.field_os2web_page_section
     - node.type.os2web_page
   module:
     - paragraphs
@@ -66,6 +68,16 @@ content:
     third_party_settings: {  }
     type: string_textarea
     region: content
+  field_os2web_page_kle:
+    weight: 26
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_os2web_page_paragraph:
     type: entity_reference_paragraphs
     weight: 5
@@ -85,6 +97,23 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_os2web_page_section:
+    weight: 27
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
   path:
     type: path
     weight: 12
