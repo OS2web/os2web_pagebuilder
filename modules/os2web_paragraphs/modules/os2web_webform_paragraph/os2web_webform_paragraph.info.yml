@@ -1,0 +1,8 @@
+name: OS2Web webform paragraphs
+type: module
+description: Adding a "webform" paragraph to the OS2Web paragraphs system.
+core: 8.x
+package: OS2Web
+dependencies:
+  - webform
+  - os2web_paragraphs

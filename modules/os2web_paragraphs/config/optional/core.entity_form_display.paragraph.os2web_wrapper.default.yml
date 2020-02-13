@@ -1,0 +1,42 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_wrapper.field_os2web_bg_color
+    - field.field.paragraph.os2web_wrapper.field_os2web_con_type
+    - field.field.paragraph.os2web_wrapper.field_os2web_paragraphs
+    - paragraphs.paragraphs_type.os2web_wrapper
+  module:
+    - paragraphs
+id: paragraph.os2web_wrapper.default
+targetEntityType: paragraph
+bundle: os2web_wrapper
+mode: default
+content:
+  field_os2web_bg_color:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_os2web_con_type:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_os2web_paragraphs:
+    type: entity_reference_paragraphs
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  status: true

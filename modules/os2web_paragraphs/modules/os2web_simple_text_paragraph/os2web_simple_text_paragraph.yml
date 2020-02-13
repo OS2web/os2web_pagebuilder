@@ -1,0 +1,7 @@
+name: OS2Web Simple text paragraphs
+type: module
+description: Adding a "simple text" paragraph to the OS2Web paragraphs system.
+core: 8.x
+package: OS2web
+dependencies:
+  - os2web_paragraphs

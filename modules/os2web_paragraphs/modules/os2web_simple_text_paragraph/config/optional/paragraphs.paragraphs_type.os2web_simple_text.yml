@@ -1,0 +1,8 @@
+langcode: da
+status: true
+dependencies: {  }
+id: os2web_simple_text
+label: 'Simpel tekst'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

@@ -1,0 +1,31 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_webform.field_os2web_webform_heading
+    - field.field.paragraph.os2web_webform.field_os2web_webform_reference
+    - paragraphs.paragraphs_type.os2web_webform
+  module:
+    - webform
+id: paragraph.os2web_webform.default
+targetEntityType: paragraph
+bundle: os2web_webform
+mode: default
+content:
+  field_os2web_webform_heading:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_os2web_webform_webform:
+    weight: 1
+    label: hidden
+    settings:
+      source_entity: true
+    third_party_settings: {  }
+    type: webform_entity_reference_entity_view
+    region: content
+hidden: {  }

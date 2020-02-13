@@ -1,0 +1,7 @@
+name: OS2 Paragraphs
+type: module
+description: A suite of Paragraph bundles made with "Det fælles designsystem".
+core: 8.x
+package: OS2 paragraphs
+dependencies:
+  - paragraphs:paragraphs

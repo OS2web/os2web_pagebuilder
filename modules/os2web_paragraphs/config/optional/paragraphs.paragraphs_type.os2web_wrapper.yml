@@ -1,0 +1,8 @@
+langcode: da
+status: true
+dependencies: {  }
+id: os2web_wrapper
+label: Wrapper
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

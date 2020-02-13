@@ -1,0 +1,21 @@
+{% set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished'
+] %}
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+
+      {# Begin - heading #}
+      {{ content.field_os2web_webform_heading }}
+      {# End - heading #}
+
+      {# Begin - webform #}
+      {{ content.field_os2web_webform_reference }}
+      {# End - webform #}
+
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

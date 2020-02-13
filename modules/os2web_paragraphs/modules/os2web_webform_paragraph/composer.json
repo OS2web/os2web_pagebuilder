@@ -1,0 +1,11 @@
+{
+  "name": "OS2 Paragraphs - webform",
+  "description": "Adding a \"webform\" paragraph to the OS2 paragraphs system.",
+  "type": "drupal-module",
+  "homepage": "https://drupal.org/project/bootstrap_paragraphs",
+  "require": {
+    "drupal/core": "*",
+    "drupal/bootstrap_paragraphs": "*",
+    "drupal/webform": "*"
+  }
+}
