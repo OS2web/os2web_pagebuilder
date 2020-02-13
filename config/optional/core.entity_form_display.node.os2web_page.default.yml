@@ -97,15 +97,22 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_os2web_page_paragraph:
-    type: entity_reference_paragraphs
+    type: paragraphs
     weight: 5
     settings:
       title: Paragraph
       title_plural: Paragraphs
       edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
       add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+        add_above: '0'
     third_party_settings: {  }
     region: content
   field_os2web_page_related_hide:
