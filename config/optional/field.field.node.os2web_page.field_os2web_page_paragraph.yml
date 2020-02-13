@@ -4,6 +4,9 @@ dependencies:
   config:
     - field.storage.node.field_os2web_page_paragraph
     - node.type.os2web_page
+    - paragraphs.paragraphs_type.os2web_2_columns
+    - paragraphs.paragraphs_type.os2web_3_columns
+    - paragraphs.paragraphs_type.os2web_wrapper
   module:
     - entity_reference_revisions
 id: node.os2web_page.field_os2web_page_paragraph
@@ -20,5 +23,18 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     negate: 0
-    target_bundles: null
+    target_bundles:
+      os2web_2_columns: os2web_2_columns
+      os2web_3_columns: os2web_3_columns
+      os2web_wrapper: os2web_wrapper
+    target_bundles_drag_drop:
+      os2web_2_columns:
+        enabled: true
+        weight: 4
+      os2web_3_columns:
+        enabled: true
+        weight: 5
+      os2web_wrapper:
+        enabled: true
+        weight: 6
 field_type: entity_reference_revisions

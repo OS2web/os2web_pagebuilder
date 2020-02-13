@@ -1,1 +1,2 @@
 config/optional/.htaccess
+modules/*/config/optional/.htaccess

@@ -12,3 +12,6 @@ dependencies:
   - menu_ui
   - paragraphs
   - taxonomy
+  - inline_entity_form
+  - os2web_paragraphs
+  - os2web_contact
