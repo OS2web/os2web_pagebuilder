@@ -5,7 +5,6 @@
   "homepage": "https://drupal.org/project/bootstrap_paragraphs",
   "require": {
     "drupal/core": "*",
-    "drupal/bootstrap_paragraphs": "*",
     "drupal/webform": "*"
   }
 }
