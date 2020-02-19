@@ -13,5 +13,6 @@ dependencies:
   - paragraphs
   - taxonomy
   - inline_entity_form
+  - fieldblock
   - os2web_paragraphs
   - os2web_contact
