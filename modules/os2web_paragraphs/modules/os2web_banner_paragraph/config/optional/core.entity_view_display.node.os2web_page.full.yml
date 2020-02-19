@@ -1,0 +1,97 @@
+langcode: da
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.os2web_page.field_os2web_page_contact
+    - field.field.node.os2web_page.field_os2web_page_contact_hide
+    - field.field.node.os2web_page.field_os2web_page_description
+    - field.field.node.os2web_page.field_os2web_page_heading
+    - field.field.node.os2web_page.field_os2web_page_image
+    - field.field.node.os2web_page.field_os2web_page_intro
+    - field.field.node.os2web_page.field_os2web_page_kle
+    - field.field.node.os2web_page.field_os2web_page_paragraph_bann
+    - field.field.node.os2web_page.field_os2web_page_paragraph_left
+    - field.field.node.os2web_page.field_os2web_page_paragraph_narr
+    - field.field.node.os2web_page.field_os2web_page_paragraph_righ
+    - field.field.node.os2web_page.field_os2web_page_paragraph_wide
+    - field.field.node.os2web_page.field_os2web_page_related_hide
+    - field.field.node.os2web_page.field_os2web_page_section
+    - node.type.os2web_page
+  module:
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.os2web_page.full
+targetEntityType: node
+bundle: os2web_page
+mode: full
+content:
+  field_os2web_page_contact:
+    weight: 7
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_os2web_page_description:
+    type: text_default
+    weight: 2
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_os2web_page_heading:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_os2web_page_image:
+    type: entity_reference_entity_view
+    weight: 3
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_os2web_page_intro:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_os2web_page_kle:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_os2web_page_section:
+    weight: 6
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden:
+  field_os2web_page_contact_hide: true
+  field_os2web_page_paragraph_bann: true
+  field_os2web_page_paragraph_left: true
+  field_os2web_page_paragraph_narr: true
+  field_os2web_page_paragraph_righ: true
+  field_os2web_page_paragraph_wide: true
+  field_os2web_page_related_hide: true
+  langcode: true
+  links: true
