@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_os2web_simple_text_body
-    - paragraphs.paragraphs_type.os2web_simple_text
+    - paragraphs.paragraphs_type.os2web_simple_text_paragraph
   module:
     - text
-id: paragraph.os2web_simple_text.field_os2web_simple_text_body
+id: paragraph.os2web_simple_text_paragraph.field_os2web_simple_text_body
 field_name: field_os2web_simple_text_body
 entity_type: paragraph
-bundle: os2web_simple_text
+bundle: os2web_simple_text_paragraph
 label: Indholdstekst
 description: ''
 required: false

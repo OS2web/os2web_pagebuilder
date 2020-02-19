@@ -1,0 +1,9 @@
+{
+  "name": "OS2 Paragraphs - simple text",
+  "description": "Adding a \"simple text\" paragraph to the OS2 paragraphs system.",
+  "type": "drupal-module",
+  "homepage": "https://drupal.org/project/bootstrap_paragraphs",
+  "require": {
+    "drupal/core": "*"
+  }
+}
