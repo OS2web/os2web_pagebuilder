@@ -22,6 +22,8 @@ A set of submodules is provided.
 The following submodules are available, each providing their own paragraph types
 - simple text
 - webform
+- factbox
+- banner
 
 ## Want to add more paragraphs?
 Activate the "OS2 paragraphs builder workflow" module and follow the instructions of the README.md inside of that module.
