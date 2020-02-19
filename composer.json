@@ -5,6 +5,7 @@
   "require": {
     "drupal/core": "*",
     "drupal/paragraphs": "*",
+    "drupal/fieldblock": "*",
     "drupal/inline_entity_form": "^1.0@RC",
     "os2web/os2web_contact": "dev-master"
   },
