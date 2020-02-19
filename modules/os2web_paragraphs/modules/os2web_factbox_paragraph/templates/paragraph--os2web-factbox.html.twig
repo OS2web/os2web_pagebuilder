@@ -1,0 +1,33 @@
+{% set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished'
+] %}
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+
+      {# Begin - heading #}
+      {{ content.field_os2web_factbox_heading }}
+      {# End - heading #}
+
+      {# Begin - subheading #}
+      {{ content.field_os2web_factbox_subheading }}
+      {# End - subheading #}
+
+      {# Begin - body #}
+      {{ content.field_os2web_factbox_body }}
+      {# End - body #}
+
+      {# Begin - heading #}
+      {{ content.field_os2web_factbox_fb_heading }}
+      {# End - heading #}
+
+      {# Begin - body #}
+      {{ content.field_os2web_factbox_fb_body }}
+      {# End - body #}
+
+    {% endblock %}
+  </div>
+{% endblock paragraph %}
