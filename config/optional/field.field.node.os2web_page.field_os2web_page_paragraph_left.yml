@@ -2,18 +2,19 @@ langcode: da
 status: true
 dependencies:
   config:
-    - field.storage.node.field_os2web_page_paragraph
+    - field.storage.node.field_os2web_page_paragraph_left
     - node.type.os2web_page
     - paragraphs.paragraphs_type.os2web_2_columns
     - paragraphs.paragraphs_type.os2web_3_columns
+    - paragraphs.paragraphs_type.os2web_banner_paragraph
     - paragraphs.paragraphs_type.os2web_wrapper
   module:
     - entity_reference_revisions
-id: node.os2web_page.field_os2web_page_paragraph
-field_name: field_os2web_page_paragraph
+id: node.os2web_page.field_os2web_page_paragraph_left
+field_name: field_os2web_page_paragraph_left
 entity_type: node
 bundle: os2web_page
-label: Afsnit
+label: 'Afsnit (venstre sidebar)'
 description: ''
 required: false
 translatable: false
@@ -22,19 +23,26 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
+    negate: 1
     target_bundles:
       os2web_2_columns: os2web_2_columns
       os2web_3_columns: os2web_3_columns
+      os2web_banner_paragraph: os2web_banner_paragraph
       os2web_wrapper: os2web_wrapper
     target_bundles_drag_drop:
       os2web_2_columns:
         enabled: true
-        weight: 4
+        weight: 6
       os2web_3_columns:
         enabled: true
-        weight: 5
+        weight: 7
+      os2web_banner_paragraph:
+        enabled: true
+        weight: 8
+      os2web_factbox_paragraph:
+        weight: 9
+        enabled: false
       os2web_wrapper:
         enabled: true
-        weight: 6
+        weight: 10
 field_type: entity_reference_revisions

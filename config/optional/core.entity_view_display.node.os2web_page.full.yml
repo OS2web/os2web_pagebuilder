@@ -1,7 +1,8 @@
 langcode: da
-status: true
+status: false
 dependencies:
   config:
+    - core.entity_view_mode.node.full
     - field.field.node.os2web_page.field_os2web_page_contact
     - field.field.node.os2web_page.field_os2web_page_contact_hide
     - field.field.node.os2web_page.field_os2web_page_description
@@ -18,7 +19,6 @@ dependencies:
     - field.field.node.os2web_page.field_os2web_page_section
     - node.type.os2web_page
   module:
-    - entity_reference_revisions
     - layout_builder
     - text
     - user
@@ -26,14 +26,14 @@ third_party_settings:
   layout_builder:
     allow_custom: false
     enabled: false
-id: node.os2web_page.default
+id: node.os2web_page.full
 targetEntityType: node
 bundle: os2web_page
-mode: default
+mode: full
 content:
   field_os2web_page_contact:
     weight: 7
-    label: hidden
+    label: above
     settings:
       link: true
     third_party_settings: {  }
@@ -43,12 +43,12 @@ content:
     type: text_default
     weight: 2
     region: content
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
   field_os2web_page_heading:
     weight: 0
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
@@ -56,7 +56,7 @@ content:
   field_os2web_page_image:
     type: entity_reference_entity_view
     weight: 3
-    label: hidden
+    label: above
     settings:
       view_mode: default
       link: false
@@ -64,31 +64,22 @@ content:
     region: content
   field_os2web_page_intro:
     weight: 1
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_os2web_page_kle:
     weight: 5
-    label: hidden
+    label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_os2web_page_paragraph_narr:
-    type: entity_reference_revisions_entity_view
-    weight: 8
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    region: content
   field_os2web_page_section:
     weight: 6
-    label: hidden
+    label: above
     settings:
       link: true
     third_party_settings: {  }
@@ -98,6 +89,7 @@ hidden:
   field_os2web_page_contact_hide: true
   field_os2web_page_paragraph_bann: true
   field_os2web_page_paragraph_left: true
+  field_os2web_page_paragraph_narr: true
   field_os2web_page_paragraph_righ: true
   field_os2web_page_paragraph_wide: true
   field_os2web_page_related_hide: true

@@ -9,7 +9,11 @@ dependencies:
     - field.field.node.os2web_page.field_os2web_page_image
     - field.field.node.os2web_page.field_os2web_page_intro
     - field.field.node.os2web_page.field_os2web_page_kle
-    - field.field.node.os2web_page.field_os2web_page_paragraph
+    - field.field.node.os2web_page.field_os2web_page_paragraph_bann
+    - field.field.node.os2web_page.field_os2web_page_paragraph_left
+    - field.field.node.os2web_page.field_os2web_page_paragraph_narr
+    - field.field.node.os2web_page.field_os2web_page_paragraph_righ
+    - field.field.node.os2web_page.field_os2web_page_paragraph_wide
     - field.field.node.os2web_page.field_os2web_page_related_hide
     - field.field.node.os2web_page.field_os2web_page_section
     - node.type.os2web_page
@@ -25,12 +29,12 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 9
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_os2web_page_contact:
-    weight: 28
+    weight: 21
     settings:
       match_operator: CONTAINS
       form_mode: default
@@ -42,11 +46,12 @@ content:
       allow_new: true
       allow_existing: false
       allow_duplicate: false
+      revision: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
   field_os2web_page_contact_hide:
-    weight: 6
+    weight: 11
     settings:
       display_label: true
     third_party_settings: {  }
@@ -54,14 +59,14 @@ content:
     region: content
   field_os2web_page_description:
     type: text_textarea
-    weight: 3
+    weight: 5
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
   field_os2web_page_heading:
-    weight: 1
+    weight: 2
     settings:
       rows: 5
       placeholder: ''
@@ -69,7 +74,7 @@ content:
     type: string_textarea
     region: content
   field_os2web_page_image:
-    weight: 4
+    weight: 6
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -79,7 +84,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_os2web_page_intro:
-    weight: 2
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
@@ -87,7 +92,7 @@ content:
     type: string_textarea
     region: content
   field_os2web_page_kle:
-    weight: 26
+    weight: 19
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -96,34 +101,99 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_os2web_page_paragraph:
+  field_os2web_page_paragraph_bann:
     type: paragraphs
-    weight: 5
+    weight: 0
     settings:
       title: Paragraph
       title_plural: Paragraphs
       edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
       closed_mode: summary
       autocollapse: none
       closed_mode_threshold: 0
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: _none
       features:
         duplicate: duplicate
         collapse_edit_all: collapse_edit_all
-        add_above: '0'
+    third_party_settings: {  }
+    region: content
+  field_os2web_page_paragraph_left:
+    type: paragraphs
+    weight: 9
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+    third_party_settings: {  }
+    region: content
+  field_os2web_page_paragraph_narr:
+    type: entity_reference_paragraphs
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_os2web_page_paragraph_righ:
+    type: paragraphs
+    weight: 10
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+    third_party_settings: {  }
+    region: content
+  field_os2web_page_paragraph_wide:
+    type: paragraphs
+    weight: 8
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
     region: content
   field_os2web_page_related_hide:
-    weight: 7
+    weight: 12
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_os2web_page_section:
-    weight: 27
+    weight: 20
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -134,14 +204,14 @@ content:
     region: content
   langcode:
     type: language_select
-    weight: 2
+    weight: 3
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   path:
     type: path
-    weight: 12
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -149,26 +219,26 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 10
+    weight: 15
     region: content
     third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 13
+    weight: 18
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 11
+    weight: 16
     region: content
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60
@@ -176,7 +246,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 8
+    weight: 13
     settings:
       match_operator: CONTAINS
       size: 60
