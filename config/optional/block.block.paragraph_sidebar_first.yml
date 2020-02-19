@@ -8,6 +8,8 @@ dependencies:
     - fieldblock
   theme:
     - bartik
+    - fds_base_theme
+    - fds_custom_theme
 id: paragraph_sidebar_first
 theme: bartik
 region: sidebar_first
