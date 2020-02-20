@@ -1,0 +1,8 @@
+{
+  "name": "OS2 Paragraphs - box",
+  "description": "Adding a \"box\" paragraph to the OS2 paragraphs system.",
+  "type": "drupal-module",
+  "require": {
+    "drupal/core": "*"
+  }
+}

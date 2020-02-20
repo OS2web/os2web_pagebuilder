@@ -1,0 +1,34 @@
+uuid: fe616bbd-f28e-4e5b-af85-8e1b19d0cd46
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_box_paragraph.field_os2web_box_body
+    - field.field.paragraph.os2web_box_paragraph.field_os2web_box_heading
+    - paragraphs.paragraphs_type.os2web_box_paragraph
+  module:
+    - text
+id: paragraph.os2web_box_paragraph.default
+targetEntityType: paragraph
+bundle: os2web_box_paragraph
+mode: default
+content:
+  field_os2web_box_body:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_os2web_box_heading:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true

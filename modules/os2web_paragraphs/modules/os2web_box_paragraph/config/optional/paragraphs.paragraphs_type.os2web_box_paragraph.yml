@@ -1,0 +1,10 @@
+uuid: d5bb3154-ffb3-4a76-9c5e-d91bb32c0309
+langcode: da
+status: true
+dependencies: {  }
+id: os2web_box_paragraph
+label: Boks
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }
