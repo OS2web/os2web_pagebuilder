@@ -1,6 +1,6 @@
 name: OS2Web box paragraphs
 type: module
-description: Adding a "factbox" paragraph to the OS2Web paragraphs system.
+description: Adding a "box" paragraph to the OS2Web paragraphs system.
 core: 8.x
 package: OS2Web
 dependencies:
