@@ -1,3 +1,7 @@
+{% if content.field_os2web_bg_color | render %}
+  {% set background_color = content.field_os2web_bg_color['#items'].getString() %}
+{% endif %}
+
 {% if content.field_os2web_con_type | render %}
   {% set container_type = content.field_os2web_con_type['#items'].getString() %}
   {% set container_class = container_type == 'fluid' ? 'container-fluid' : 'container' %}
@@ -6,6 +10,7 @@
 {% set classes = [
   'paragraph',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
+  'background-color--' ~ background_color|clean_class,
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
   not paragraph.isPublished() ? 'paragraph--unpublished'
 ] %}

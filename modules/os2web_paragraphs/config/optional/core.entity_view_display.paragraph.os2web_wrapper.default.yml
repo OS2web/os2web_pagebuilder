@@ -14,6 +14,13 @@ targetEntityType: paragraph
 bundle: os2web_wrapper
 mode: default
 content:
+  field_os2web_bg_color:
+    type: list_key
+    weight: 2
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
   field_os2web_con_type:
     type: list_key
     weight: 1
@@ -30,5 +37,4 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
-hidden:
-  field_os2web_bg_color: true
+hidden: {  }
