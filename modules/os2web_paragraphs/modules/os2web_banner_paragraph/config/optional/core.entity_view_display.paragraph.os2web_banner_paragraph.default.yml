@@ -2,9 +2,10 @@ langcode: da
 status: true
 dependencies:
   config:
+    - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_bg_image
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_body
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_heading
-    - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_link
+    - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_links
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_subheading
     - paragraphs.paragraphs_type.os2web_banner_paragraph
   module:
@@ -30,7 +31,7 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_os2web_banner_link:
+  field_os2web_banner_links:
     weight: 3
     label: hidden
     settings:
@@ -49,4 +50,5 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
-hidden: {  }
+hidden:
+  field_os2web_banner_bg_image: true

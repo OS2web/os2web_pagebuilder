@@ -2,15 +2,15 @@ langcode: da
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_os2web_banner_link
+    - field.storage.paragraph.field_os2web_banner_links
     - paragraphs.paragraphs_type.os2web_banner_paragraph
   module:
     - link
-id: paragraph.os2web_banner_paragraph.field_os2web_banner_link
-field_name: field_os2web_banner_link
+id: paragraph.os2web_banner_paragraph.field_os2web_banner_links
+field_name: field_os2web_banner_links
 entity_type: paragraph
 bundle: os2web_banner_paragraph
-label: Link
+label: Links
 description: ''
 required: false
 translatable: false

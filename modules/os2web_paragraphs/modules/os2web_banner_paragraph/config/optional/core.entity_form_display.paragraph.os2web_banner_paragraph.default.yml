@@ -2,12 +2,14 @@ langcode: da
 status: true
 dependencies:
   config:
+    - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_bg_image
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_body
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_heading
-    - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_link
+    - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_links
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_subheading
     - paragraphs.paragraphs_type.os2web_banner_paragraph
   module:
+    - inline_entity_form
     - link
     - text
 id: paragraph.os2web_banner_paragraph.default
@@ -15,6 +17,23 @@ targetEntityType: paragraph
 bundle: os2web_banner_paragraph
 mode: default
 content:
+  field_os2web_banner_bg_image:
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      form_mode: default
+      revision: false
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      allow_new: true
+      allow_existing: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
   field_os2web_banner_body:
     weight: 3
     settings:
@@ -31,8 +50,8 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_os2web_banner_link:
-    weight: 2
+  field_os2web_banner_links:
+    weight: 5
     settings:
       placeholder_url: ''
       placeholder_title: ''
