@@ -15,4 +15,5 @@ dependencies:
   - inline_entity_form
   - fieldblock
   - os2web_paragraphs
+  - os2web_banner_paragraph
   - os2web_contact
