@@ -1,17 +1,21 @@
+{% if content.field_os2web_con_type | render %}
+  {% set container_type = content.field_os2web_con_type['#items'].getString() %}
+  {% set container_class = container_type == 'fluid' ? 'container-fluid' : 'container' %}
+{% endif %}
+
 {% set classes = [
   'paragraph',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
   not paragraph.isPublished() ? 'paragraph--unpublished'
 ] %}
+
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-
-      <div class="container">
-        {{ content }}
+      <div class="{{ container_class }}">
+        {{ content.field_os2web_paragraphs }}
       </div>
-
     {% endblock %}
   </div>
 {% endblock paragraph %}
