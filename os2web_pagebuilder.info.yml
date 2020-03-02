@@ -5,6 +5,7 @@ core: 8.x
 package: OS2Web
 dependencies:
   - media
+  - media_library
   - node
   - options
   - link

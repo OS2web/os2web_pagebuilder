@@ -5,3 +5,6 @@ core: 8.x
 package: OS2Web
 dependencies:
   - os2web_paragraphs
+  - media_library
+  - media
+  - paragraphs

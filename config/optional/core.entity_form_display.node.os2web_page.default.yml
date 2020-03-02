@@ -19,6 +19,7 @@ dependencies:
     - node.type.os2web_page
   module:
     - inline_entity_form
+    - media_library
     - paragraphs
     - path
     - text
@@ -76,12 +77,9 @@ content:
   field_os2web_page_image:
     weight: 7
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      media_types: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: media_library_widget
     region: content
   field_os2web_page_intro:
     weight: 4

@@ -9,8 +9,8 @@ dependencies:
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_subheading
     - paragraphs.paragraphs_type.os2web_banner_paragraph
   module:
-    - inline_entity_form
     - link
+    - media_library
     - text
 id: paragraph.os2web_banner_paragraph.default
 targetEntityType: paragraph
@@ -20,19 +20,9 @@ content:
   field_os2web_banner_bg_image:
     weight: 4
     settings:
-      match_operator: CONTAINS
-      form_mode: default
-      revision: false
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
-      collapsible: false
-      collapsed: false
-      allow_new: true
-      allow_existing: false
-      allow_duplicate: false
+      media_types: {  }
     third_party_settings: {  }
-    type: inline_entity_form_complex
+    type: media_library_widget
     region: content
   field_os2web_banner_body:
     weight: 3
