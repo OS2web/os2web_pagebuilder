@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update hooks for page builder module.
+ */
+
+use Drupal\field\Entity\FieldStorageConfig;
+use Symfony\Component\Yaml\Yaml;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Updates Indholdside.
+ */
+function os2web_pagebuilder_update_8001() {
+  $path = drupal_get_path('module', 'os2web_pagebuilder');
+  // Create field storage.
+  $field_media_image_storage_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.storage.media.field_media_image.yml'));
+  if (!FieldStorageConfig::loadByName($field_media_image_storage_yml['entity_type'], $field_media_image_storage_yml['field_name'])) {
+    FieldStorageConfig::create($field_media_image_storage_yml)->save();
+  }
+  // Create field instance.
+  $field_media_image_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.field.media.image.field_media_image.yml'));
+  if (!FieldConfig::loadByName($field_media_image_yml['entity_type'], $field_media_image_yml['bundle'], $field_media_image_yml['field_name'])) {
+    FieldConfig::create($field_media_image_yml)->save();
+  }
+
+}
+
+/**
+ * Updates Indholdside.
+ */
+function os2web_pagebuilder_update_8002() {
+  \Drupal::service('module_installer')->install(['media_library']);
+  os2web_pagebuilder_update_entity_from_yml('os2web_pagebuilder', 'core.entity_form_display.node.os2web_page.default', 'entity_form_display', 'node.os2web_page.default', [
+    'field_os2web_page_contact' => 'content.field_os2web_page_contact',
+    'field_os2web_page_contact_hide' => 'content.field_os2web_page_contact_hide',
+    'field_os2web_page_description' => 'content.field_os2web_page_description',
+    'field_os2web_page_heading' => 'content.field_os2web_page_heading',
+    'field_os2web_page_image' => 'content.field_os2web_page_image',
+    'field_os2web_page_intro' => 'content.field_os2web_page_intro',
+    'field_os2web_page_kle' => 'content.field_os2web_page_kle',
+    'field_os2web_page_paragraph_bann' => 'content.field_os2web_page_paragraph_bann',
+    'field_os2web_page_paragraph_left' => 'content.field_os2web_page_paragraph_left',
+    'field_os2web_page_paragraph_narr' => 'content.field_os2web_page_paragraph_narr',
+    'field_os2web_page_paragraph_righ' => 'content.field_os2web_page_paragraph_righ',
+    'field_os2web_page_paragraph_wide' => 'content.field_os2web_page_paragraph_wide',
+    'field_os2web_page_related_hide' => 'content.field_os2web_page_related_hide',
+    'field_os2web_page_section' => 'content.field_os2web_page_section',
+  ]);
+}

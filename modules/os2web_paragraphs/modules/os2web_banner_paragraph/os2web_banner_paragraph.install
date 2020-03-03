@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update hooks for os2web_banner_paragraph module.
+ */
+
+/**
+ * Updates os2web_banner_paragraph.
+ */
+function os2web_banner_paragraph_update_8001() {
+  \Drupal::service('module_installer')->install(['media_library']);
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_banner_paragraph',
+    'core.entity_form_display.paragraph.os2web_banner_paragraph.default',
+    'entity_form_display',
+    'paragraph.os2web_banner_paragraph.default', [
+    'field_os2web_banner_bg_image' => 'content.field_os2web_banner_bg_image',
+    'field_os2web_banner_body' => 'content.field_os2web_banner_body',
+    'field_os2web_banner_heading' => 'content.field_os2web_banner_heading',
+    'field_os2web_banner_links' => 'content.field_os2web_banner_links',
+    'field_os2web_banner_subheading' => 'content.field_os2web_banner_subheading',
+  ]);
+}
