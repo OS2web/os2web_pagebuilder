@@ -7,11 +7,10 @@ dependencies:
     - entity_reference_revisions
     - fieldblock
   theme:
-    - bartik
     - fds_base_theme
     - fds_custom_theme
 id: paragraph_sidebar_second
-theme: bartik
+theme: fds_custom_theme
 region: sidebar_second
 weight: 0
 provider: null
