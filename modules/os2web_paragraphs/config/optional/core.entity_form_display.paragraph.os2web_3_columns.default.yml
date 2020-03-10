@@ -7,7 +7,6 @@ dependencies:
     - field.field.paragraph.os2web_3_columns.field_os2web_column_3
     - paragraphs.paragraphs_type.os2web_3_columns
   module:
-    - entity_reference_revisions
     - paragraphs
 id: paragraph.os2web_3_columns.default
 targetEntityType: paragraph
@@ -17,33 +16,58 @@ content:
   field_os2web_column_1:
     weight: 0
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed_expand_nested
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: modal
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+        add_above: add_above
     third_party_settings: {  }
-    type: entity_reference_revisions_autocomplete
+    type: paragraphs
     region: content
   field_os2web_column_2:
     weight: 1
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed_expand_nested
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: modal
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+        add_above: add_above
     third_party_settings: {  }
-    type: entity_reference_revisions_autocomplete
+    type: paragraphs
     region: content
   field_os2web_column_3:
-    type: entity_reference_paragraphs
+    type: paragraphs
     weight: 2
     settings:
       title: Paragraph
       title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
+      edit_mode: closed_expand_nested
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: modal
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+        add_above: add_above
     third_party_settings: {  }
     region: content
 hidden:

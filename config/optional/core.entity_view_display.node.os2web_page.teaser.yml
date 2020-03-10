@@ -19,13 +19,8 @@ dependencies:
     - field.field.node.os2web_page.field_os2web_page_section
     - node.type.os2web_page
   module:
-    - layout_builder
     - text
     - user
-third_party_settings:
-  layout_builder:
-    allow_custom: false
-    enabled: false
 id: node.os2web_page.teaser
 targetEntityType: node
 bundle: os2web_page
@@ -33,37 +28,17 @@ mode: teaser
 content:
   field_os2web_page_description:
     type: text_default
-    weight: 2
-    region: content
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-  field_os2web_page_heading:
     weight: 0
+    region: content
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_os2web_page_image:
-    type: entity_reference_entity_view
-    weight: 3
-    label: hidden
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    region: content
-  field_os2web_page_intro:
-    weight: 1
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
 hidden:
   field_os2web_page_contact: true
   field_os2web_page_contact_hide: true
+  field_os2web_page_heading: true
+  field_os2web_page_image: true
+  field_os2web_page_intro: true
   field_os2web_page_kle: true
   field_os2web_page_paragraph_bann: true
   field_os2web_page_paragraph_left: true

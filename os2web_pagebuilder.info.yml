@@ -10,6 +10,7 @@ dependencies:
   - options
   - link
   - path
+  - crop
   - menu_ui
   - paragraphs
   - taxonomy

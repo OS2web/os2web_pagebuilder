@@ -4,6 +4,5 @@ dependencies: {  }
 id: os2web_banner_paragraph
 label: Banner
 icon_uuid: null
-icon_default: null
 description: ''
 behavior_plugins: {  }

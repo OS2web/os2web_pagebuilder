@@ -2,6 +2,7 @@ langcode: da
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.preview
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_bg_image
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_body
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_heading
@@ -10,55 +11,30 @@ dependencies:
     - image.style.thumbnail
     - paragraphs.paragraphs_type.os2web_banner_paragraph
   module:
-    - link
     - media
-    - text
-id: paragraph.os2web_banner_paragraph.default
+id: paragraph.os2web_banner_paragraph.preview
 targetEntityType: paragraph
 bundle: os2web_banner_paragraph
-mode: default
+mode: preview
 content:
   field_os2web_banner_bg_image:
     type: media_thumbnail
-    weight: 0
+    weight: 1
     region: content
     label: hidden
     settings:
       image_style: thumbnail
       image_link: ''
     third_party_settings: {  }
-  field_os2web_banner_body:
-    type: text_default
-    weight: 3
-    region: content
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
   field_os2web_banner_heading:
-    weight: 1
+    weight: 0
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
     region: content
-  field_os2web_banner_links:
-    type: link
-    weight: 4
-    region: content
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-  field_os2web_banner_subheading:
-    type: basic_string
-    weight: 2
-    region: content
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_os2web_banner_body: true
+  field_os2web_banner_links: true
+  field_os2web_banner_subheading: true
