@@ -7,15 +7,24 @@ dependencies:
   - media
   - media_library
   - node
+  - content_moderation
+  - field_group
+  - image_widget_crop
   - options
   - link
   - path
+  - pathauto
   - crop
   - menu_ui
   - paragraphs
   - taxonomy
   - inline_entity_form
   - fieldblock
+  - scheduler
+  - layout_builder
+  - os2web_hjemmeside
   - os2web_paragraphs
+  - os2web_simple_text_paragraph
+  - os2web_box_paragraph
   - os2web_banner_paragraph
   - os2web_contact
