@@ -21,7 +21,6 @@ dependencies:
   - inline_entity_form
   - fieldblock
   - scheduler
-  - layout_builder
   - os2web_hjemmeside
   - os2web_paragraphs
   - os2web_simple_text_paragraph
