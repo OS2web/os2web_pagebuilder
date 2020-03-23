@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_files_paragraph.field_os2web_files_files
+    - field.field.paragraph.os2web_files_paragraph.field_os2web_files_heading
+    - paragraphs.paragraphs_type.os2web_files_paragraph
+  module:
+    - file
+id: paragraph.os2web_files_paragraph.default
+targetEntityType: paragraph
+bundle: os2web_files_paragraph
+mode: default
+content:
+  field_os2web_files_files:
+    weight: 1
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
+    region: content
+  field_os2web_files_heading:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true
