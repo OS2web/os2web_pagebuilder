@@ -160,16 +160,16 @@ content:
     weight: 14
     settings:
       form_mode: default
-      override_labels: true
-      label_singular: Kontakt
-      label_plural: Kontakter
-      collapsible: true
-      collapsed: true
+      label_singular: ''
+      label_plural: ''
       allow_new: true
       allow_existing: true
       match_operator: CONTAINS
       allow_duplicate: true
       revision: false
+      override_labels: false
+      collapsible: false
+      collapsed: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
@@ -315,7 +315,7 @@ content:
       show_default_crop: true
       warn_multiple_usages: true
       preview_image_style: os2web_normal
-      crop_preview_image_style: os2web_normal
+      crop_preview_image_style: crop_thumbnail
       crop_list:
         - os2web_normal
       crop_types_required:
@@ -351,7 +351,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 10
+    weight: 100
     settings: {  }
     region: content
     third_party_settings: {  }
@@ -363,12 +363,12 @@ content:
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 8
+    weight: 30
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 7
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -399,7 +399,7 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 9
+    weight: 30
     region: content
     settings: {  }
     third_party_settings: {  }

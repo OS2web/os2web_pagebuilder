@@ -7,6 +7,7 @@ dependencies:
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_image
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_links
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_subheading
+    - image.style.paragraph_background_image
     - paragraphs.paragraphs_type.os2web_banner_paragraph
   module:
     - image
@@ -34,9 +35,9 @@ content:
     region: content
   field_os2web_banner_image:
     weight: 5
-    label: above
+    label: hidden
     settings:
-      image_style: ''
+      image_style: paragraph_background_image
       image_link: ''
     third_party_settings: {  }
     type: image

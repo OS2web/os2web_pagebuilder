@@ -40,7 +40,7 @@ content:
       show_default_crop: true
       warn_multiple_usages: true
       preview_image_style: paragraph_background_image
-      crop_preview_image_style: paragraph_background_image
+      crop_preview_image_style: crop_thumbnail
       crop_list:
         - banner_crop
       crop_types_required:
