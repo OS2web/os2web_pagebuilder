@@ -5,6 +5,10 @@
  * Install, uninstall and update hooks for os2web_banner_paragraph module.
  */
 
+use Drupal\field\Entity\FieldStorageConfig;
+use Symfony\Component\Yaml\Yaml;
+use Drupal\field\Entity\FieldConfig;
+
 /**
  * Updates os2web_banner_paragraph.
  */
@@ -20,5 +24,54 @@ function os2web_banner_paragraph_update_8001() {
     'field_os2web_banner_heading' => 'content.field_os2web_banner_heading',
     'field_os2web_banner_links' => 'content.field_os2web_banner_links',
     'field_os2web_banner_subheading' => 'content.field_os2web_banner_subheading',
+  ]);
+}
+
+/**
+ * Update os2web_banner_paragraph entity image field.
+ */
+function os2web_banner_paragraph_update_8002() {
+  // Remove outdated fields.
+  $fields = [
+    'field_os2web_banner_bg_image',
+  ];
+  foreach ($fields as $field_name) {
+    $field = \Drupal::entityTypeManager()
+      ->getStorage('field_config')
+      ->load('paragraph.os2web_banner_paragraph.' . $field_name);
+    if (empty($field)) {
+      \Drupal::messenger()->addWarning(t('Field :field not found', [':field' => $field_name]));
+      continue;
+    }
+    $field->delete();
+    field_purge_field($field);
+  }
+
+  // Add new fields.
+  $path = drupal_get_path('module', 'os2web_banner_paragraph');
+  // Create field storage.
+  $field_storage_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.storage.paragraph.field_os2web_banner_image.yml'));
+  if (!FieldStorageConfig::loadByName($field_storage_yml['entity_type'], $field_storage_yml['field_name'])) {
+    FieldStorageConfig::create($field_storage_yml)->save();
+  }
+  // Create field instance.
+  $field_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_image.yml'));
+  if (!FieldConfig::loadByName($field_yml['entity_type'], $field_yml['bundle'], $field_yml['field_name'])) {
+    FieldConfig::create($field_yml)->save();
+  }
+
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_banner_paragraph',
+    'core.entity_form_display.paragraph.os2web_banner_paragraph.default',
+    'entity_form_display',
+    'paragraph.os2web_banner_paragraph.default', [
+    'field_os2web_banner_image' => 'content.field_os2web_banner_image',
+  ]);
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_banner_paragraph',
+    'core.entity_view_display.paragraph.os2web_banner_paragraph.default',
+    'entity_view_display',
+    'paragraph.os2web_banner_paragraph.default', [
+    'field_os2web_banner_image' => 'content.field_os2web_banner_image',
   ]);
 }

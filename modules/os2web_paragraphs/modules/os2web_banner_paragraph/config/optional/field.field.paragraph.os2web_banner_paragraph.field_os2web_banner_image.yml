@@ -2,29 +2,26 @@ langcode: da
 status: true
 dependencies:
   config:
-    - field.storage.media.field_media_image
-    - media.type.image
-  enforced:
-    module:
-      - media
+    - field.storage.paragraph.field_os2web_banner_image
+    - paragraphs.paragraphs_type.os2web_banner_paragraph
   module:
     - image
-id: media.image.field_media_image
-field_name: field_media_image
-entity_type: media
-bundle: image
-label: Image
+id: paragraph.os2web_banner_paragraph.field_os2web_banner_image
+field_name: field_os2web_banner_image
+entity_type: paragraph
+bundle: os2web_banner_paragraph
+label: Baggrundsbillede
 description: ''
-required: true
-translatable: true
+required: false
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_directory: 'banners/[date:custom:Y]-[date:custom:m]'
   file_extensions: 'png gif jpg jpeg'
   max_filesize: ''
-  max_resolution: ''
-  min_resolution: ''
+  max_resolution: 2000x2000
+  min_resolution: 1440x268
   alt_field: true
   alt_field_required: true
   title_field: false

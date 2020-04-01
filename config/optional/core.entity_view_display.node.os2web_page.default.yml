@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.os2web_page.field_os2web_page_contact_hide
     - field.field.node.os2web_page.field_os2web_page_description
     - field.field.node.os2web_page.field_os2web_page_heading
-    - field.field.node.os2web_page.field_os2web_page_image
     - field.field.node.os2web_page.field_os2web_page_intro
     - field.field.node.os2web_page.field_os2web_page_kle
     - field.field.node.os2web_page.field_os2web_page_paragraph_bann
@@ -14,11 +13,14 @@ dependencies:
     - field.field.node.os2web_page.field_os2web_page_paragraph_narr
     - field.field.node.os2web_page.field_os2web_page_paragraph_righ
     - field.field.node.os2web_page.field_os2web_page_paragraph_wide
+    - field.field.node.os2web_page.field_os2web_page_primaryimage
     - field.field.node.os2web_page.field_os2web_page_related_hide
     - field.field.node.os2web_page.field_os2web_page_section
+    - image.style.os2web_normal
     - node.type.os2web_page
   module:
     - entity_reference_revisions
+    - image
     - text
     - user
 id: node.os2web_page.default
@@ -54,15 +56,6 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-  field_os2web_page_image:
-    type: entity_reference_entity_view
-    weight: 1
-    region: content
-    label: hidden
-    settings:
-      link: true
-      view_mode: default
-    third_party_settings: {  }
   field_os2web_page_intro:
     type: basic_string
     weight: 4
@@ -79,6 +72,15 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+  field_os2web_page_primaryimage:
+    weight: 1
+    label: hidden
+    settings:
+      image_style: os2web_normal
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
   field_os2web_page_section:
     type: entity_reference_label
     weight: 2
@@ -95,5 +97,4 @@ hidden:
   field_os2web_page_paragraph_righ: true
   field_os2web_page_paragraph_wide: true
   field_os2web_page_related_hide: true
-  langcode: true
   links: true

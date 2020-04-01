@@ -49,3 +49,52 @@ function os2web_pagebuilder_update_8002() {
     'field_os2web_page_section' => 'content.field_os2web_page_section',
   ]);
 }
+
+/**
+ * Update Indholdside entity image field.
+ */
+function os2web_pagebuilder_update_8003() {
+  // Remove outdated fields.
+  $fields = [
+    'field_os2web_page_image',
+  ];
+  foreach ($fields as $field_name) {
+    $field = \Drupal::entityTypeManager()
+      ->getStorage('field_config')
+      ->load('node.os2web_page.' . $field_name);
+    if (empty($field)) {
+      \Drupal::messenger()->addWarning(t('Field :field not found', [':field' => $field_name]));
+      continue;
+    }
+    $field->delete();
+    field_purge_field($field);
+  }
+
+  // Add new fields.
+  $path = drupal_get_path('module', 'os2web_pagebuilder');
+  // Create field storage.
+  $field_storage_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.storage.node.field_os2web_page_primaryimage.yml'));
+  if (!FieldStorageConfig::loadByName($field_storage_yml['entity_type'], $field_storage_yml['field_name'])) {
+    FieldStorageConfig::create($field_storage_yml)->save();
+  }
+  // Create field instance.
+  $field_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.field.node.os2web_page.field_os2web_page_primaryimage.yml'));
+  if (!FieldConfig::loadByName($field_yml['entity_type'], $field_yml['bundle'], $field_yml['field_name'])) {
+    FieldConfig::create($field_yml)->save();
+  }
+
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_page',
+    'core.entity_form_display.node.os2web_page.default',
+    'entity_form_display',
+    'node.os2web_page.default', [
+    'field_os2web_page_primaryimage' => 'content.field_os2web_page_primaryimage',
+  ]);
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_page',
+    'core.entity_view_display.node.os2web_page.default',
+    'entity_view_display',
+    'node.os2web_page.default', [
+    'field_os2web_page_primaryimage' => 'content.field_os2web_page_primaryimage',
+  ]);
+}
