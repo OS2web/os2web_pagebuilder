@@ -160,15 +160,15 @@ content:
     weight: 14
     settings:
       form_mode: default
-      label_singular: ''
-      label_plural: ''
+      override_labels: true
+      label_singular: Kontakt
+      label_plural: Kontakter
+      collapsible: true
       allow_new: true
       allow_existing: true
       match_operator: CONTAINS
       allow_duplicate: true
       revision: false
-      override_labels: false
-      collapsible: false
       collapsed: false
     third_party_settings: {  }
     type: inline_entity_form_complex
@@ -351,7 +351,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 10
     settings: {  }
     region: content
     third_party_settings: {  }
@@ -363,12 +363,12 @@ content:
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 20
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -379,6 +379,127 @@ content:
     weight: 1
     region: content
     third_party_settings: {  }
+  third_party_settings:
+    field_group:
+      group_editform:
+        children:
+          - group_standard
+          - group_media
+          - group_afsnit
+          - group_sidebars
+          - group_sidebygger
+          - group_references
+          - group_settings
+        parent_name: ''
+        weight: 3
+        format_type: tabs
+        format_settings:
+          id: ''
+          classes: ''
+          direction: horizontal
+        label: Editform
+      group_media:
+        children:
+          - field_os2web_page_paragraph_bann
+          - field_os2web_page_primaryimage
+        parent_name: group_editform
+        weight: 21
+        format_type: tab
+        format_settings:
+          id: ''
+          classes: ''
+          formatter: closed
+          description: ''
+          required_fields: true
+        label: Media
+      group_standard:
+        children:
+          - field_os2web_page_heading
+          - field_os2web_page_intro
+          - field_os2web_page_description
+        parent_name: group_editform
+        weight: 20
+        format_type: tab
+        format_settings:
+          id: ''
+          classes: ''
+          formatter: open
+          description: ''
+          required_fields: true
+        label: Standard
+      group_afsnit:
+        children:
+          - field_os2web_page_paragraph_narr
+        parent_name: group_editform
+        weight: 22
+        format_type: tab
+        format_settings:
+          id: ''
+          classes: ''
+          formatter: closed
+          description: ''
+          required_fields: true
+        label: Afsnit
+      group_sidebars:
+        children:
+          - field_os2web_page_paragraph_left
+          - field_os2web_page_paragraph_righ
+        parent_name: group_editform
+        weight: 23
+        format_type: tab
+        format_settings:
+          id: ''
+          classes: ''
+          formatter: closed
+          description: ''
+          required_fields: true
+        label: Sideafsnit
+      group_settings:
+        children:
+          - field_os2web_page_contact
+          - field_os2web_page_contact_hide
+          - field_os2web_page_related_hide
+        parent_name: group_editform
+        weight: 26
+        format_type: tab
+        format_settings:
+          id: ''
+          classes: ''
+          formatter: closed
+          description: ''
+          required_fields: true
+        label: Indstillinger
+      group_references:
+        children:
+          - field_os2web_page_section
+          - field_os2web_page_kle
+        parent_name: group_editform
+        weight: 25
+        format_type: tab
+        format_settings:
+          id: ''
+          classes: ''
+          formatter: closed
+          description: ''
+          required_fields: true
+        label: Referencer
+      group_sidebygger:
+        children:
+          - field_os2web_page_paragraph_wide
+        parent_name: group_editform
+        weight: 24
+        format_type: tab
+        format_settings:
+          id: ''
+          classes: ''
+          formatter: closed
+          description: 'Benyt denne bygger til at bygge hele siden eller til at bygges indhold under det øvrige indhold.'
+          required_fields: true
+        label: Sidebygger
+    weight: 27
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -399,7 +520,7 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
