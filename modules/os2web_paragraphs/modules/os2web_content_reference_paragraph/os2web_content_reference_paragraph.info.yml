@@ -1,0 +1,9 @@
+name: OS2Web content reference paragraphs
+type: module
+description: Paragraph with multiple Content reference field for the OS2Web paragraphs system.
+core: 8.x
+package: OS2Web
+dependencies:
+  - inline_entity_form
+  - os2web_paragraphs
+  - os2web_pagebuilder

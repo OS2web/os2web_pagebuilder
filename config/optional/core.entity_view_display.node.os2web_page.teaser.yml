@@ -1,0 +1,62 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.os2web_page.field_os2web_page_contact
+    - field.field.node.os2web_page.field_os2web_page_contact_hide
+    - field.field.node.os2web_page.field_os2web_page_description
+    - field.field.node.os2web_page.field_os2web_page_heading
+    - field.field.node.os2web_page.field_os2web_page_intro
+    - field.field.node.os2web_page.field_os2web_page_kle
+    - field.field.node.os2web_page.field_os2web_page_paragraph_bann
+    - field.field.node.os2web_page.field_os2web_page_paragraph_left
+    - field.field.node.os2web_page.field_os2web_page_paragraph_narr
+    - field.field.node.os2web_page.field_os2web_page_paragraph_righ
+    - field.field.node.os2web_page.field_os2web_page_paragraph_wide
+    - field.field.node.os2web_page.field_os2web_page_primaryimage
+    - field.field.node.os2web_page.field_os2web_page_related_hide
+    - field.field.node.os2web_page.field_os2web_page_section
+    - image.style.os2web_medium
+    - node.type.os2web_page
+  module:
+    - image
+    - text
+    - user
+id: node.os2web_page.teaser
+targetEntityType: node
+bundle: os2web_page
+mode: teaser
+content:
+  field_os2web_page_description:
+    type: text_default
+    weight: 1
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_os2web_page_primaryimage:
+    type: image
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      image_style: os2web_medium
+      image_link: ''
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_os2web_page_contact: true
+  field_os2web_page_contact_hide: true
+  field_os2web_page_heading: true
+  field_os2web_page_intro: true
+  field_os2web_page_kle: true
+  field_os2web_page_paragraph_bann: true
+  field_os2web_page_paragraph_left: true
+  field_os2web_page_paragraph_narr: true
+  field_os2web_page_paragraph_righ: true
+  field_os2web_page_paragraph_wide: true
+  field_os2web_page_related_hide: true
+  field_os2web_page_section: true
+  langcode: true
+  links: true

@@ -1,0 +1,17 @@
+langcode: da
+status: true
+dependencies: {  }
+id: os2web_content_reference_paragraph
+label: 'OS2Web content reference paragraph'
+description: ''
+folder: modules/contrib/os2web_pagebuilder/modules/os2web_paragraphs/modules/os2web_content_reference_paragraph/config/optional
+module: {  }
+theme: {  }
+blacklist:
+  - 'os2web_content_reference*'
+  - '*os2web_content_reference'
+  - '*os2web_content_reference*'
+graylist: {  }
+graylist_dependents: false
+graylist_skip_equal: false
+weight: 0
