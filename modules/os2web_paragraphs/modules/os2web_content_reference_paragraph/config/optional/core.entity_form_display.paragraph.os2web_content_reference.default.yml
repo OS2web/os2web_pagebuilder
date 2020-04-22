@@ -5,13 +5,21 @@ dependencies:
     - field.field.paragraph.os2web_content_reference.field_os2web_content_reference
     - field.field.paragraph.os2web_content_reference.field_os2web_content_reference_h
     - paragraphs.paragraphs_type.os2web_content_reference
-  module:
-    - inline_entity_form
 id: paragraph.os2web_content_reference.default
 targetEntityType: paragraph
 bundle: os2web_content_reference
 mode: default
 content:
+  field_os2web_content_reference:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_os2web_content_reference_h:
     weight: 0
     settings:
@@ -19,23 +27,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-    region: content
-  field_os2web_content_reference:
-    weight: 1
-    settings:
-      form_mode: default
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      allow_existing: true
-      match_operator: CONTAINS
-      revision: false
-      override_labels: false
-      collapsible: false
-      collapsed: false
-      allow_duplicate: false
-    third_party_settings: {  }
-    type: inline_entity_form_complex
     region: content
 hidden:
   created: true
