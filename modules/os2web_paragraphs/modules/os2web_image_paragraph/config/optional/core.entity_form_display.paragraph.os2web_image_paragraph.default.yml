@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_image_paragraph.field_os2web_image_image
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.os2web_image_paragraph
+  module:
+    - image
+id: paragraph.os2web_image_paragraph.default
+targetEntityType: paragraph
+bundle: os2web_image_paragraph
+mode: default
+content:
+  field_os2web_image_image:
+    weight: 0
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+hidden:
+  created: true
+  status: true
