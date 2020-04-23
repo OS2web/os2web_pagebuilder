@@ -2,31 +2,22 @@ langcode: da
 status: true
 dependencies:
   config:
-    - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_bg_image
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_body
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_heading
+    - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_image
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_links
     - field.field.paragraph.os2web_banner_paragraph.field_os2web_banner_subheading
-    - image.style.thumbnail
+    - image.style.paragraph_background_image
     - paragraphs.paragraphs_type.os2web_banner_paragraph
   module:
+    - image
     - link
-    - media
     - text
 id: paragraph.os2web_banner_paragraph.default
 targetEntityType: paragraph
 bundle: os2web_banner_paragraph
 mode: default
 content:
-  field_os2web_banner_bg_image:
-    type: media_thumbnail
-    weight: 0
-    region: content
-    label: hidden
-    settings:
-      image_style: thumbnail
-      image_link: ''
-    third_party_settings: {  }
   field_os2web_banner_body:
     type: text_default
     weight: 3
@@ -41,6 +32,15 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_os2web_banner_image:
+    weight: 5
+    label: hidden
+    settings:
+      image_style: paragraph_background_image
+      image_link: ''
+    third_party_settings: {  }
+    type: image
     region: content
   field_os2web_banner_links:
     type: link

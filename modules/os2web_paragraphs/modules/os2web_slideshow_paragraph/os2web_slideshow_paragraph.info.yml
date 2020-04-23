@@ -1,0 +1,10 @@
+name: OS2Web Slideshow paragraphs
+type: module
+description: Paragraph with multiple image field for the OS2Web paragraphs system.
+core: 8.x
+package: OS2Web
+dependencies:
+  - image
+  - crop
+  - image_widget_crop
+  - os2web_paragraphs

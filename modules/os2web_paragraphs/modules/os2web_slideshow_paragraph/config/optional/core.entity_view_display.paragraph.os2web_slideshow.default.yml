@@ -1,0 +1,33 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_slideshow.field_os2web_slideshow_heading
+    - field.field.paragraph.os2web_slideshow.field_os2web_slideshow_image
+    - image.style.os2web_slideshow
+    - paragraphs.paragraphs_type.os2web_slideshow
+  module:
+    - image
+id: paragraph.os2web_slideshow.default
+targetEntityType: paragraph
+bundle: os2web_slideshow
+mode: default
+content:
+  field_os2web_slideshow_heading:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_os2web_slideshow_image:
+    weight: 1
+    label: hidden
+    settings:
+      image_style: os2web_slideshow
+      image_link: file
+    third_party_settings: {  }
+    type: image
+    region: content
+hidden: {  }

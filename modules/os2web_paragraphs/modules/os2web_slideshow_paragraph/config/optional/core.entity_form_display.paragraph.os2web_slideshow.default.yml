@@ -1,0 +1,42 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_slideshow.field_os2web_slideshow_heading
+    - field.field.paragraph.os2web_slideshow.field_os2web_slideshow_image
+    - image.style.os2web_slideshow
+    - paragraphs.paragraphs_type.os2web_slideshow
+  module:
+    - image_widget_crop
+id: paragraph.os2web_slideshow.default
+targetEntityType: paragraph
+bundle: os2web_slideshow
+mode: default
+content:
+  field_os2web_slideshow_heading:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_os2web_slideshow_image:
+    weight: 1
+    settings:
+      show_default_crop: true
+      warn_multiple_usages: true
+      preview_image_style: os2web_slideshow
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - os2web_slideshow_crop
+      crop_types_required:
+        - os2web_slideshow_crop
+      progress_indicator: throbber
+      show_crop_area: false
+    third_party_settings: {  }
+    type: image_widget_crop
+    region: content
+hidden:
+  created: true
+  status: true
