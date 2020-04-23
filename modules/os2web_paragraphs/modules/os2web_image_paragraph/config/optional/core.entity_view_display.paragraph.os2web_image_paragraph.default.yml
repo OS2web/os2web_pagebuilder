@@ -2,15 +2,24 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.os2web_image_paragraph.field_os2web_image_description
     - field.field.paragraph.os2web_image_paragraph.field_os2web_image_image
     - paragraphs.paragraphs_type.os2web_image_paragraph
   module:
     - image
+    - text
 id: paragraph.os2web_image_paragraph.default
 targetEntityType: paragraph
 bundle: os2web_image_paragraph
 mode: default
 content:
+  field_os2web_image_description:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
   field_os2web_image_image:
     weight: 0
     label: hidden

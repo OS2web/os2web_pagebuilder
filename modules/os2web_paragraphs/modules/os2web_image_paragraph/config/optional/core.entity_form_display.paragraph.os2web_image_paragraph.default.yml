@@ -2,16 +2,26 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.os2web_image_paragraph.field_os2web_image_description
     - field.field.paragraph.os2web_image_paragraph.field_os2web_image_image
     - image.style.thumbnail
     - paragraphs.paragraphs_type.os2web_image_paragraph
   module:
     - image
+    - text
 id: paragraph.os2web_image_paragraph.default
 targetEntityType: paragraph
 bundle: os2web_image_paragraph
 mode: default
 content:
+  field_os2web_image_description:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   field_os2web_image_image:
     weight: 0
     settings:
