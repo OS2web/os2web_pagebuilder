@@ -1,7 +1,8 @@
 langcode: da
 status: true
 dependencies:
-  - config_split
+  module:
+    - config_split
 id: os2web_content_reference_paragraph
 label: 'OS2Web content reference paragraph'
 description: ''
