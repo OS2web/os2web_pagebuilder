@@ -1,0 +1,18 @@
+status: true
+dependencies:
+  module:
+    - config_split
+id: os2web_files_paragraph
+label: 'OS2Web files paragraph'
+description: ''
+folder: modules/contrib/os2web_pagebuilder/modules/os2web_paragraphs/modules/os2web_files_paragraph/config/optional
+module: {  }
+theme: {  }
+blacklist:
+  - 'os2web_files*'
+  - '*os2web_files'
+  - '*os2web_files*'
+graylist: {  }
+graylist_dependents: false
+graylist_skip_equal: false
+weight: 0

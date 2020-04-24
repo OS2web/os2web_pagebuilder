@@ -1,0 +1,18 @@
+status: true
+dependencies:
+  module:
+    - config_split
+id: os2web_simple_text_paragraph
+label: 'OS2Web simple text paragraph'
+description: ''
+folder: modules/contrib/os2web_pagebuilder/modules/os2web_paragraphs/modules/os2web_simple_text_paragraph/config/optional
+module: {  }
+theme: {  }
+blacklist:
+  - 'os2web_simple_text*'
+  - '*os2web_simple_text'
+  - '*os2web_simple_text*'
+graylist: {  }
+graylist_dependents: false
+graylist_skip_equal: false
+weight: 0

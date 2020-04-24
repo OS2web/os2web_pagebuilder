@@ -4,6 +4,5 @@ dependencies: {  }
 id: os2web_factbox_paragraph
 label: Faktaboks
 icon_uuid: null
-icon_default: null
 description: ''
 behavior_plugins: {  }

@@ -1,6 +1,8 @@
 langcode: da
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - config_split
 id: os2web_banner_paragraph
 label: 'OS2Web banner paragraph'
 description: ''
