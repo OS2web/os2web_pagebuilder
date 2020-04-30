@@ -12,7 +12,7 @@ theme: {  }
 blacklist:
   - 'os2web_content_reference*'
   - '*os2web_content_reference'
-  - '*os2web_content_reference*'
+  - '*os2web_content_ref*'
 graylist: {  }
 graylist_dependents: false
 graylist_skip_equal: false
