@@ -1,4 +1,4 @@
-langcode: en
+langcode: da
 status: true
 dependencies:
   config:
@@ -11,7 +11,7 @@ bundle: os2web_files_paragraph
 label: Overskrift
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

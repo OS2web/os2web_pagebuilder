@@ -1,0 +1,20 @@
+langcode: da
+status: true
+dependencies: {  }
+id: os2web_paragraphs
+label: 'OS2Web paragraphs'
+description: ''
+folder: modules/contrib/os2web_pagebuilder/modules/os2web_paragraphs/config/optional
+module: {  }
+theme: {  }
+blacklist:
+  - '*os2web_paragraphs*'
+  - '*os2web_column*'
+  - '*os2web_2_columns*'
+  - '*os2web_3_columns*'
+  - '*os2web_wrapper*'
+  - '*os2web_con_type*'
+graylist: {  }
+graylist_dependents: false
+graylist_skip_equal: false
+weight: 0

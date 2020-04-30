@@ -1,0 +1,21 @@
+langcode: da
+status: true
+dependencies:
+  module:
+    - config_split
+id: os2web_pagebuilder
+label: 'OS2Web pagebuilder'
+description: ''
+folder: modules/contrib/os2web_pagebuilder/config/install
+module: {  }
+theme: {  }
+blacklist:
+  - 'os2web_page*'
+  - '*os2web_page'
+  - '*os2web_page*'
+  - '*os2web_kle*'
+  - '*os2web_sektion*'
+graylist: {  }
+graylist_dependents: false
+graylist_skip_equal: false
+weight: 0

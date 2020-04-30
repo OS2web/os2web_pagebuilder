@@ -10,7 +10,7 @@ bundle: os2web_page
 label: Published
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value:
   -
     value: 0

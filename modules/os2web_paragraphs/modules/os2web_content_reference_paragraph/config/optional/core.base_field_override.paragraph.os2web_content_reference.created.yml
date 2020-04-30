@@ -1,0 +1,18 @@
+uuid: fdd98d0b-fa09-4631-a8f3-931f46c104c2
+langcode: da
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.os2web_content_reference
+id: paragraph.os2web_content_reference.created
+field_name: created
+entity_type: paragraph
+bundle: os2web_content_reference
+label: 'Skrevet den'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created
