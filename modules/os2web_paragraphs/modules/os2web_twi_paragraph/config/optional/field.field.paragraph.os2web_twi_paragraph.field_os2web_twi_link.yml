@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_os2web_twi_link
+    - paragraphs.paragraphs_type.os2web_twi_paragraph
+  module:
+    - link
+id: paragraph.os2web_twi_paragraph.field_os2web_twi_link
+field_name: field_os2web_twi_link
+entity_type: paragraph
+bundle: os2web_twi_paragraph
+label: Link
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

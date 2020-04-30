@@ -1,0 +1,8 @@
+{
+  "name": "OS2 Paragraphs - text with image",
+  "description": "Adding a \"text with image\" paragraph to the OS2 paragraphs system.",
+  "type": "drupal-module",
+  "require": {
+    "drupal/core": "*"
+  }
+}

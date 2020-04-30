@@ -1,0 +1,78 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_body
+    - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_heading
+    - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_image
+    - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_image_position
+    - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_link
+    - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_subheading
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.os2web_twi_paragraph
+  module:
+    - image_widget_crop
+    - link
+    - text
+id: paragraph.os2web_twi_paragraph.default
+targetEntityType: paragraph
+bundle: os2web_twi_paragraph
+mode: default
+content:
+  field_os2web_twi_body:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_os2web_twi_heading:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_os2web_twi_image:
+    weight: 4
+    settings:
+      show_default_crop: true
+      preview_image_style: thumbnail
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - os2web_twi_crop
+      crop_types_required:
+        - os2web_twi_crop
+      progress_indicator: throbber
+      show_crop_area: false
+      warn_multiple_usages: false
+    third_party_settings: {  }
+    type: image_widget_crop
+    region: content
+  field_os2web_twi_image_position:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_os2web_twi_link:
+    weight: 3
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_os2web_twi_subheading:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+hidden:
+  created: true
+  status: true
