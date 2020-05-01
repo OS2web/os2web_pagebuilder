@@ -24,4 +24,5 @@ dependencies:
   - os2web_simple_text_paragraph
   - os2web_box_paragraph
   - os2web_banner_paragraph
+  - os2web_gis_map_paragraph
   - os2web_contact
