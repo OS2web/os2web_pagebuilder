@@ -1,0 +1,25 @@
+{% set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished'
+] %}
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+
+      {# Begin - heading #}
+      {{ content.field_os2web_gis_map_heading }}
+      {# End - heading #}
+
+      {# Begin - subheading #}
+      {{ content.field_os2web_gis_map_subheading }}
+      {# End - subheading #}
+
+      {# Begin - iframe #}
+      <iframe id="gis-map-frame" src="{{ os2web_gis_map_iframe_url }}" width="100%" height="400px"> </iframe>
+      {# End - iframe #}
+
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

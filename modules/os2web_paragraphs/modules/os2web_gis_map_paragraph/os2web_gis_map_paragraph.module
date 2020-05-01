@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * OS2Web gis map paragraph module file.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function os2web_gis_map_paragraph_preprocess_paragraph(&$variables) {
+  $paragraph = $variables['paragraph'];
+  if ($paragraph->bundle() != 'os2web_gis_map') {
+    return;
+  }
+
+  $iframe_field_values = $paragraph->field_os2web_gis_map_iframe_url->getValue();
+  if ($iframe_field_values[0]['uri']) {
+    $variables['os2web_gis_map_iframe_url'] = $iframe_field_values[0]['uri'];
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function os2web_gis_map_paragraph_theme($existing, $type, $theme, $path) {
+  return [
+    'paragraph__os2web_gis_map' => [
+      'base hook' => 'paragraph',
+    ],
+  ];
+}
