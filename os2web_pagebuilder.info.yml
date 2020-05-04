@@ -6,6 +6,7 @@ package: OS2Web
 dependencies:
   - node
   - content_moderation
+  - content_translation
   - field_group
   - image_widget_crop
   - options
