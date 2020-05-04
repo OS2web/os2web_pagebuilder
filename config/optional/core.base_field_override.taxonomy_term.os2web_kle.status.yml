@@ -2,20 +2,20 @@ langcode: da
 status: true
 dependencies:
   config:
-    - node.type.os2web_page
-id: node.os2web_page.status
+    - taxonomy.vocabulary.os2web_kle
+id: taxonomy_term.os2web_kle.status
 field_name: status
-entity_type: node
-bundle: os2web_page
+entity_type: taxonomy_term
+bundle: os2web_kle
 label: Published
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value:
   -
-    value: 0
+    value: 1
 default_value_callback: ''
 settings:
-  on_label: Tilsluttet
-  off_label: Afbrudt
+  on_label: 'On'
+  off_label: 'Off'
 field_type: boolean

@@ -13,7 +13,7 @@ bundle: os2web_wrapper
 label: 'Container type'
 description: ''
 required: true
-translatable: false
+translatable: true
 default_value:
   -
     value: normal

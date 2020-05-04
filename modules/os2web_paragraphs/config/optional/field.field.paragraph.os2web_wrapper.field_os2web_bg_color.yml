@@ -13,7 +13,7 @@ bundle: os2web_wrapper
 label: Baggrundsfarve
 description: ''
 required: true
-translatable: false
+translatable: true
 default_value:
   -
     value: transparent
