@@ -1,0 +1,7 @@
+name: OS2Web Iframe paragraphs
+type: module
+description: Paragraph with iframe code field for the OS2Web paragraphs system.
+core: 8.x
+package: OS2Web
+dependencies:
+  - os2web_paragraphs

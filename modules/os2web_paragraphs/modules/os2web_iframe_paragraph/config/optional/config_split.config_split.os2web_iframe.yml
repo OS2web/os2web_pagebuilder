@@ -1,0 +1,19 @@
+langcode: da
+status: true
+dependencies:
+  module:
+    - config_split
+id: os2web_iframe
+label: 'OS2Web iframe paragraph'
+description: ''
+folder: modules/contrib/os2web_pagebuilder/modules/os2web_paragraphs/modules/os2web_iframe_paragraph/config/optional
+module: {  }
+theme: {  }
+blacklist:
+  - 'os2web_iframe*'
+  - '*os2web_iframe'
+  - '*os2web_iframe*'
+graylist: {  }
+graylist_dependents: false
+graylist_skip_equal: false
+weight: 0
