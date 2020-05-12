@@ -29,15 +29,23 @@ bundle: os2web_page
 mode: teaser
 content:
   field_os2web_page_description:
-    type: text_default
-    weight: 1
+    type: text_trimmed
+    weight: 2
+    region: content
+    label: hidden
+    settings:
+      trim_length: 150
+    third_party_settings: {  }
+  field_os2web_page_heading:
+    type: basic_string
+    weight: 0
     region: content
     label: hidden
     settings: {  }
     third_party_settings: {  }
   field_os2web_page_primaryimage:
     type: image
-    weight: 0
+    weight: 1
     region: content
     label: hidden
     settings:
@@ -48,7 +56,6 @@ hidden:
   content_moderation_control: true
   field_os2web_page_contact: true
   field_os2web_page_contact_hide: true
-  field_os2web_page_heading: true
   field_os2web_page_intro: true
   field_os2web_page_kle: true
   field_os2web_page_paragraph_bann: true
