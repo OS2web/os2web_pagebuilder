@@ -1,0 +1,17 @@
+langcode: da
+status: true
+dependencies: {  }
+id: os2web_accordion
+label: 'OS2Web accordion paragraph'
+description: ''
+folder: modules/contrib/os2web_pagebuilder/modules/os2web_paragraphs/modules/os2web_accordion_paragraph/config/optional
+module: {  }
+theme: {  }
+blacklist:
+  - 'os2web_accordion*'
+  - '*os2web_accordion'
+  - '*os2web_accordion*'
+graylist: {  }
+graylist_dependents: false
+graylist_skip_equal: false
+weight: 0

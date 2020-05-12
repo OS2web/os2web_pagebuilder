@@ -1,0 +1,7 @@
+name: OS2Web accordion paragraphs
+type: module
+description: Paragraph with accordion view for the OS2Web paragraphs system.
+core: 8.x
+package: OS2Web
+dependencies:
+  - os2web_paragraphs

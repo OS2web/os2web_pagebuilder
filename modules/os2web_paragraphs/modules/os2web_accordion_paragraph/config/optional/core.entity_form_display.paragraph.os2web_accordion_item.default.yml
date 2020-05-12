@@ -1,0 +1,37 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_accordion_item.field_os2web_accordion_item_head
+    - field.field.paragraph.os2web_accordion_item.field_os2web_accordion_item_ref
+    - paragraphs.paragraphs_type.os2web_accordion_item
+  module:
+    - paragraphs
+id: paragraph.os2web_accordion_item.default
+targetEntityType: paragraph
+bundle: os2web_accordion_item
+mode: default
+content:
+  field_os2web_accordion_item_head:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_os2web_accordion_item_ref:
+    type: entity_reference_paragraphs
+    weight: 1
+    settings:
+      title: Afsnit
+      title_plural: Afsnitte
+      edit_mode: preview
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  status: true

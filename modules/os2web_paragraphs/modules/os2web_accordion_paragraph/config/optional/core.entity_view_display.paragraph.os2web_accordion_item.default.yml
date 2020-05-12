@@ -1,0 +1,32 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_accordion_item.field_os2web_accordion_item_head
+    - field.field.paragraph.os2web_accordion_item.field_os2web_accordion_item_ref
+    - paragraphs.paragraphs_type.os2web_accordion_item
+  module:
+    - entity_reference_revisions
+id: paragraph.os2web_accordion_item.default
+targetEntityType: paragraph
+bundle: os2web_accordion_item
+mode: default
+content:
+  field_os2web_accordion_item_head:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_os2web_accordion_item_ref:
+    type: entity_reference_revisions_entity_view
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+hidden: {  }

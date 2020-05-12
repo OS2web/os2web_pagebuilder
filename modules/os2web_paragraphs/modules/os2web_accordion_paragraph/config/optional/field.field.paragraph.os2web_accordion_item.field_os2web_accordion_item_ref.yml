@@ -1,0 +1,92 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_os2web_accordion_item_ref
+    - paragraphs.paragraphs_type.os2web_2_columns
+    - paragraphs.paragraphs_type.os2web_3_columns
+    - paragraphs.paragraphs_type.os2web_accordion
+    - paragraphs.paragraphs_type.os2web_accordion_item
+    - paragraphs.paragraphs_type.os2web_banner_paragraph
+    - paragraphs.paragraphs_type.os2web_meetings_search
+    - paragraphs.paragraphs_type.os2web_wrapper
+  module:
+    - entity_reference_revisions
+id: paragraph.os2web_accordion_item.field_os2web_accordion_item_ref
+field_name: field_os2web_accordion_item_ref
+entity_type: paragraph
+bundle: os2web_accordion_item
+label: Reference
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 1
+    target_bundles:
+      os2web_2_columns: os2web_2_columns
+      os2web_3_columns: os2web_3_columns
+      os2web_accordion: os2web_accordion
+      os2web_banner_paragraph: os2web_banner_paragraph
+      os2web_accordion_item: os2web_accordion_item
+      os2web_meetings_search: os2web_meetings_search
+      os2web_wrapper: os2web_wrapper
+    target_bundles_drag_drop:
+      os2web_2_columns:
+        enabled: true
+        weight: 20
+      os2web_3_columns:
+        enabled: true
+        weight: 21
+      os2web_accordion:
+        enabled: true
+        weight: 22
+      os2web_banner_paragraph:
+        enabled: true
+        weight: 24
+      os2web_box_paragraph:
+        weight: 25
+        enabled: false
+      os2web_accordion_item:
+        enabled: true
+        weight: 26
+      os2web_content_reference:
+        weight: 27
+        enabled: false
+      os2web_files_paragraph:
+        weight: 28
+        enabled: false
+      os2web_gis_map:
+        weight: 29
+        enabled: false
+      os2web_iframe:
+        weight: 30
+        enabled: false
+      os2web_image_paragraph:
+        weight: 31
+        enabled: false
+      os2web_meetings_search:
+        enabled: true
+        weight: 32
+      os2web_simple_text_paragraph:
+        weight: 33
+        enabled: false
+      os2web_slideshow:
+        weight: 34
+        enabled: false
+      os2web_spotbox:
+        weight: 35
+        enabled: false
+      os2web_spotbox_reference:
+        weight: 36
+        enabled: false
+      os2web_twi_paragraph:
+        weight: 37
+        enabled: false
+      os2web_wrapper:
+        enabled: true
+        weight: 38
+field_type: entity_reference_revisions
