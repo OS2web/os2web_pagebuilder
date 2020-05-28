@@ -45,7 +45,7 @@ class SettingsForm extends ConfigFormBase {
       '#title' => t('Hide OS2Web Contact block fields'),
       '#default_value' => $this->config(SettingsForm::$configName)
         ->get('hide_os2web_contact_fields'),
-      '#description' => t('If checked, the OS2Web contact block related fields will be hidden on Indholdside edit form.')
+      '#description' => t('If checked, the OS2Web contact block related fields will be hidden on Indholdside edit form.'),
     ];
 
     return parent::buildForm($form, $form_state);
