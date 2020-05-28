@@ -27,3 +27,4 @@ dependencies:
   - os2web_banner_paragraph
   - os2web_gis_map_paragraph
   - os2web_contact
+configure: os2web_pagebuilder.settings

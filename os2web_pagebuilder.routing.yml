@@ -1,0 +1,7 @@
+os2web_pagebuilder.settings:
+  path: '/admin/config/system/os2web-pagebuilder'
+  defaults:
+    _form: 'Drupal\os2web_pagebuilder\Form\SettingsForm'
+    _title: 'Configure OS2Web pagebuilder'
+  requirements:
+    _permission: 'administer content types'
