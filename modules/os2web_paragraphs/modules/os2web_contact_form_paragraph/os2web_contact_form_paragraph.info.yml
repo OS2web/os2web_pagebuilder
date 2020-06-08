@@ -1,0 +1,9 @@
+name: OS2Web contact form paragraph
+type: module
+description: Adding a contact form paragraph to the OS2Web paragraphs system.
+core: 8.x
+package: OS2Web
+dependencies:
+  - contact
+  - os2web_paragraphs
+  - paragraphs

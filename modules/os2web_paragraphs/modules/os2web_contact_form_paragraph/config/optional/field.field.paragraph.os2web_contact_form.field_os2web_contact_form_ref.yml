@@ -1,0 +1,20 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_os2web_contact_form_ref
+    - paragraphs.paragraphs_type.os2web_contact_form
+id: paragraph.os2web_contact_form.field_os2web_contact_form_ref
+field_name: field_os2web_contact_form_ref
+entity_type: paragraph
+bundle: os2web_contact_form
+label: 'Kontakt formular'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:contact_form'
+  handler_settings: {  }
+field_type: entity_reference

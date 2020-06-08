@@ -1,0 +1,31 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_contact_form.field_os2web_contact_form_head
+    - field.field.paragraph.os2web_contact_form.field_os2web_contact_form_ref
+    - field.field.paragraph.os2web_contact_form.field_os2web_contact_form_subh
+    - paragraphs.paragraphs_type.os2web_contact_form
+id: paragraph.os2web_contact_form.default
+targetEntityType: paragraph
+bundle: os2web_contact_form
+mode: default
+content:
+  field_os2web_contact_form_head:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_os2web_contact_form_subh:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden:
+  field_os2web_contact_form_ref: true
+  search_api_excerpt: true
