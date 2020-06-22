@@ -9,7 +9,8 @@
     "drupal/scheduled_transitions": "*",
     "drupal/inline_entity_form": "^1.0@RC",
     "os2web/os2web_contact": "dev-master",
-    "os2web/os2web_hjemmeside": "dev-master"
+    "os2web/os2web_hjemmeside": "dev-master",
+    "os2web/os2web_kle": "dev-master"
   },
   "license": "EUPL-1.2",
   "minimum-stability": "dev"
