@@ -6,7 +6,7 @@ dependencies:
 id: indhold
 label: Indhold
 type: 'canonical_entities:node'
-pattern: '[node:menu-link:parents]/[node:title]'
+pattern: '[node:menu-link:parents:join:/]/[node:title]'
 selection_criteria:
   d21b5a86-5e8e-4db7-b644-415a4853b320:
     id: node_type
