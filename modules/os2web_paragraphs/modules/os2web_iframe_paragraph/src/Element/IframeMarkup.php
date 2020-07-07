@@ -26,17 +26,19 @@ class IframeMarkup extends RenderElement {
   }
 
   /**
-   * Pre-render callback: Renders a processed os2web_iframe_markup element into #markup.
+   * Pre-render callback for os2web_iframe_markup.
+   *
+   * Renders a processed os2web_iframe_markup element into #markup.
    *
    * @param array $element
-   *   - #text: containing the text to be filtered
+   *   Element that contains the text to be filtered.
    *
    * @return array
    *   The passed-in element with the filtered text in '#markup'.
    *
    * @ingroup sanitization
    */
-  public static function preRenderText($element) {
+  public static function preRenderText(array $element) {
     $text = $element['#text'];
 
     // Convert all Windows and Mac newlines to a single newline, so filters only
@@ -72,6 +74,7 @@ class IframeMarkup extends RenderElement {
    * Wraps the config factory.
    *
    * @return \Drupal\Core\Config\ConfigFactoryInterface
+   *   Config factory instance.
    */
   protected static function configFactory() {
     return \Drupal::configFactory();
