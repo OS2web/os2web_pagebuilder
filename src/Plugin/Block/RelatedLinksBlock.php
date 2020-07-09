@@ -33,8 +33,6 @@ class RelatedLinksBlock extends BlockBase {
         $block = [
           '#markup' => $this->getMarkup($nodes),
         ];
-
-
       }
     }
 
