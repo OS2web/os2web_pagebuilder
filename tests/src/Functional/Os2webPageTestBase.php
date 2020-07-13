@@ -35,7 +35,7 @@ abstract class Os2webPageTestBase extends BrowserTestBase {
     // Create Basic page and Article node types.
     if ($this->profile != 'standard') {
       $this->drupalCreateContentType([
-        'type' => 'indholdside',
+        'type' => 'os2web_page',
         'name' => 'Indholdside',
       ]);
     }
