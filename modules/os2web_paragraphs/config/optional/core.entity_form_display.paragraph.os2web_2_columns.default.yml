@@ -16,8 +16,8 @@ content:
     type: paragraphs
     weight: 0
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Afsnit
+      title_plural: Afsnit
       edit_mode: closed_expand_nested
       closed_mode: summary
       autocollapse: none
@@ -35,8 +35,8 @@ content:
     type: paragraphs
     weight: 1
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Afsnit
+      title_plural: Afsnit
       edit_mode: closed_expand_nested
       closed_mode: summary
       autocollapse: none
