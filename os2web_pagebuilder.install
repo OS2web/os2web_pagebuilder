@@ -210,3 +210,117 @@ function os2web_pagebuilder_update_8007() {
     'field_os2web_page_heading' => 'content.field_os2web_page_heading',
   ]);
 }
+
+/**
+ * Update Indholdside Overskrift and Intro fields to plain text.
+ */
+function os2web_pagebuilder_update_8008() {
+
+  $fields = [
+    'field_os2web_page_intro' => [
+      'table' => 'node__field_os2web_page_intro',
+      'revision_table' => 'node_revision__field_os2web_page_intro',
+      'value_col' => 'field_os2web_page_intro_value',
+      'format_col' => 'field_os2web_page_intro_format',
+    ],
+    'field_os2web_page_heading' => [
+      'table' => 'node__field_os2web_page_heading',
+      'revision_table' => 'node_revision__field_os2web_page_heading',
+      'value_col' => 'field_os2web_page_heading_value',
+      'format_col' => 'field_os2web_page_heading_format',
+    ],
+  ];
+
+  $database = \Drupal::database();
+
+  foreach ($fields as $field_name => $f) {
+    $table = $f['table'];
+    $revision_table = $f['revision_table'];
+    // Entity type here.
+    $entity_type = 'node';
+
+    // Step 1: Get field storage.
+    $field_storage = FieldStorageConfig::loadByName($entity_type, $field_name);
+
+    // Check if field not found.
+    if (is_null($field_storage)) {
+      continue;
+    }
+
+    // Step 2: Store data.
+    $rows = NULL;
+    $revision_rows = NULL;
+    if ($database->schema()->tableExists($table)) {
+      // The table data to restore after the update is completed.
+      $rows = $database->select($table, 'n')->fields('n')->execute()
+        ->fetchAll();
+      $revision_rows = $database->select($revision_table, 'n')
+        ->fields('n')
+        ->execute()
+        ->fetchAll();
+    }
+
+    // Step 3: Save new field configs & delete existing fields.
+    $new_fields = [];
+    foreach ($field_storage->getBundles() as $bundle => $label) {
+      $field = FieldConfig::loadByName($entity_type, $bundle, $field_name);
+      $new_field = $field->toArray();
+      $new_field['field_type'] = 'string_long';
+      $new_fields[] = $new_field;
+      // Delete field.
+      $field->delete();
+    }
+
+    // Step 4: Create new storage configs from existing.
+    $new_field_storage = $field_storage->toArray();
+    $new_field_storage['type'] = 'string_long';
+
+    // Step 5: Purge deleted fields data.
+    // This is required to create new fields.
+    field_purge_batch(250);
+
+    // Step 6: Create new fieldstorage.
+    FieldStorageConfig::create($new_field_storage)->save();
+
+    // Step 7: Create new fields for all bundles.
+    foreach ($new_fields as $new_field) {
+      $new_field = FieldConfig::create($new_field);
+      $new_field->save();
+    }
+
+    // Step 8: Restore existing data in fields & revision tables.
+    if (!is_null($rows)) {
+      foreach ($rows as $row) {
+        $row = (array) $row;
+        unset($row[$f['format_col']]);
+        $row[$f['value_col']] = strip_tags($row[$f['value_col']]);
+        $database->insert($table)->fields($row)->execute();
+      }
+    }
+    if (!is_null($revision_rows)) {
+      foreach ($revision_rows as $row) {
+        $row = (array) $row;
+        unset($row[$f['format_col']]);
+        $row[$f['value_col']] = strip_tags($row[$f['value_col']]);
+        $database->insert($revision_table)->fields($row)->execute();
+      }
+    }
+  }
+
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_pagebuilder',
+    'core.entity_form_display.node.os2web_page.default',
+    'entity_form_display',
+    'node.os2web_page.default', [
+    'field_os2web_page_intro' => 'content.field_os2web_page_intro',
+    'field_os2web_page_heading' => 'content.field_os2web_page_heading',
+  ]);
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_pagebuilder',
+    'core.entity_view_display.node.os2web_page.default',
+    'entity_view_display',
+    'node.os2web_page.default', [
+    'field_os2web_page_intro' => 'content.field_os2web_page_intro',
+    'field_os2web_page_heading' => 'content.field_os2web_page_heading',
+  ]);
+}
