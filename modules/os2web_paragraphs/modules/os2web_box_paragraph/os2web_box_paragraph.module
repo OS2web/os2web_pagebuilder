@@ -9,13 +9,15 @@
  * Implements hook_preprocess_HOOK().
  */
 function os2web_box_paragraph_preprocess_paragraph(&$variables) {
+  /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
-  if ($paragraph->bundle() != 'os2web_box_paragraph') {
+  if ($paragraph->bundle() != 'os2web_box_paragraph'
+  || !$paragraph->hasField('field_os2web_box_bg_color')) {
     return;
   }
 
   $bg_color_field_values = $paragraph->field_os2web_box_bg_color->getValue();
-  if ($bg_color_field_values[0]['value']) {
+  if (!empty($bg_color_field_values[0]['value'])) {
     $variables['background_color'] = $bg_color_field_values[0]['value'];
   }
 }
