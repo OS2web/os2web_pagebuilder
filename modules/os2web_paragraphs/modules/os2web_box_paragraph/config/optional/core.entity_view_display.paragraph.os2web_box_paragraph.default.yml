@@ -2,6 +2,7 @@ langcode: da
 status: true
 dependencies:
   config:
+    - field.field.paragraph.os2web_box_paragraph.field_os2web_box_bg_color
     - field.field.paragraph.os2web_box_paragraph.field_os2web_box_body
     - field.field.paragraph.os2web_box_paragraph.field_os2web_box_heading
     - paragraphs.paragraphs_type.os2web_box_paragraph
@@ -27,4 +28,6 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-hidden: {  }
+hidden:
+  field_os2web_box_bg_color: true
+  search_api_excerpt: true

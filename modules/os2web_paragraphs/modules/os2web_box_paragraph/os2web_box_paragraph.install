@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update hooks for box paragraph module.
+ */
+
+use Drupal\field\Entity\FieldStorageConfig;
+use Symfony\Component\Yaml\Yaml;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Config\FileStorage;
+/**
+ * Adding background color field to box paragraph.
+ */
+function os2web_box_paragraph_update_8801() {
+  $path = drupal_get_path('module', 'os2web_box_paragraph');
+
+  // Creating field storage.
+  if (!FieldStorageConfig::loadByName('paragraph', 'field_os2web_box_bg_color')) {
+    $source = new FileStorage($path . '/config/optional');
+    $config_storage = \Drupal::service('config.storage');
+    $config_name = 'field.storage.paragraph.field_os2web_box_bg_color';
+    $config_storage->write($config_name, $source->read($config_name));
+  }
+  // Create field instance.
+  $field_os2web_box_bg_color_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.field.paragraph.os2web_box_paragraph.field_os2web_box_bg_color.yml'));
+  if (!FieldConfig::loadByName($field_os2web_box_bg_color_yml['entity_type'], $field_os2web_box_bg_color_yml['bundle'], $field_os2web_box_bg_color_yml['field_name'])) {
+    FieldConfig::create($field_os2web_box_bg_color_yml)->save();
+  }
+
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_box_paragraph',
+    'core.entity_form_display.paragraph.os2web_box_paragraph.default',
+    'entity_form_display',
+    'paragraph.os2web_box_paragraph.default', [
+    'field_os2web_box_bg_color' => 'content.field_os2web_box_bg_color',
+  ]);
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_box_paragraph',
+    'core.entity_view_display.paragraph.os2web_box_paragraph.default',
+    'entity_view_display',
+    'paragraph.os2web_box_paragraph.default', [
+    'hidden' => 'hidden',
+  ]);
+
+}
