@@ -2,22 +2,23 @@ langcode: da
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.preview
     - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_body
     - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_heading
     - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_image
     - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_image_position
     - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_link
     - field.field.paragraph.os2web_twi_paragraph.field_os2web_twi_subheading
-    - image.style.os2web_twi
+    - image.style.thumbnail
     - paragraphs.paragraphs_type.os2web_twi_paragraph
   module:
     - image
     - link
     - text
-id: paragraph.os2web_twi_paragraph.default
+id: paragraph.os2web_twi_paragraph.preview
 targetEntityType: paragraph
 bundle: os2web_twi_paragraph
-mode: default
+mode: preview
 content:
   field_os2web_twi_body:
     weight: 3
@@ -38,7 +39,7 @@ content:
     weight: 0
     label: hidden
     settings:
-      image_style: os2web_twi
+      image_style: thumbnail
       image_link: ''
     third_party_settings: {  }
     type: image
@@ -64,3 +65,4 @@ content:
     region: content
 hidden:
   field_os2web_twi_image_position: true
+  search_api_excerpt: true
