@@ -8,8 +8,6 @@
 use Drupal\block\Entity\Block;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\os2web_pagebuilder\Form\SettingsForm;
