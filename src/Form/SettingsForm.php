@@ -48,6 +48,14 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('If checked, the OS2Web contact block related fields will be hidden on Indholdside edit form.'),
     ];
 
+    $form['hide_os2web_paragraph_banner_field'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Hide Banner paragraph reference field (Media tab)'),
+      '#default_value' => $this->config(SettingsForm::$configName)
+        ->get('hide_os2web_paragraph_banner_field'),
+      '#description' => t('If checked, Banner paragraph reference field will be hidden on Indholdside edit form.'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
