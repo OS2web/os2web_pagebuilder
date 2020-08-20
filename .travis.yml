@@ -9,7 +9,7 @@ before_install:
   - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 install:
-  - composer global require hirak/prestissimo 
+  - composer global require hirak/prestissimo
   - composer global require drush/drush:8.x-dev drupal/coder mglaman/drupal-check friendsoftwig/twigcs
   - export PATH="$HOME/.config/composer/vendor/bin:$PATH"
   - phpcs --config-set installed_paths ../../drupal/coder/coder_sniffer
@@ -17,8 +17,12 @@ install:
   - nvm install node
   - nvm use node
   - npm install --global yarn
+  - curl -fsSL https://get.docksal.io | bash
+  - fin version
+  - fin sysinfo
   - cd ../ && composer create-project drupal-composer/drupal-project:8.x-dev drupal --no-interaction
   - cd drupal
+  - ROOT=$(pwd)
   - DRUPAL_ROOT=$(pwd)/web
   - export REPOSITORIES='"repositories":\ \['
   - export REPOSITORIES_REPLACE='"repositories":\[\{"type":"path","url":"..\/os2web_pagebuilder","options":\{"symlink":false\}\},'
@@ -32,10 +36,20 @@ install:
   - yarn install
   - npm install --global eslint-config-drupal-bundle stylelint
 
+before_script:
+  - cd $ROOT
+  - fin init
+  - mkdir -p .docksal/etc/phpunit
+  - curl https://raw.githubusercontent.com/OS2web/os2web8/develop/.docksal/commands/test -o .docksal/commands/test
+  - curl https://raw.githubusercontent.com/OS2web/os2web8/develop/.docksal/etc/phpunit/phpunit.xml.dist -o .docksal/etc/phpunit/phpunit.xml.dist
+
 script:
+  - cd $DRUPAL_ROOT/core
   - phpcs --standard=Drupal --ignore=*.md $PROJECT_PATH
   - twigcs $PROJECT_PATH
   - cd $DRUPAL_ROOT/core
   - eslint $PROJECT_PATH
   - stylelint --aei $PROJECT_PATH/**/*.css
   - drupal-check $PROJECT_PATH
+  - cd $ROOT
+  - fin test
