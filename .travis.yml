@@ -30,6 +30,7 @@ install:
   - export REQUIRE_REPLACE='"require":{"os2web\/os2web_pagebuilder":"\*",'
   - sed -i "s/$REPOSITORIES/$REPOSITORIES_REPLACE/g" composer.json
   - sed -i "s/$REQUIRE/$REQUIRE_REPLACE/g" composer.json
+  - composer require os2web/os2web:dev-master
   - composer update os2web/os2web_pagebuilder
   - PROJECT_PATH=$DRUPAL_ROOT/modules/contrib/os2web_pagebuilder
   - cd $DRUPAL_ROOT/core
@@ -52,4 +53,4 @@ script:
   - stylelint --aei $PROJECT_PATH/**/*.css
   - drupal-check $PROJECT_PATH
   - cd $ROOT
-  - fin test
+  - fin test web/modules/contrib/os2web_pagebuilder

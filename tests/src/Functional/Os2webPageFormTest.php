@@ -42,6 +42,9 @@ class Os2webPageFormTest extends Os2webPageTestBase {
    */
   public static $modules = ['node'];
 
+  /**
+   * {@inheritDoc}
+   */
   protected function setUp() {
     parent::setUp();
 
