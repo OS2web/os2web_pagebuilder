@@ -16,8 +16,8 @@ content:
   field_os2web_column_1:
     weight: 0
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Afsnit
+      title_plural: Afsnit
       edit_mode: closed_expand_nested
       closed_mode: summary
       autocollapse: none
@@ -35,8 +35,8 @@ content:
   field_os2web_column_2:
     weight: 1
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Afsnit
+      title_plural: Afsnit
       edit_mode: closed_expand_nested
       closed_mode: summary
       autocollapse: none
@@ -55,8 +55,8 @@ content:
     type: paragraphs
     weight: 2
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Afsnit
+      title_plural: Afsnit
       edit_mode: closed_expand_nested
       closed_mode: summary
       autocollapse: none
