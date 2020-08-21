@@ -1,13 +1,13 @@
-langcode: en
+langcode: da
 status: true
 dependencies:
   config:
     - field.field.paragraph.os2web_image_paragraph.field_os2web_image_description
     - field.field.paragraph.os2web_image_paragraph.field_os2web_image_image
-    - image.style.thumbnail
+    - image.style.os2web_image_paragraph
     - paragraphs.paragraphs_type.os2web_image_paragraph
   module:
-    - image
+    - image_widget_crop
     - text
 id: paragraph.os2web_image_paragraph.default
 targetEntityType: paragraph
@@ -25,10 +25,18 @@ content:
   field_os2web_image_image:
     weight: 0
     settings:
+      show_default_crop: true
+      warn_multiple_usages: true
+      preview_image_style: os2web_image_paragraph
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - os2web_image_paragraph_crop
+      crop_types_required:
+        - os2web_image_paragraph_crop
       progress_indicator: throbber
-      preview_image_style: thumbnail
+      show_crop_area: false
     third_party_settings: {  }
-    type: image_image
+    type: image_widget_crop
     region: content
 hidden:
   created: true

@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update hooks for image paragraph module.
+ */
+
+use Symfony\Component\Yaml\Yaml;
+use Drupal\crop\Entity\CropType;
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Add image style with crop function paragraph.
+ */
+function os2web_image_paragraph_update_8801() {
+  $path = drupal_get_path('module', 'os2web_image_paragraph');
+  // Create crop type.
+  $crop_yml = Yaml::parse(file_get_contents($path . '/config/optional/crop.type.os2web_image_paragraph_crop.yml'));
+  if (!CropType::load('os2web_image_paragraph_crop')) {
+    CropType::create($crop_yml)->save();
+  }
+  // Create Image style.
+  $image_style_yml = Yaml::parse(file_get_contents($path . '/config/optional/image.style.os2web_image_paragraph.yml'));
+  if (!ImageStyle::load('os2web_image_paragraph_crop')) {
+    ImageStyle::create($image_style_yml)->save();
+  }
+
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_image_paragraph',
+    'core.entity_form_display.paragraph.os2web_image_paragraph.default',
+    'entity_form_display',
+    'paragraph.os2web_image_paragraph.default', [
+    'field_os2web_image_image' => 'content.field_os2web_image_image',
+  ]);
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_image_paragraph',
+    'core.entity_view_display.paragraph.os2web_image_paragraph.default',
+    'entity_view_display',
+    'paragraph.os2web_image_paragraph.default', [
+    'field_os2web_image_image' => 'content.field_os2web_image_image',
+  ]);
+
+}

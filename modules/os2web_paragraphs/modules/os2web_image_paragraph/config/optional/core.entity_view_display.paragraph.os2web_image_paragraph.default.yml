@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.paragraph.os2web_image_paragraph.field_os2web_image_description
     - field.field.paragraph.os2web_image_paragraph.field_os2web_image_image
+    - image.style.os2web_image_paragraph
     - paragraphs.paragraphs_type.os2web_image_paragraph
   module:
     - image
@@ -24,7 +25,7 @@ content:
     weight: 0
     label: hidden
     settings:
-      image_style: ''
+      image_style: os2web_image_paragraph
       image_link: ''
     third_party_settings: {  }
     type: image
