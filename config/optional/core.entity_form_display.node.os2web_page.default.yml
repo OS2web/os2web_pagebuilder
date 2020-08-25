@@ -123,6 +123,7 @@ third_party_settings:
       children:
         - field_os2web_page_section
         - field_os2web_page_kle
+        - field_os2web_page_keyword
       parent_name: group_editform
       weight: 25
       format_type: tab

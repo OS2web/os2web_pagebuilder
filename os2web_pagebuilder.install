@@ -6,6 +6,7 @@
  */
 
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\taxonomy\Entity\Vocabulary;
 use Symfony\Component\Yaml\Yaml;
 use Drupal\field\Entity\FieldConfig;
 
@@ -323,4 +324,54 @@ function os2web_pagebuilder_update_8008() {
     'field_os2web_page_intro' => 'content.field_os2web_page_intro',
     'field_os2web_page_heading' => 'content.field_os2web_page_heading',
   ]);
+}
+
+/**
+ * Adding Keywords taxonomy and field.
+ */
+function os2web_pagebuilder_update_8009() {
+  // Adding os2web_keyword vocabulary.
+  $vid = 'os2web_keyword';
+  $name = 'Nøgleord';
+  $vocabularies = Vocabulary::loadMultiple();
+  if (!isset($vocabularies[$vid])) {
+    $vocabulary = Vocabulary::create(array(
+      'vid' => $vid,
+      'description' => '',
+      'name' => $name,
+    ));
+    $vocabulary->save();
+  }
+
+  // Add new field.
+  $field_name = 'field_os2web_page_keyword';
+  $path = drupal_get_path('module', 'os2web_pagebuilder');
+
+  // Create field storage.
+  $field_storage_yml = Yaml::parse(file_get_contents($path . "/config/install/field.storage.node.$field_name.yml"));
+  if (!FieldStorageConfig::loadByName($field_storage_yml['entity_type'], $field_storage_yml['field_name'])) {
+    FieldStorageConfig::create($field_storage_yml)->save();
+  }
+  // Create field instance.
+  $field_yml = Yaml::parse(file_get_contents($path . "/config/install/field.field.node.os2web_page.$field_name.yml"));
+  if (!FieldConfig::loadByName($field_yml['entity_type'], $field_yml['bundle'], $field_yml['field_name'])) {
+    FieldConfig::create($field_yml)->save();
+  }
+
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_pagebuilder',
+    'core.entity_form_display.node.os2web_page.default',
+    'entity_form_display',
+    'node.os2web_page.default', [
+    $field_name => "content.$field_name",
+  ]);
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_pagebuilder',
+    'core.entity_view_display.node.os2web_page.default',
+    'entity_view_display',
+    'node.os2web_page.default', [
+    $field_name => "content.$field_name",
+  ]);
+
+
 }
