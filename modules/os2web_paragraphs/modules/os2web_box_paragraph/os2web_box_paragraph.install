@@ -51,3 +51,27 @@ function os2web_box_paragraph_update_8801() {
   ]);
 
 }
+
+/**
+ * Implements hook_update_N().
+ *
+ * Set default bg color value.
+ */
+function os2web_box_paragraph_update_8802() {
+  $pids = \Drupal::entityQuery('paragraph')
+    ->condition('type', 'os2web_box_paragraph')
+    ->notExists('field_os2web_box_bg_color')
+    ->execute();
+  if (empty($pids)) {
+    return;
+  }
+
+  // Set default bg color value.
+  $storage_controller = \Drupal::entityTypeManager()->getStorage('paragraph');
+  $paragraphs = $storage_controller->loadMultiple($pids);
+  /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+  foreach ($paragraphs as $paragraph) {
+    $paragraph->set('field_os2web_box_bg_color', 'primary');
+    $paragraph->save();
+  }
+}
