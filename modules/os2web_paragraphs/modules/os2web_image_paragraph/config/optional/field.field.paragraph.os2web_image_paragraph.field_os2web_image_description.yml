@@ -10,7 +10,7 @@ id: paragraph.os2web_image_paragraph.field_os2web_image_description
 field_name: field_os2web_image_description
 entity_type: paragraph
 bundle: os2web_image_paragraph
-label: Beskrivelse
+label: Billedtekst
 description: ''
 required: false
 translatable: false
