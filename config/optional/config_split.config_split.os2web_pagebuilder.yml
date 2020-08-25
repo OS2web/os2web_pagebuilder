@@ -14,6 +14,7 @@ blacklist:
   - '*os2web_page'
   - '*os2web_page*'
   - '*os2web_sektion*'
+  - '*os2web_keyword*'
 graylist: {  }
 graylist_dependents: false
 graylist_skip_equal: false

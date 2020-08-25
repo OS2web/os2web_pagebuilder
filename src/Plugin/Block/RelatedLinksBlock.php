@@ -27,12 +27,13 @@ class RelatedLinksBlock extends BlockBase {
 
     if ($node && $node->bundle() == 'os2web_page') {
       if (!$node->field_os2web_page_related_hide->value) {
-        $this->getRelatedNodes($node);
-        $nodes = [$node];
+        $nodes = $this->getRelatedNodes($node);
 
-        $block = [
-          '#markup' => $this->getMarkup($nodes),
-        ];
+        if (!empty($nodes)) {
+          $block = [
+            '#markup' => $this->getMarkup($nodes),
+          ];
+        }
       }
     }
 
@@ -47,7 +48,7 @@ class RelatedLinksBlock extends BlockBase {
   }
 
   /**
-   * Gets a list of related nodes connected by the same KLE term.
+   * Gets a list of related nodes connected by the same Keyword and Section.
    *
    * @param \Drupal\node\NodeInterface $node
    *   Original node.
@@ -58,22 +59,30 @@ class RelatedLinksBlock extends BlockBase {
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   private function getRelatedNodes(NodeInterface $node) {
-    if ($fieldKle = $node->get('field_os2web_page_kle')->first()) {
-      $kleTermId = $fieldKle->getValue()['target_id'];
+    if ($fieldKeyword = $node->get('field_os2web_page_keyword')->getValue()) {
+      $keywordTermIds = array_column($fieldKeyword, 'target_id');
 
-      $nids = \Drupal::entityQuery('node')
+      $query = \Drupal::entityQuery('node')
         ->condition('status', 1)
         ->condition('type', 'os2web_page')
-        ->condition('field_os2web_page_kle', $kleTermId)
+        ->condition('field_os2web_page_keyword', $keywordTermIds, 'IN')
         ->condition('nid', $node->id(), '!=')
         ->sort('created', 'ASC')
-        ->range(0, 10)
-        ->execute();
+        ->range(0, 10);
+
+      if ($fieldSection = $node->get('field_os2web_page_section')->first()) {
+        $sectionTermId = $fieldSection->getValue()['target_id'];
+        $query->condition('field_os2web_page_section', $sectionTermId);
+      }
+
+      $nids = $query->execute();
 
       if ($nids) {
         return Node::loadMultiple($nids);
       }
     }
+
+    return [];
   }
 
   /**
