@@ -68,7 +68,7 @@ class RelatedLinksBlock extends BlockBase {
         ->condition('field_os2web_page_keyword', $keywordTermIds, 'IN')
         ->condition('nid', $node->id(), '!=')
         ->sort('created', 'ASC')
-        ->range(0, 10);
+        ->range(0, 5);
 
       if ($fieldSection = $node->get('field_os2web_page_section')->first()) {
         $sectionTermId = $fieldSection->getValue()['target_id'];
