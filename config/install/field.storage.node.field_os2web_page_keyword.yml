@@ -1,28 +1,19 @@
 langcode: da
 status: true
 dependencies:
-  config:
-    - field.storage.node.field_os2web_page_keyword
-    - node.type.os2web_page
-    - taxonomy.vocabulary.os2web_keyword
-id: node.os2web_page.field_os2web_page_keyword
+  module:
+    - node
+    - taxonomy
+id: node.field_os2web_page_keyword
 field_name: field_os2web_page_keyword
 entity_type: node
-bundle: os2web_page
-label: Nøgleord
-description: 'Flere nøgleord adskilles med komma'
-required: true
-translatable: false
-default_value: {  }
-default_value_callback: ''
+type: entity_reference
 settings:
-  handler: 'default:taxonomy_term'
-  handler_settings:
-    target_bundles:
-      os2web_keyword: os2web_keyword
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: ''
-field_type: entity_reference
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
