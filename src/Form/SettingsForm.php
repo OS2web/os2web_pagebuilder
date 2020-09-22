@@ -56,6 +56,14 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('If checked, Banner paragraph reference field will be hidden on Indholdside edit form.'),
     ];
 
+    $form['hide_os2web_content_page_section_tab'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Hide Section tab '),
+      '#default_value' => $this->config(SettingsForm::$configName)
+        ->get('hide_os2web_content_page_section_tab'),
+      '#description' => t('If checked, Section tab will be hidden on Indholdside edit form.'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
