@@ -95,3 +95,61 @@ function os2web_pagebuilder_block_access(Block $block, $operation, AccountInterf
 
   return AccessResult::neutral();
 }
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function os2web_pagebuilder_field_widget_paragraphs_form_alter(&$element, &$form_state, $context) {
+  if (\Drupal::config(SettingsForm::$configName)
+    ->get('hide_os2web_paragraph_title_field')) {
+    switch ($element['#paragraph_type']) {
+      case 'os2web_spotbox_reference':
+        $element['subform']['field_os2web_spotbox_reference_h']['#access'] = FALSE;
+        break;
+      case 'os2web_accordion':
+        $element['subform']['field_os2web_accordion_heading']['#access'] = FALSE;
+        break;
+      case 'os2web_banner_paragraph':
+        $element['subform']['field_os2web_banner_heading']['#access'] = FALSE;
+        break;
+      case 'os2web_box_paragraph':
+        $element['subform']['field_os2web_box_heading']['#access'] = FALSE;
+        break;
+      case 'os2web_files_paragraph':
+        $element['subform']['field_os2web_files_heading']['#access'] = FALSE;
+        break;
+      case 'os2web_content_reference':
+        $element['subform']['field_os2web_content_reference_h']['#access'] = FALSE;
+        break;
+      case 'os2web_simple_text_paragraph':
+        $element['subform']['field_os2web_simple_text_heading']['#access'] = FALSE;
+        break;
+      case 'os2web_cnt_paragraph':
+        $element['subform']['field_os2web_cnt_heading']['#access'] = FALSE;
+        break;
+    }
+  }
+   if (\Drupal::config(SettingsForm::$configName)
+    ->get('hide_os2web_paragraph_subtitle_field')) {
+    switch ($element['#paragraph_type']) {
+      case 'os2web_spotbox_reference':
+        $element['subform']['field_os2web_spotbox_ref_subhead']['#access'] = FALSE;
+        break;
+      case 'os2web_accordion':
+        $element['subform']['field_os2web_accordion_subheadin']['#access'] = FALSE;
+        break;
+      case 'os2web_banner_paragraph':
+        $element['subform']['field_os2web_banner_subheading']['#access'] = FALSE;
+        break;
+      case 'os2web_content_reference':
+        $element['subform']['field_os2web_content_ref_subhead']['#access'] = FALSE;
+        break;
+      case 'os2web_simple_text_paragraph':
+        $element['subform']['field_os2web_simple_text_subhead']['#access'] = FALSE;
+        break;
+      case 'os2web_cnt_paragraph':
+        $element['subform']['field_os2web_cnt_subheading']['#access'] = FALSE;
+        break;
+    }
+  }
+}
