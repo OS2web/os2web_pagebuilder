@@ -74,7 +74,7 @@ class SettingsForm extends ConfigFormBase {
 
     $form['hide_os2web_content_page_section_tab'] = [
       '#type' => 'checkbox',
-      '#title' => t('Hide Section tab '),
+      '#title' => t('Hide Section tab'),
       '#default_value' => $this->config(SettingsForm::$configName)
         ->get('hide_os2web_content_page_section_tab'),
       '#description' => t('If checked, Section tab will be hidden on Indholdside edit form.'),
