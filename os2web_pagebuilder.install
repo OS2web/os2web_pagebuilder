@@ -406,3 +406,16 @@ function os2web_pagebuilder_update_8010() {
    os2web_pagebuilder_read_in_new_config('core.entity_form_display.node.os2web_system_page.default');
    os2web_pagebuilder_read_in_new_config('core.entity_view_display.node.os2web_system_page.default');
 }
+
+/**
+ * Change system page content field widget.
+ */
+function os2web_pagebuilder_update_8011() {
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_pagebuilder',
+    'core.entity_form_display.node.os2web_system_page.default',
+    'entity_form_display',
+    'node.os2web_system_page.default', [
+    'field_os2web_system_page_content' => 'content.field_os2web_system_page_content'
+  ]);
+}

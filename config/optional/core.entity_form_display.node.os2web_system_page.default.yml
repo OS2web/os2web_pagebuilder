@@ -15,10 +15,11 @@ content:
   field_os2web_system_page_content:
     weight: 1
     label: above
-    settings: {  }
+    settings:
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
-    type: text_default
-    region: content
+    type: text_textarea
 hidden:
   langcode: true
   links: true
