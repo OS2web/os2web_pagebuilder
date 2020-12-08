@@ -419,3 +419,20 @@ function os2web_pagebuilder_update_8011() {
     'field_os2web_system_page_content' => 'content.field_os2web_system_page_content'
   ]);
 }
+
+/**
+ * Update Indholdside add Institution page reference.
+ */
+function os2web_pagebuilder_update_8012() {
+   os2web_pagebuilder_read_in_new_config('taxonomy.vocabulary.os2web_instituion');
+    // Create field storage.
+   $field_storage_yml = Yaml::parse(file_get_contents(drupal_get_path('module', 'os2web_pagebuilder') . "/config/optional/field.storage.node.field_os2web_page_institution.yml"));
+   if (!FieldStorageConfig::loadByName('node', 'os2web_page', 'field_os2web_page_institution')) {
+     FieldStorageConfig::create($field_storage_yml)->save();
+   }
+   // Create field instance.
+   $field_yml = Yaml::parse(file_get_contents(drupal_get_path('module', 'os2web_pagebuilder') . "/config/optional/field.field.node.os2web_page.field_os2web_page_institution.yml"));
+   if (!FieldConfig::loadByName('node', 'os2web_page', '	field_os2web_page_institution')) {
+     FieldConfig::create($field_yml)->save();
+   }
+} 
