@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * OS2Web gis map paragraph module file.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function os2web_section_paragraph_preprocess_paragraph(&$variables) {
+  $paragraph = $variables['paragraph'];
+  if ($paragraph->bundle() != 'os2web_section_paragraph' || $variables['view_mode'] == 'preview') {
+    return;
+  }
+
+  // Getting the related section.
+  $section_term_id = $paragraph->get('field_os2web_section_par_section')->target_id;
+
+  // Return on empty section.
+  if (!$section_term_id) {
+    return;
+  }
+
+  $child_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadChildren($section_term_id);
+
+  $children_term_links = [];
+
+  /** @var \Drupal\taxonomy\TermInterface $child_term */
+  foreach ($child_terms as $child_term) {
+    $children_term_links[] = [
+      'title' => $child_term->label(),
+      'url' => $child_term->toUrl()
+    ];
+  }
+
+  $variables['#children_term_links'] = $children_term_links;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function os2web_section_paragraph_theme($existing, $type, $theme, $path) {
+  return [
+    'paragraph__os2web_section_paragraph' => [
+      'base hook' => 'paragraph',
+    ],
+  ];
+}
