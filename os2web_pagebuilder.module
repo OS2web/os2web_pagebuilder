@@ -163,3 +163,22 @@ function os2web_pagebuilder_field_widget_paragraphs_form_alter(&$element, &$form
     }
   }
 }
+
+/**
+ * Get all pages that are using this section and are promoted.
+ *
+ * @param int $section_term_id
+ *   Term ID of the section term.
+ *
+ * @return array
+ *   Array of Node Ids.
+ */
+function getSectionPromotedNodes($section_term_id) {
+  $query = \Drupal::entityQuery('node');
+  $query->condition('status', 1);
+  $query->condition('type', 'os2web_page');
+  $query->condition('promote', 1);
+  $query->condition('field_os2web_page_section', $section_term_id);
+
+  return $query->execute();
+}

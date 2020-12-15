@@ -11,6 +11,9 @@ blacklist:
   - 'os2web_section_paragraph*'
   - '*os2web_section_paragraph'
   - '*os2web_section_paragraph*'
+  - 'os2web_section_promoted_pages*'
+  - '*os2web_section_promoted_pages'
+  - '*os2web_section_promoted_pages*'
   - '*field_os2web_section_par*'
 graylist: {  }
 graylist_dependents: false
