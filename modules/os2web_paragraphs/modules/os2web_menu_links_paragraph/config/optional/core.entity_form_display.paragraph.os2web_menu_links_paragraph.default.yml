@@ -1,0 +1,21 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_menu_links_paragraph.field_os2web_menu_links_inc_pr_p
+    - paragraphs.paragraphs_type.os2web_menu_links_paragraph
+id: paragraph.os2web_menu_links_paragraph.default
+targetEntityType: paragraph
+bundle: os2web_menu_links_paragraph
+mode: default
+content:
+  field_os2web_menu_links_inc_pr_p:
+    weight: 0
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+hidden:
+  created: true
+  status: true

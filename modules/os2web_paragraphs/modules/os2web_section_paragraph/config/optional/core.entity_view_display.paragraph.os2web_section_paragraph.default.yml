@@ -1,0 +1,21 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_section_paragraph.field_os2web_section_par_section
+    - paragraphs.paragraphs_type.os2web_section_paragraph
+id: paragraph.os2web_section_paragraph.default
+targetEntityType: paragraph
+bundle: os2web_section_paragraph
+mode: default
+content:
+  field_os2web_section_par_section:
+    weight: 0
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden:
+  search_api_excerpt: true
