@@ -1,0 +1,24 @@
+uuid: af5418f6-baa3-4c2d-89d2-c6d966746597
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_menu_links_paragraph.field_os2web_menu_links_inc_pr_p
+    - paragraphs.paragraphs_type.os2web_menu_links_paragraph
+id: paragraph.os2web_menu_links_paragraph.default
+targetEntityType: paragraph
+bundle: os2web_menu_links_paragraph
+mode: default
+content:
+  field_os2web_menu_links_inc_pr_p:
+    weight: 0
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+hidden:
+  search_api_excerpt: true

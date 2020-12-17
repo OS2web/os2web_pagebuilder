@@ -1,0 +1,140 @@
+<?php
+
+/**
+ * @file
+ * OS2Web gis map paragraph module file.
+ */
+
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
+  if ($variables['view_mode'] == 'preview') {
+    return;
+  }
+
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+
+  if ($paragraph->bundle() != 'os2web_menu_links_paragraph') {
+    return;
+  }
+
+  $include_promoted_pages = $paragraph->get('field_os2web_menu_links_inc_pr_p')->value;
+
+  $menu_links = [];
+
+  $menu_name = 'main';
+  $menu_tree = \Drupal::menuTree();
+  $parameters = new MenuTreeParameters();
+  $parentNode = $paragraph->getParentEntity();
+
+  /** @var \Drupal\Core\Menu\MenuLinkManager $menu_link_manager */
+  $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+  $result = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $parentNode->id()));
+
+  // If there is not menu link, don't render anything.
+  if (empty($result)) {
+    return;
+  }
+
+  $menuLink = array_pop($result);
+
+  $parameters->setRoot($menuLink->getPluginId());
+  $parameters->setMinDepth(1);
+  if (!$include_promoted_pages) {
+    $parameters->setMaxDepth(1);
+  }
+  else {
+    $parameters->setMaxDepth(2);
+  }
+
+  //Delete comments to have only enabled links
+  $parameters->onlyEnabledLinks();
+
+  $tree = $menu_tree->load($menu_name, $parameters);
+  $manipulators = array(
+    array('callable' => 'menu.default_tree_manipulators:checkAccess'),
+    array('callable' => 'menu.default_tree_manipulators:generateIndexAndSort'),
+  );
+  $tree = $menu_tree->transform($tree, $manipulators);
+
+  /** @var \Drupal\Core\Menu\MenuLinkTreeElement $item */
+  foreach ($tree as $item) {
+    $children = os2web_menu_links_find_promoted_child_nodes($item->subtree);
+
+    $menu_links[] = [
+      'title' => $item->link->getTitle(),
+      'url' => $item->link->getUrlObject(),
+      'children' => $children,
+    ];
+  }
+
+  $variables['#menu_links'] = $menu_links;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function os2web_menu_links_paragraph_theme($existing, $type, $theme, $path) {
+  return [
+    'paragraph__os2web_menu_links_paragraph' => [
+      'base hook' => 'paragraph',
+    ],
+  ];
+}
+
+/**
+ * Traverses through the menu and finds only the promoted nodes.
+ *
+ * @param $linksTreeElements
+ *   Array of \Drupal\Core\Menu\MenuLinkTreeElement[].
+ *
+ * @return array
+ *   Array of array formatted like
+ *   [
+ *     0 => [
+ *       'title' => Node title
+ *       'url' => node url
+ *     ],
+ *     ...
+ *   ]
+ *
+ * @throws \Drupal\Core\Entity\EntityMalformedException
+ */
+function os2web_menu_links_find_promoted_child_nodes($linksTreeElements) {
+  $children = [];
+
+  if (sizeof($linksTreeElements)) {
+    $nids = [];
+
+    foreach ($linksTreeElements as $linkElement) {
+      $params = $linkElement->link->getRouteParameters();
+
+      if (isset($params['node'])) {
+        $nid = $params['node'];
+        $nids[] = $nid;
+      }
+    }
+
+    if (!empty($nids)) {
+      $nodes = Node::loadMultiple($nids);
+
+      /** @var \Drupal\node\NodeInterface $node */
+      foreach ($nodes as $node) {
+        if ($node->isPromoted()) {
+          $children[] = [
+            'title' => $node->getTitle(),
+            'url' => $node->toUrl()
+          ];
+        }
+      }
+    }
+  }
+
+  return $children;
+}

@@ -1,0 +1,10 @@
+uuid: 4eab7013-e397-49f6-badc-873a57dd4836
+langcode: da
+status: true
+dependencies: {  }
+id: os2web_menu_links_paragraph
+label: 'Menu linker'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }
