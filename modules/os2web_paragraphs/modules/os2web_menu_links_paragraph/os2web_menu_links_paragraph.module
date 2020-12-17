@@ -53,7 +53,7 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
     $parameters->setMaxDepth(2);
   }
 
-  //Delete comments to have only enabled links
+  // Delete comments to have only enabled links.
   $parameters->onlyEnabledLinks();
 
   $tree = $menu_tree->load($menu_name, $parameters);
