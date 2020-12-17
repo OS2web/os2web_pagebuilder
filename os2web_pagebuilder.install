@@ -435,4 +435,14 @@ function os2web_pagebuilder_update_8012() {
    if (!FieldConfig::loadByName('node', 'os2web_page', '	field_os2web_page_institution')) {
      FieldConfig::create($field_yml)->save();
    }
-} 
+}
+
+/**
+ * Removed requirements for image size.
+ */
+function os2web_pagebuilder_update_8013() {
+  $path = drupal_get_path('module', 'os2web_pagebuilder');
+  /** @var \Drupal\Core\Config\StorageInterface $active_storage */
+  $active_storage = \Drupal::service('config.storage');
+  $active_storage->write('field.field.node.os2web_page.field_os2web_page_primaryimage', Yaml::parse(file_get_contents($path . '/config/install/field.field.node.os2web_page.field_os2web_page_primaryimage.yml')));
+}
