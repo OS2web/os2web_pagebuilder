@@ -38,7 +38,7 @@ function os2web_pagebuilder_update_entity_from_yml($module_name, $ymlFileName, $
     ->load($id);
 
   if (empty($entity)) {
-    os2web_pagebuilder_read_in_new_config($module_name, $ymlFileName);
+    os2web_pagebuilder_read_in_new_config($ymlFileName, $module_name);
     return;
   }
 
@@ -58,19 +58,6 @@ function os2web_pagebuilder_update_entity_from_yml($module_name, $ymlFileName, $
   }
 
   $entity->save();
-}
-
-/**
- * Reads in new configuration.
- *
- * @param string $config_name
- *   Configuration name.
- */
-function os2web_pagebuilder_read_in_new_config($module_name, $config_name) {
-  $path = drupal_get_path('module', $module_name);
-  /** @var \Drupal\Core\Config\StorageInterface $active_storage */
-  $active_storage = \Drupal::service('config.storage');
-  $active_storage->write($config_name, Yaml::parse(file_get_contents($path . '/config/optional/' . $config_name . '.yml')));
 }
 
 /**

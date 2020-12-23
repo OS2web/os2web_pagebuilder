@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update hooks for box paragraph module.
+ */
+
+use Drupal\field\Entity\FieldStorageConfig;
+use Symfony\Component\Yaml\Yaml;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Reset accordion item paragraph fields.
+ */
+function os2web_accordion_paragraph_update_8902() {
+  $path = drupal_get_path('module', 'os2web_accordion_paragraph');
+
+  // Loading field storage data.
+  $field_storage_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.storage.paragraph.field_os2web_accordion_item_ref.yml'));
+
+  // Create field storage.
+  if (!FieldStorageConfig::loadByName('paragraph', 'field_os2web_accordion_item_ref')) {
+    FieldStorageConfig::create($field_storage_yml)->save();
+  }
+
+  // Create field instance.
+  $field_os2web_accordion_item_ref_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.field.paragraph.os2web_accordion_item.field_os2web_accordion_item_ref.yml'));
+  if (!FieldConfig::loadByName($field_os2web_accordion_item_ref_yml['entity_type'], $field_os2web_accordion_item_ref_yml['bundle'], $field_os2web_accordion_item_ref_yml['field_name'])) {
+    FieldConfig::create($field_os2web_accordion_item_ref_yml)->save();
+  }
+
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_accordion_paragraph',
+    'core.entity_form_display.paragraph.os2web_accordion_item.default',
+    'entity_form_display',
+    'paragraph.os2web_accordion_item.default', [
+    'field_os2web_accordion_item_ref' => 'content.field_os2web_accordion_item_ref',
+    'field_os2web_accordion_item_head' => 'content.field_os2web_accordion_item_head',
+  ]);
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_accordion_paragraph',
+    'core.entity_view_display.paragraph.os2web_accordion_item.default',
+    'entity_view_display',
+    'paragraph.os2web_accordion_item.default', [
+    'field_os2web_accordion_item_ref' => 'content.field_os2web_accordion_item_ref',
+    'field_os2web_accordion_item_head' => 'content.field_os2web_accordion_item_head',
+  ]);
+
+}
