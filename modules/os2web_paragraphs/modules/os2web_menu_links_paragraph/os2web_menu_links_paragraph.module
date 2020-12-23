@@ -1,0 +1,152 @@
+<?php
+
+/**
+ * @file
+ * OS2Web gis map paragraph module file.
+ */
+
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
+  if ($variables['view_mode'] == 'preview') {
+    return;
+  }
+
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+
+  if ($paragraph->bundle() != 'os2web_menu_links_paragraph') {
+    return;
+  }
+
+  $include_promoted_pages = $paragraph->get('field_os2web_menu_links_inc_pr_p')->value;
+
+  $menu_links = [];
+
+  $menu_name = 'main';
+  $menu_tree = \Drupal::menuTree();
+  $parameters = new MenuTreeParameters();
+
+  // Getting a parent node of a paragraph.
+  // Also takes care of nested paragraphs.
+  $parent = $paragraph->getParentEntity();
+  while ($parent instanceof Paragraph) {
+    $parent = $parent->getParentEntity();
+  }
+
+  /** @var \Drupal\Core\Menu\MenuLinkManager $menu_link_manager */
+  $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+  $result = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $parent->id()));
+
+  // If there is not menu link, don't render anything.
+  if (empty($result)) {
+    return;
+  }
+
+  $menuLink = array_pop($result);
+
+  $parameters->setRoot($menuLink->getPluginId());
+  $parameters->setMinDepth(1);
+  if (!$include_promoted_pages) {
+    $parameters->setMaxDepth(1);
+  }
+  else {
+    // Don't set any limit, as we need the entire tree.
+  }
+
+  // Delete comments to have only enabled links.
+  $parameters->onlyEnabledLinks();
+
+  $tree = $menu_tree->load($menu_name, $parameters);
+  $manipulators = array(
+    array('callable' => 'menu.default_tree_manipulators:checkAccess'),
+    array('callable' => 'menu.default_tree_manipulators:generateIndexAndSort'),
+  );
+  $tree = $menu_tree->transform($tree, $manipulators);
+
+  /** @var \Drupal\Core\Menu\MenuLinkTreeElement $item */
+  foreach ($tree as $item) {
+    $children_links = [];
+    $child_nids = os2web_menu_links_find_child_nids($item->subtree);
+
+    if (!empty($child_nids)) {
+      $query = \Drupal::entityQuery('node');
+      $query->condition('status', 1);
+      $query->condition('promote', 1);
+      $query->condition('type', 'os2web_page');
+      $query->condition('nid', $child_nids, 'IN');
+      $entity_ids = $query->execute();
+
+      $nodes = Node::loadMultiple($entity_ids);
+
+      if (!empty($nodes)) {
+        foreach ($nodes as $node) {
+          $children_links[] = [
+            'title' => $node->label(),
+            'url' => $node->toUrl()
+          ];
+        }
+      }
+    }
+
+    $menu_links[] = [
+      'title' => $item->link->getTitle(),
+      'url' => $item->link->getUrlObject(),
+      'children' => $children_links,
+    ];
+  }
+
+  $variables['#menu_links'] = $menu_links;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function os2web_menu_links_paragraph_theme($existing, $type, $theme, $path) {
+  return [
+    'paragraph__os2web_menu_links_paragraph' => [
+      'base hook' => 'paragraph',
+    ],
+  ];
+}
+
+/**
+ * Traverses through the menu subtree and finds all the related nodes..
+ *
+ * @param $linksTreeElements
+ *   Array of \Drupal\Core\Menu\MenuLinkTreeElement[].
+ *
+ * @return array
+ *   Array of nids.
+ *
+ * @throws \Drupal\Core\Entity\EntityMalformedException
+ */
+function os2web_menu_links_find_child_nids($linksTreeElements) {
+  $nids = [];
+
+  if (sizeof($linksTreeElements)) {
+
+    /** @var \Drupal\Core\Menu\MenuLinkTreeElement $linkElement */
+    foreach ($linksTreeElements as $linkElement) {
+      $params = $linkElement->link->getRouteParameters();
+
+      // Adding node id.
+      if (isset($params['node'])) {
+        $nids[] = $params['node'];
+      }
+
+      // If element has tree, traverse through it.
+      if (count($linkElement->subtree)) {
+        $nids = array_merge($nids, os2web_menu_links_find_child_nids($linkElement->subtree));
+      }
+    }
+  }
+
+  return $nids;
+}

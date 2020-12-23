@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file
+ * OS2Web gis map paragraph module file.
+ */
+
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function os2web_section_paragraph_preprocess_paragraph(&$variables) {
+  if ($variables['view_mode'] == 'preview') {
+    return;
+  }
+
+  $paragraph = $variables['paragraph'];
+  $section_term_id = NULL;
+
+  if ($paragraph->bundle() == 'os2web_section_paragraph' || $paragraph->bundle() == 'os2web_section_promoted_pages') {
+    // Getting the related section.
+    $section_term_id = $paragraph->get('field_os2web_section_par_section')->target_id;
+  }
+
+  // Return on empty section.
+  if (!$section_term_id) {
+    return;
+  }
+
+  // Loading child terms.
+  $child_terms = \Drupal::entityTypeManager()
+    ->getStorage('taxonomy_term')
+    ->loadChildren($section_term_id);
+
+  // Paragraph: os2web_section_paragraph
+  if ($paragraph->bundle() == 'os2web_section_paragraph') {
+    $child_term_links = [];
+
+    /** @var \Drupal\taxonomy\TermInterface $child_term */
+    foreach ($child_terms as $child_term) {
+      $child_term_links[$child_term->id()] = [
+        'title' => $child_term->label(),
+        'url' => $child_term->toUrl(),
+      ];
+    }
+
+    $variables['#child_term_links'] = $child_term_links;
+  }
+
+  // Paragraph: os2web_section_promoted_pages
+  if ($paragraph->bundle() == 'os2web_section_promoted_pages') {
+    $child_terms_links = [];
+
+    /** @var \Drupal\taxonomy\TermInterface $child_term */
+    foreach ($child_terms as $child_term) {
+      $child_terms_links[$child_term->id()] = [
+        'title' => $child_term->label(),
+        'url' => $child_term->toUrl(),
+      ];
+
+      $node_ids = getSectionPromotedNodes($child_term->id());
+      if (!empty($node_ids)) {
+        $nodes = Node::loadMultiple($node_ids);
+
+        /** @var \Drupal\node\NodeInterface $node */
+        foreach ($nodes as $node) {
+          $child_terms_links[$child_term->id()]['promoted_node_links'][$node->id()] = [
+            'title' => $node->label(),
+            'url' => $node->toUrl(),
+          ];
+        }
+      }
+    }
+
+    $variables['#child_term_links'] = $child_terms_links;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function os2web_section_paragraph_theme($existing, $type, $theme, $path) {
+  return [
+    'paragraph__os2web_section_paragraph' => [
+      'base hook' => 'paragraph',
+    ],
+    'paragraph__os2web_section_promoted_pages' => [
+      'base hook' => 'paragraph',
+    ],
+  ];
+}

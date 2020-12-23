@@ -11,6 +11,19 @@ use Symfony\Component\Yaml\Yaml;
 use Drupal\field\Entity\FieldConfig;
 
 /**
+ * Reads in new configuration.
+ *
+ * @param string $config_name
+ *   Configuration name.
+ */
+function os2web_pagebuilder_read_in_new_config($config_name) {
+  $path = drupal_get_path('module', 'os2web_pagebuilder');
+  /** @var \Drupal\Core\Config\StorageInterface $active_storage */
+  $active_storage = \Drupal::service('config.storage');
+  $active_storage->write($config_name, Yaml::parse(file_get_contents($path . '/config/optional/' . $config_name . '.yml')));
+}
+
+/**
  * Updates Indholdside.
  */
 function os2web_pagebuilder_update_8001() {
@@ -372,6 +385,64 @@ function os2web_pagebuilder_update_8009() {
     'node.os2web_page.default', [
     $field_name => "content.$field_name",
   ]);
+}
 
+/**
+ * Adding System page content type and field.
+ */
+function os2web_pagebuilder_update_8010() {
+   os2web_pagebuilder_read_in_new_config('node.type.os2web_system_page');
+   os2web_pagebuilder_read_in_new_config('language.content_settings.node.os2web_system_page');
+   // Create field storage.
+   $field_storage_yml = Yaml::parse(file_get_contents(drupal_get_path('module', 'os2web_pagebuilder') . "/config/optional/field.storage.node.field_os2web_system_page_content.yml"));
+   if (!FieldStorageConfig::loadByName('node', 'os2web_system_page', 'field_os2web_system_page_content')) {
+     FieldStorageConfig::create($field_storage_yml)->save();
+   }
+   // Create field instance.
+   $field_yml = Yaml::parse(file_get_contents(drupal_get_path('module', 'os2web_pagebuilder') . "/config/optional/field.field.node.os2web_system_page.field_os2web_system_page_content.yml"));
+   if (!FieldConfig::loadByName('node', 'os2web_system_page', 'field_os2web_system_page_content')) {
+     FieldConfig::create($field_yml)->save();
+   }
+   os2web_pagebuilder_read_in_new_config('core.entity_form_display.node.os2web_system_page.default');
+   os2web_pagebuilder_read_in_new_config('core.entity_view_display.node.os2web_system_page.default');
+}
 
+/**
+ * Change system page content field widget.
+ */
+function os2web_pagebuilder_update_8011() {
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_pagebuilder',
+    'core.entity_form_display.node.os2web_system_page.default',
+    'entity_form_display',
+    'node.os2web_system_page.default', [
+    'field_os2web_system_page_content' => 'content.field_os2web_system_page_content'
+  ]);
+}
+
+/**
+ * Update Indholdside add Institution page reference.
+ */
+function os2web_pagebuilder_update_8012() {
+   os2web_pagebuilder_read_in_new_config('taxonomy.vocabulary.os2web_instituion');
+    // Create field storage.
+   $field_storage_yml = Yaml::parse(file_get_contents(drupal_get_path('module', 'os2web_pagebuilder') . "/config/optional/field.storage.node.field_os2web_page_institution.yml"));
+   if (!FieldStorageConfig::loadByName('node', 'os2web_page', 'field_os2web_page_institution')) {
+     FieldStorageConfig::create($field_storage_yml)->save();
+   }
+   // Create field instance.
+   $field_yml = Yaml::parse(file_get_contents(drupal_get_path('module', 'os2web_pagebuilder') . "/config/optional/field.field.node.os2web_page.field_os2web_page_institution.yml"));
+   if (!FieldConfig::loadByName('node', 'os2web_page', '	field_os2web_page_institution')) {
+     FieldConfig::create($field_yml)->save();
+   }
+}
+
+/**
+ * Removed requirements for image size.
+ */
+function os2web_pagebuilder_update_8013() {
+  $path = drupal_get_path('module', 'os2web_pagebuilder');
+  /** @var \Drupal\Core\Config\StorageInterface $active_storage */
+  $active_storage = \Drupal::service('config.storage');
+  $active_storage->write('field.field.node.os2web_page.field_os2web_page_primaryimage', Yaml::parse(file_get_contents($path . '/config/install/field.field.node.os2web_page.field_os2web_page_primaryimage.yml')));
 }

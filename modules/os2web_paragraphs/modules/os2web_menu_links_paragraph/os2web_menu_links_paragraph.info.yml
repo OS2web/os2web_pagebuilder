@@ -1,0 +1,8 @@
+name: OS2Web menu links paragraph
+type: module
+description: Adding menu links paragraph to the OS2Web paragraphs system.
+core: 8.x
+package: OS2Web
+dependencies:
+  - os2web_paragraphs
+  - paragraphs

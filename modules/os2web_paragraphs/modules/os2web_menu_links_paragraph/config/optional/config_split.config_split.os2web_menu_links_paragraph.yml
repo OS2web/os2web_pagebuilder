@@ -1,0 +1,18 @@
+langcode: da
+status: true
+dependencies: {  }
+id: os2web_menu_links_paragraph
+label: 'OS2Web menu links paragraph'
+description: ''
+folder: modules/contrib/os2web_pagebuilder/modules/os2web_paragraphs/modules/os2web_menu_links_paragraph/config/optional
+module: {  }
+theme: {  }
+blacklist:
+  - 'os2web_menu_links_paragraph*'
+  - '*os2web_menu_links_paragraph'
+  - '*os2web_menu_links_paragraph*'
+  - '*field_os2web_menu_links_inc_pr_p*'
+graylist: {  }
+graylist_dependents: false
+graylist_skip_equal: false
+weight: 0

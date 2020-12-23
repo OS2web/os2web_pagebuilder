@@ -2,7 +2,7 @@ langcode: da
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.search_result
+    - core.entity_view_mode.node.search_index
     - field.field.node.os2web_page.field_os2web_page_contact
     - field.field.node.os2web_page.field_os2web_page_contact_hide
     - field.field.node.os2web_page.field_os2web_page_description
@@ -18,35 +18,81 @@ dependencies:
     - field.field.node.os2web_page.field_os2web_page_primaryimage
     - field.field.node.os2web_page.field_os2web_page_related_hide
     - field.field.node.os2web_page.field_os2web_page_section
+    - image.style.os2web_normal
     - node.type.os2web_page
   module:
+    - entity_reference_revisions
+    - image
+    - text
     - user
-id: node.os2web_page.search_result
+id: node.os2web_page.search_index
 targetEntityType: node
 bundle: os2web_page
-mode: search_result
+mode: search_index
 content:
-  search_api_excerpt:
+  content_moderation_control:
     weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_os2web_page_description:
+    type: text_default
+    weight: 4
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_os2web_page_heading:
+    type: basic_string
+    weight: 2
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_os2web_page_intro:
+    type: basic_string
+    weight: 3
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_os2web_page_paragraph_narr:
+    type: entity_reference_revisions_entity_view
+    weight: 5
+    region: content
+    label: hidden
+    settings:
+      view_mode: os2web_paragraphs_search
+      link: ''
+    third_party_settings: {  }
+  field_os2web_page_paragraph_wide:
+    type: entity_reference_revisions_entity_view
+    weight: 6
+    region: content
+    label: hidden
+    settings:
+      view_mode: os2web_paragraphs_search
+      link: ''
+    third_party_settings: {  }
+  field_os2web_page_primaryimage:
+    weight: 1
+    label: hidden
+    settings:
+      image_style: os2web_normal
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
 hidden:
-  content_moderation_control: true
   field_os2web_page_contact: true
   field_os2web_page_contact_hide: true
-  field_os2web_page_description: true
-  field_os2web_page_heading: true
-  field_os2web_page_intro: true
   field_os2web_page_keyword: true
   field_os2web_page_kle: true
   field_os2web_page_paragraph_bann: true
   field_os2web_page_paragraph_left: true
-  field_os2web_page_paragraph_narr: true
   field_os2web_page_paragraph_righ: true
-  field_os2web_page_paragraph_wide: true
-  field_os2web_page_primaryimage: true
   field_os2web_page_related_hide: true
   field_os2web_page_section: true
   langcode: true
   links: true
+  search_api_excerpt: true

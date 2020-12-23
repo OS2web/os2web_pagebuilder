@@ -1,0 +1,21 @@
+{% set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  paragraph.isPublished() ? null : 'paragraph--unpublished'
+] %}
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+
+      {# Begin - links #}
+      <ul>
+      {% for term_link in _context['#child_term_links'] %}
+        <li><a href="{{ term_link.url }}">{{ term_link.title }}</a></li>
+      {% endfor %}
+      </ul>
+      {# End - links #}
+
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

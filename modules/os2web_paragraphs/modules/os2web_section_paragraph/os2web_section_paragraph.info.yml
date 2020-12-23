@@ -1,0 +1,8 @@
+name: OS2Web gis map paragraph
+type: module
+description: Adding an gis map iframe paragraph to the OS2Web paragraphs system.
+core: 8.x
+package: OS2Web
+dependencies:
+  - os2web_paragraphs
+  - paragraphs
