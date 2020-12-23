@@ -7,6 +7,7 @@
 
 use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\taxonomy\Entity\Term;
 
 /**
@@ -31,11 +32,17 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
   $menu_name = 'main';
   $menu_tree = \Drupal::menuTree();
   $parameters = new MenuTreeParameters();
-  $parentNode = $paragraph->getParentEntity();
+
+  // Getting a parent node of a paragraph.
+  // Also takes care of nested paragraphs.
+  $parent = $paragraph->getParentEntity();
+  while ($parent instanceof Paragraph) {
+    $parent = $parent->getParentEntity();
+  }
 
   /** @var \Drupal\Core\Menu\MenuLinkManager $menu_link_manager */
   $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
-  $result = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $parentNode->id()));
+  $result = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $parent->id()));
 
   // If there is not menu link, don't render anything.
   if (empty($result)) {
