@@ -65,7 +65,7 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
 
   $tree = $menu_tree->load($menu_name, $parameters);
   $manipulators = array(
-    array('callable' => 'menu.default_tree_manipulators:checkAccess'),
+    array('callable' => 'menu.default_tree_manipulators:checkNodeAccess'),
     array('callable' => 'menu.default_tree_manipulators:generateIndexAndSort'),
   );
   $tree = $menu_tree->transform($tree, $manipulators);
@@ -92,15 +92,28 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
             'url' => $node->toUrl()
           ];
         }
+
+        // Sorting alphabetically.
+        usort($children_links, function($a, $b) {
+          return $a['title'] <=> $b['title'];
+        });
+
       }
     }
 
-    $menu_links[] = [
-      'title' => $item->link->getTitle(),
-      'url' => $item->link->getUrlObject(),
-      'children' => $children_links,
-    ];
+    if ($item->access->isAllowed()) {
+      $menu_links[] = [
+        'title' => $item->link->getTitle(),
+        'url' => $item->link->getUrlObject(),
+        'children' => $children_links,
+      ];
+    }
   }
+
+  // Sorting alphabetically.
+  usort($menu_links, function($a, $b) {
+    return $a['title'] <=> $b['title'];
+  });
 
   $variables['#menu_links'] = $menu_links;
 }
