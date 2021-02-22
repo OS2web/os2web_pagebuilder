@@ -20,6 +20,11 @@ type_settings:
       default_revision: true
       label: Publiceret
       weight: 1
+    unpublished:
+      published: false
+      default_revision: true
+      label: Unpublished
+      weight: 2
   transitions:
     create_new_draft:
       label: 'Create New Draft'
@@ -28,6 +33,7 @@ type_settings:
       from:
         - draft
         - published
+        - unpublished
     publish:
       label: Publish
       to: published
@@ -35,6 +41,14 @@ type_settings:
       from:
         - draft
         - published
+        - unpublished
+    unpublished:
+      label: Unpublished
+      from:
+        - draft
+        - published
+      to: unpublished
+      weight: 2
   entity_types:
     node:
       - os2web_page
