@@ -1,0 +1,29 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_os2web_keyword
+    - paragraphs.paragraphs_type.os2web_keyword_paragraph
+    - taxonomy.vocabulary.os2web_keyword
+id: paragraph.os2web_keyword_paragraph.field_os2web_keyword
+field_name: field_os2web_keyword
+entity_type: paragraph
+bundle: os2web_keyword_paragraph
+label: Keyword
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      os2web_keyword: os2web_keyword
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
+

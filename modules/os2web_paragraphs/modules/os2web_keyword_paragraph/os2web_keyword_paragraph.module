@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * OS2Web iframe paragraph module file.
+ */
+
+/**
+ * Implements hook_preprocess_paragraph().
+ *
+ * Adding event search form into paragraph.
+ */
+function os2web_keyword_paragraph_preprocess_paragraph__os2web_keyword_paragraph(&$variables) {
+  $paragraph = $variables['paragraph'];
+  $tag = $paragraph->field_os2web_keyword->target_id;
+  $variables['content'] = views_embed_view('os2web_keyword_paragraph_pages_search', 'os2web_keyword_paragraph_pages_search_block', $tag);
+}

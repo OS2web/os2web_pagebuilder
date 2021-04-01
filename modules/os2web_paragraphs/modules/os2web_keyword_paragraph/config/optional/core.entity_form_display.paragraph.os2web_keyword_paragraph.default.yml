@@ -1,0 +1,24 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.os2web_keyword_paragraph.field_os2web_keyword
+    - paragraphs.paragraphs_type.os2web_keyword_paragraph
+id: paragraph.os2web_keyword_paragraph.default
+targetEntityType: paragraph
+bundle: os2web_keyword_paragraph
+mode: default
+content:
+  field_os2web_keyword:
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+hidden:
+  created: true
+  status: true
