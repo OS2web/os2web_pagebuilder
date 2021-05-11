@@ -80,6 +80,18 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('If checked, Section tab will be hidden on Indholdside edit form.'),
     ];
 
+    $form['os2web_related_links_block_reference_mode'] = [
+      '#type' => 'radios',
+      '#title' => t('Related Links Block reference mode'),
+      '#options' => [
+        'section_keyword' => t('Section AND keyword'),
+        'sections_parents_keyword' => t('Section AND siblings (terms belong to the same top level parent) AND keyword'),
+      ],
+      '#default_value' => $this->config(SettingsForm::$configName)
+        ->get('os2web_related_links_block_reference_mode'),
+      '#description' => t('How related links block should be generated'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 

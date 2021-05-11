@@ -5,6 +5,7 @@ namespace Drupal\os2web_pagebuilder\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\os2web_pagebuilder\Form\SettingsForm;
 
 /**
  * Provides a 'OS2Web Related links' block.
@@ -56,6 +57,8 @@ class RelatedLinksBlock extends BlockBase {
    * @return \Drupal\Core\Entity\EntityInterface[]
    *   Array of related nodes.
    *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   private function getRelatedNodes(NodeInterface $node) {
@@ -72,7 +75,30 @@ class RelatedLinksBlock extends BlockBase {
 
       if ($fieldSection = $node->get('field_os2web_page_section')->first()) {
         $sectionTermId = $fieldSection->getValue()['target_id'];
-        $query->condition('field_os2web_page_section', $sectionTermId);
+
+        $referenceMode = \Drupal::config(SettingsForm::$configName)->get('os2web_related_links_block_reference_mode');
+        $relatedTermsIds = [];
+        switch ($referenceMode) {
+          case 'section_keyword':
+            $relatedTermsIds[] = $sectionTermId;
+            break;
+          case 'sections_parents_keyword':
+            // Getting top level parent.
+            $ancestors = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadAllParents($sectionTermId);
+            $topParent = array_pop($ancestors);
+
+            // Getting sibling terms ID.
+            $siblingTerms = \Drupal::entityTypeManager()
+              ->getStorage('taxonomy_term')
+              ->loadTree('os2web_sektion', $topParent->id());
+            foreach ($siblingTerms as $term) {
+              $relatedTermsIds[] = $term->tid;
+            }
+            break;
+        }
+
+        // Finding all nodes related with founnd siblings.
+        $query->condition('field_os2web_page_section', $relatedTermsIds, 'IN');
       }
 
       $nids = $query->execute();
