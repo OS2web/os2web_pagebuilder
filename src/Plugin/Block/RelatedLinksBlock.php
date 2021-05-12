@@ -98,7 +98,9 @@ class RelatedLinksBlock extends BlockBase {
         }
 
         // Finding all nodes related with founnd siblings.
-        $query->condition('field_os2web_page_section', $relatedTermsIds, 'IN');
+        if (!empty($relatedTermsIds)) {
+          $query->condition('field_os2web_page_section', $relatedTermsIds, 'IN');
+        }
       }
 
       $nids = $query->execute();
