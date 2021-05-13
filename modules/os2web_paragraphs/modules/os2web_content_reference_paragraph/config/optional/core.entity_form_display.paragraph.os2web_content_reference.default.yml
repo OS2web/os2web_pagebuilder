@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.os2web_content_reference.field_os2web_content_ref_subhead
+    - field.field.paragraph.os2web_content_reference.field_os2web_content_ref_vmod
     - field.field.paragraph.os2web_content_reference.field_os2web_content_reference
     - field.field.paragraph.os2web_content_reference.field_os2web_content_reference_h
     - paragraphs.paragraphs_type.os2web_content_reference
@@ -18,6 +19,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
+  field_os2web_content_ref_vmod:
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_os2web_content_reference:
     weight: 2

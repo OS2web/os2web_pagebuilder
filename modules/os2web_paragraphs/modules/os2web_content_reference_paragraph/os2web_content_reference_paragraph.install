@@ -29,4 +29,6 @@ function os2web_content_reference_paragraph_update_8001() {
 
   // Updating view mode.
   os2web_pagebuilder_read_in_new_config('core.entity_view_display.paragraph.os2web_content_reference.default', 'os2web_content_reference_paragraph');
+  // Updating form mode.
+  os2web_pagebuilder_read_in_new_config('core.entity_form_display.paragraph.os2web_content_reference.default', 'os2web_content_reference_paragraph');
 }
