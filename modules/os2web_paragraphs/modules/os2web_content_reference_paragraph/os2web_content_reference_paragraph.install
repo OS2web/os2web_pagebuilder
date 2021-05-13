@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update hooks for this module.
+ */
+
+use Drupal\Core\Config\FileStorage;
+
+/**
+ * Adding field Reference View Mode.
+ */
+function os2web_content_reference_paragraph_update_8001() {
+  // Create field storage and field storage.
+  $module_handler = \Drupal::moduleHandler();
+  $config_storage = new FileStorage($module_handler->getModule('os2web_content_reference_paragraph')->getPath() . '/config/optional');
+
+  foreach (['field.storage.paragraph.field_os2web_content_ref_vmod', 'field.field.paragraph.os2web_content_reference.field_os2web_content_ref_vmod'] as $config_name) {
+    $config_record = $config_storage->read($config_name);
+
+    $entity_type = \Drupal::service('config.manager')->getEntityTypeIdByName($config_name);
+    /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $storage */
+    $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
+    $entity = $storage->createFromStorageRecord($config_record);
+    $entity->save();
+  }
+
+  module_load_install('os2web_pagebuilder');
+
+  // Updating view mode.
+  os2web_pagebuilder_read_in_new_config('core.entity_view_display.paragraph.os2web_content_reference.default', 'os2web_content_reference_paragraph');
+}

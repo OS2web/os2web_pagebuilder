@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Implements hook_preprocess_paragraph().
+ *
+ * Change referenced entity display.
+ */
+function os2web_content_reference_paragraph_preprocess_paragraph__os2web_content_reference(&$variables) {
+  $paragraph = $variables['paragraph'];
+
+  if ($viewMode = $paragraph->field_os2web_content_ref_vmod->value) {
+    $elementsCount = $paragraph->field_os2web_content_reference->count();
+    for ($i = 0; $i < $elementsCount; $i++) {
+      $variables['content']['field_os2web_content_reference'][$i]['#view_mode'] = $viewMode;
+    }
+  }
+}
