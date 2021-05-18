@@ -92,6 +92,38 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('How related links block should be generated'),
     ];
 
+    // Overriding transliteration.
+    $form['os2web_pagebuilder_transliteration_overrides'] = [
+      '#type' => 'details',
+      '#title' => t('OS2Web Pagebuilder Transliteration overrides')
+    ];
+
+    // Transliteration overrides.
+    $chars = [
+      // Char Ø.
+      '0xd8',
+      // Char ø.
+      '0xf8',
+      // Char Å.
+      '0xc5',
+      // Char å.
+      '0xe5',
+      // Char Æ.
+      '0xc6',
+      // Char æ.
+      '0xe6',
+    ];
+
+    foreach ($chars as $char) {
+      $form['os2web_pagebuilder_transliteration_overrides']['os2web_pagebuilder_translit_alter_' . $char] = [
+        '#type' => 'textfield',
+        '#title' => t('Override for character') . ' ' . mb_chr(hexdec($char)),
+        '#size' => 5,
+        '#description' => t('Leave empty to use default'),
+        '#default_value' => $this->config(SettingsForm::$configName)->get('os2web_pagebuilder_translit_alter_' . $char),
+      ];
+    }
+
     return parent::buildForm($form, $form_state);
   }
 

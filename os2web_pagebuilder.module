@@ -188,3 +188,35 @@ function getSectionPromotedNodes($section_term_id) {
 
   return $query->execute();
 }
+
+/**
+ * Implements hook_transliteration_overrides_alter().
+ */
+function os2web_pagebuilder_transliteration_overrides_alter(&$overrides, $langcode) {
+  if ($langcode == 'da') {
+    // List of char to be overriden, see SettingsForms.php.
+    $chars = [
+      // Char Ø.
+      '0xd8',
+      // Char ø.
+      '0xf8',
+      // Char Å.
+      '0xc5',
+      // Char å.
+      '0xe5',
+      // Char Æ.
+      '0xc6',
+      // Char æ.
+      '0xe6',
+    ];
+
+    $config = \Drupal::config(SettingsForm::$configName);
+    foreach ($chars as $char) {
+      // Add only those that were set.
+      if ($override_value = $config->get('os2web_pagebuilder_translit_alter_' . $char)) {
+        $overrides[hexdec($char)] = $override_value;
+      }
+    }
+  }
+}
+
