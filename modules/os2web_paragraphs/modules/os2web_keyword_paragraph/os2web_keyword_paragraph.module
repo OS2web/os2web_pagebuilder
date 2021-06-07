@@ -12,6 +12,13 @@
  */
 function os2web_keyword_paragraph_preprocess_paragraph__os2web_keyword_paragraph(&$variables) {
   $paragraph = $variables['paragraph'];
-  $tag = $paragraph->field_os2web_keyword->target_id;
-  $variables['content'] = views_embed_view('os2web_keyword_paragraph_pages_search', 'os2web_keyword_paragraph_pages_search_block', $tag);
+
+  // Getting the related sections.
+  $values = $paragraph->get('field_os2web_keyword')->getValue();
+
+  if (!empty($values)) {
+    $tags_target_ids = array_column($values, 'target_id');
+    $tags_term_ids = implode('+', $tags_target_ids);
+    $variables['content'] = views_embed_view('os2web_keyword_paragraph_pages_search', 'os2web_keyword_paragraph_pages_search_block', $tags_term_ids);
+  }
 }
