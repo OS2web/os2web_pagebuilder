@@ -2,7 +2,7 @@ langcode: da
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.list_advanced
     - node.type.os2web_page
   module:
     - node
@@ -70,7 +70,8 @@ display:
       row:
         type: 'entity:node'
         options:
-          view_mode: teaser
+          relationship: none
+          view_mode: list_advanced
       fields:
         title:
           id: title
