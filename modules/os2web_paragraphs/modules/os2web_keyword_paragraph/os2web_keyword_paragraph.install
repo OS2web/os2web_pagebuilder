@@ -33,3 +33,11 @@ function os2web_keyword_paragraph_update_8001($config_name) {
   // Updating view.
   os2web_keyword_paragraph_read_in_new_config('views.view.os2web_keyword_paragraph_pages_search');
 }
+
+/**
+ * Making adding title sorting for the field.
+ */
+function os2web_keyword_paragraph_update_8002($config_name) {
+  // Updating view.
+  os2web_keyword_paragraph_read_in_new_config('views.view.os2web_keyword_paragraph_pages_search');
+}
