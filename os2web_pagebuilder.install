@@ -455,3 +455,11 @@ function os2web_pagebuilder_update_8014() {
   $active_storage = \Drupal::service('config.storage');
   $active_storage->write('core.entity_view_display.node.os2web_page.list', Yaml::parse(file_get_contents($path . '/config/install/core.entity_view_display.node.os2web_page.list.yml')));
 }
+
+/**
+ * Changing node title collation to utf8mb4_danish_ci.
+ */
+function os2web_pagebuilder_update_8015() {
+  $database = \Drupal::database();
+  $database->query("ALTER TABLE node_field_data MODIFY title VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_danish_ci;");
+}
