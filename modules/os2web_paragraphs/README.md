@@ -20,10 +20,21 @@ This module provides the following paragraphs:
 A set of submodules is provided.
 
 The following submodules are available, each providing their own paragraph types
-- simple text
-- webform
-- factbox
-- banner
-
-## Want to add more paragraphs?
-Activate the "OS2 paragraphs builder workflow" module and follow the instructions of the README.md inside of that module.
+  - accordion - set of paragraph to show content grouping as accordion
+  - banner - paragraph for render banner image
+  - box - paragraph with content in colored box
+  - contact_form - reference to contact form entity
+  - contact - paragraph with field set for contact section
+  - content_reference - paragraph with multiple content reference field
+  - factbox - paragraph with field set for factabox section
+  - files - paragraph with multiple file field
+  - gis_map - shows gis map iframe
+  - iframe - paragraph with iframe code field
+  - image - simple paragraph with an image field
+  - keyword - paragraph with taxonomy term reference to Keywords vocabulary
+  - menu_links - shows menu links
+  - section - shows taxonomy terms links
+  - simple_text - "simple text" paragraph
+  - slideshow - paragraph with multiple image field
+  - twi - text with image
+  - webform - webform reference
