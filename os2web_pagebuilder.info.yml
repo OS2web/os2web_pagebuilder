@@ -22,6 +22,7 @@ dependencies:
   - fieldblock
   - scheduler
   - scheduler_content_moderation_integration
+  - svg_image
   - os2web_hjemmeside
   - os2web_paragraphs
   - os2web_simple_text_paragraph
