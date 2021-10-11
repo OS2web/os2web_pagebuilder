@@ -32,7 +32,7 @@ jobs:
       run: |
         cd ../ && composer create-project drupal-composer/drupal-project:9.x-dev drupal --no-interaction
         cd drupal
-        DRUPAL_ROOT=$(pwd)/web
+        DRUPAL_ROOT=$(pwd)
         export REPOSITORIES='"repositories":\ \['
         export REPOSITORIES_REPLACE='"repositories":\[\{"type":"path","url":"..\/os2web_pagebuilder","options":\{"symlink":false\}\},'
         export REQUIRE='"require":\ {'
@@ -40,11 +40,10 @@ jobs:
         sed -i "s/$REPOSITORIES/$REPOSITORIES_REPLACE/g" composer.json
         sed -i "s/$REQUIRE/$REQUIRE_REPLACE/g" composer.json
         composer update os2web/os2web_pagebuilder
-        PROJECT_PATH=$DRUPAL_ROOT/modules/contrib/os2web_pagebuilder
+        PROJECT_PATH=$DRUPAL_ROOT/web/modules/contrib/os2web_pagebuilder
 
     - name: Install Drupal core and activate module
       run:  |
-        ls -al
-        cd drupal
+        cd $DRUPAL_ROOT
         ./vendor/bin/drush site-install --verbose --yes --db-url=sqlite://tmp/site.sqlite
         ./vendor/bin/drush en os2web_pagebuilder --yes
