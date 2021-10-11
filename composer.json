@@ -6,6 +6,7 @@
     "drupal/core": "*",
     "drupal/paragraphs": "*",
     "drupal/fieldblock": "*",
+    "drupal/field_group": "*",    
     "drupal/scheduled_transitions": "^2.0",
     "drupal/inline_entity_form": "^1.0@RC",
     "os2web/os2web_contact": "dev-master",
