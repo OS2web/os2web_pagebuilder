@@ -30,7 +30,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd ../ && composer create-project drupal-composer/drupal-project drupal --no-interaction
+        cd ../ && composer create-project drupal-composer/drupal-project:9.x-dev drupal --no-interaction
         cd drupal
         DRUPAL_ROOT=$(pwd)/web
         export REPOSITORIES='"repositories":\ \['
