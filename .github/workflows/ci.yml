@@ -28,7 +28,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Install dependencies
+    - name: Module install test
       run: |
         cd ../ && composer create-project drupal-composer/drupal-project:9.x-dev drupal --no-interaction
         cd drupal
@@ -42,4 +42,4 @@ jobs:
         composer update os2web/os2web_pagebuilder
         PROJECT_PATH=$DRUPAL_ROOT/web/modules/contrib/os2web_pagebuilder
         ./vendor/bin/drush site-install --verbose --yes --db-url=sqlite://tmp/site.sqlite
-        ./vendor/bin/drush en os2web_pagebuilder --yes
+        ./vendor/bin/drush --verbose en os2web_pagebuilder --yes
