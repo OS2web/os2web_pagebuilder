@@ -41,9 +41,5 @@ jobs:
         sed -i "s/$REQUIRE/$REQUIRE_REPLACE/g" composer.json
         composer update os2web/os2web_pagebuilder
         PROJECT_PATH=$DRUPAL_ROOT/web/modules/contrib/os2web_pagebuilder
-
-    - name: Install Drupal core and activate module
-      run:  |
-        cd $DRUPAL_ROOT
         ./vendor/bin/drush site-install --verbose --yes --db-url=sqlite://tmp/site.sqlite
         ./vendor/bin/drush en os2web_pagebuilder --yes
