@@ -7,15 +7,16 @@
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-
-      {# Begin - links #}
-      <ul>
-      {% for term_link in _context['#child_term_links'] %}
-        <li><a href="{{ term_link.url }}">{{ term_link.title }}</a></li>
-      {% endfor %}
-      </ul>
-      {# End - links #}
-
+      {{ content }}
+      {% if  _context['#child_term_links'] %}
+        {# Begin - links #}
+        <ul>
+          {% for term_link in _context['#child_term_links'] %}
+            <li><a href="{{ term_link.url }}">{{ term_link.title }}</a></li>
+          {% endfor %}
+        </ul>
+        {# End - links #}
+      {% endif %}
     {% endblock %}
   </div>
 {% endblock paragraph %}
