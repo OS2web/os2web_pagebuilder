@@ -26,7 +26,7 @@ class RelatedLinksBlock extends BlockBase {
     /** @var \Drupal\node\NodeInterface $node */
     $node = \Drupal::routeMatch()->getParameter('node');
 
-    if ($node && $node->bundle() == 'os2web_page') {
+    if ($node instanceof NodeInterface && $node->bundle() == 'os2web_page') {
       if (!$node->field_os2web_page_related_hide->value) {
         $nodes = $this->getRelatedNodes($node);
 
