@@ -40,7 +40,7 @@ jobs:
         sed -i "s/$REQUIRE/$REQUIRE_REPLACE/g" composer.json
         composer update os2web/os2web_pagebuilder
         PROJECT_PATH=$DRUPAL_ROOT/web/modules/contrib/os2web_pagebuilder
-        export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+        export PATH="$HOME/.composer/vendor/bin:$PATH"
         phpcs --config-set installed_paths ../../drupal/coder/coder_sniffer
         cd $DRUPAL_ROOT/core
 
