@@ -16,10 +16,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-        cache: 'npm'
  
     - name: Cache Composer packages
       id: composer-cache
@@ -35,7 +31,7 @@ jobs:
         composer global require drush/drush:8.x-dev drupal/coder mglaman/drupal-check friendsoftwig/twigcs
         cd ../ && composer create-project drupal-composer/drupal-project:9.x-dev drupal --no-interaction
         cd drupal
-        DRUPAL_ROOT=$(pwd)
+        export DRUPAL_ROOT=$(pwd)
         export REPOSITORIES='"repositories":\ \['
         export REPOSITORIES_REPLACE='"repositories":\[\{"type":"path","url":"..\/os2web_pagebuilder","options":\{"symlink":false\}\},'
         export REQUIRE='"require":\ {'
@@ -46,11 +42,20 @@ jobs:
         PROJECT_PATH=$DRUPAL_ROOT/web/modules/contrib/os2web_pagebuilder
         export PATH="$HOME/.config/composer/vendor/bin:$PATH"
         phpcs --config-set installed_paths ../../drupal/coder/coder_sniffer
-        npm install --global yarn
         cd $DRUPAL_ROOT/core
-        yarn install
-        npm install --global eslint-config-drupal-bundle stylelint
 
+    - name: Install Node dependencies
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        cache: 'npm'
+        cache-dependency-path: $DRUPAL_ROOT/core/package-lock.json
+
+    - name: Install Node global packages
+      run: |       
+        cd $DRUPAL_ROOT/core
+        npm install --global eslint-config-drupal-bundle stylelint
+        
     - name: Run checks
       run: |
         phpcs --standard=Drupal --ignore=*.md $PROJECT_PATH
