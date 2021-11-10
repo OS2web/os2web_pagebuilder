@@ -57,6 +57,8 @@ jobs:
         
     - name: Run checks
       run: |
+        echo $PATH
+        echo $PROJECT_PATH
         phpcs --standard=Drupal --ignore=*.md $PROJECT_PATH
         twigcs $PROJECT_PATH
 
