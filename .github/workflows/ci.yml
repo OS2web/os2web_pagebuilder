@@ -48,7 +48,7 @@ jobs:
       with:
         node-version: '14'
         cache: 'npm'
-        cache-dependency-path: $DRUPAL_ROOT/core/package-lock.json
+        cache-dependency-path: $DRUPAL_ROOT/core/yarn.lock
 
     - name: Install Node global packages
       run: |       
