@@ -1,11 +1,9 @@
-name: PHP Composer
+name: OS2Web pagebuilder build
 
 on:
   push:
     branches:
-    - master
-    - develop
-    - gitHub-actions
+    - "*"
   pull_request:
     branches:
     - master
@@ -18,7 +16,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        cache: 'npm'
+ 
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
@@ -28,8 +30,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Module install test
+    - name: Prepare entivonment and codebase
       run: |
+        composer global require drush/drush:8.x-dev drupal/coder mglaman/drupal-check friendsoftwig/twigcs
         cd ../ && composer create-project drupal-composer/drupal-project:9.x-dev drupal --no-interaction
         cd drupal
         DRUPAL_ROOT=$(pwd)
@@ -41,5 +44,19 @@ jobs:
         sed -i "s/$REQUIRE/$REQUIRE_REPLACE/g" composer.json
         composer update os2web/os2web_pagebuilder
         PROJECT_PATH=$DRUPAL_ROOT/web/modules/contrib/os2web_pagebuilder
+        export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+        phpcs --config-set installed_paths ../../drupal/coder/coder_sniffer
+        npm install --global yarn
+        cd $DRUPAL_ROOT/core
+        yarn install
+        npm install --global eslint-config-drupal-bundle stylelint
+
+    - name: Run checks
+      run: |
+        phpcs --standard=Drupal --ignore=*.md $PROJECT_PATH
+        twigcs $PROJECT_PATH
+
+    - name: Install Drupal and activate module
+      run: |
         ./vendor/bin/drush site-install --verbose --yes --db-url=sqlite://tmp/site.sqlite
         ./vendor/bin/drush --verbose en os2web_pagebuilder --yes
