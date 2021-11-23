@@ -11,7 +11,14 @@ function os2web_content_reference_paragraph_preprocess_paragraph__os2web_content
   if ($viewMode = $paragraph->field_os2web_content_ref_vmod->value) {
     $elementsCount = $paragraph->field_os2web_content_reference->count();
     for ($i = 0; $i < $elementsCount; $i++) {
-      $variables['content']['field_os2web_content_reference'][$i]['#view_mode'] = $viewMode;
+      $content_reference =& $variables['content']['field_os2web_content_reference'][$i];
+
+      // Replace view in caching keys.
+      $key = array_search($content_reference['#view_mode'], $content_reference['#cache']['keys']);
+      $content_reference['#cache']['keys'][$key] = $viewMode;
+
+      // Replace view mode.
+      $content_reference['#view_mode'] = $viewMode;
     }
   }
 }
