@@ -5,7 +5,10 @@
  * Install, uninstall and update hooks for box paragraph module.
  */
 
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\paragraphs\Entity\ParagraphsType;
 use Symfony\Component\Yaml\Yaml;
 use Drupal\field\Entity\FieldConfig;
 
@@ -46,4 +49,103 @@ function os2web_accordion_paragraph_update_8902() {
     'field_os2web_accordion_item_head' => 'content.field_os2web_accordion_item_head',
   ]);
 
+}
+
+/**
+ * Adding os2web_accordion entity and os2web_accordion_reusable paragraph.
+ */
+function os2web_accordion_paragraph_update_8903() {
+  // Adding custom entity - os2web_accordion.
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $entity_type_manager->clearCachedDefinitions();
+  $entity_type = $entity_type_manager->getDefinition('os2web_accordion');
+  \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+
+  drupal_flush_all_caches();
+
+  $path = drupal_get_path('module', 'os2web_accordion_paragraph');
+
+  // Creating paragraph.
+  $paragraph_yml = Yaml::parse(file_get_contents($path . '/config/optional/paragraphs.paragraphs_type.os2web_accordion_reusable.yml'));
+  if (!ParagraphsType::load('os2web_accordion_reusable')) {
+    ParagraphsType::create($paragraph_yml)->save();
+  }
+
+  $fields = [
+    'field_os2web_accordion_reus_targ',
+  ];
+  // Add new fields.
+  foreach ($fields as $field) {
+    // Create field storage.
+    $field_storage_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.storage.paragraph.' . $field . '.yml'));
+    if (!empty(($field_storage_yml['settings']['allowed_values']))) {
+      // Adjusting allowed values options.
+      $allowed_values = [];
+      foreach ($field_storage_yml['settings']['allowed_values'] as $option) {
+        $allowed_values[$option['value']] = $option['label'];
+      }
+      $field_storage_yml['settings']['allowed_values'] = $allowed_values;
+    }
+    if (!FieldStorageConfig::loadByName($field_storage_yml['entity_type'], $field_storage_yml['field_name'])) {
+      FieldStorageConfig::create($field_storage_yml)->save();
+    }
+    // Create field instance.
+    $field_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.field.paragraph.os2web_accordion_reusable.' . $field . '.yml'));
+    if (!FieldConfig::loadByName($field_yml['entity_type'], $field_yml['bundle'], $field_yml['field_name'])) {
+      FieldConfig::create($field_yml)->save();
+    }
+  }
+
+  // Create/update form display.
+  $efd_id = 'paragraph.os2web_accordion_reusable.default';
+  $efd_yml = Yaml::parse(file_get_contents($path . '/config/optional/core.entity_form_display.' . $efd_id . '.yml'));
+  if (!EntityFormDisplay::load($efd_id)) {
+    EntityFormDisplay::create($efd_yml)->save();
+  }
+  else {
+    os2web_pagebuilder_update_entity_from_yml(
+      'os2web_accordion_paragraph',
+      'core.entity_form_display.' . $efd_id,
+      'entity_form_display',
+      $efd_id, [
+      'field_os2web_accordion_reus_targ' => 'content.field_os2web_accordion_reus_targ',
+      'hidden' => 'hidden',
+    ]);
+  }
+
+  // Create/update view display.
+  $evd_id = 'paragraph.os2web_accordion_reusable.default';
+  $evd_yml = Yaml::parse(file_get_contents($path . '/config/optional/core.entity_view_display.' . $evd_id . '.yml'));
+  if (!EntityViewDisplay::load($evd_id)) {
+    EntityViewDisplay::create($evd_yml)->save();
+  }
+  else {
+    os2web_pagebuilder_update_entity_from_yml(
+      'os2web_accordion_paragraph',
+      'core.entity_view_display.' . $evd_id,
+      'entity_view_display',
+      $evd_id, [
+      $field => 'content.' . $field,
+      'field_os2web_accordion_reus_targ' => 'content.field_os2web_accordion_reus_targ',
+      'hidden' => 'hidden',
+    ]);
+  }
+
+  // Create/update view display.
+  $evd_id = 'paragraph.os2web_accordion_reusable.preview';
+  $evd_yml = Yaml::parse(file_get_contents($path . '/config/optional/core.entity_view_display.' . $evd_id . '.yml'));
+  if (!EntityViewDisplay::load($evd_id)) {
+    EntityViewDisplay::create($evd_yml)->save();
+  }
+  else {
+    os2web_pagebuilder_update_entity_from_yml(
+      'os2web_accordion_paragraph',
+      'core.entity_view_display.' . $evd_id,
+      'entity_view_display',
+      $evd_id, [
+      $field => 'content.' . $field,
+      'field_os2web_accordion_reus_targ' => 'content.field_os2web_accordion_reus_targ',
+      'hidden' => 'hidden',
+    ]);
+  }
 }

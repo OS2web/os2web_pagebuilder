@@ -1,0 +1,13 @@
+# OS2Web Accordion menu items definition
+entity.os2web_accordion.collection:
+  title: 'Accordion'
+  route_name: entity.os2web_accordion.collection
+  description: 'List Accordion entities'
+  parent: system.admin_content
+  weight: 100
+
+#os2web_spotbox.admin.structure.settings:
+#  title: 'Accordion'
+#  description: 'Configure Accordion entities'
+#  route_name: os2web_accordion.settings
+#  parent: system.admin_structure
