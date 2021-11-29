@@ -1,0 +1,5 @@
+entity.os2web_accordion.add_form:
+  route_name: entity.os2web_accordion.add_form
+  title: 'Add Accordion'
+  appears_on:
+    - entity.os2web_accordion.collection

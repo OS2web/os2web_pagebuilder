@@ -1,0 +1,22 @@
+# OS2Web Accordion routing definition
+
+entity.os2web_accordion.collection:
+  title: Accordion
+  route_name: entity.os2web_accordion.collection
+  base_route: system.admin_content
+
+entity.os2web_accordion.canonical:
+  route_name: entity.os2web_accordion.canonical
+  base_route: entity.os2web_accordion.canonical
+  title: 'View'
+
+entity.os2web_accordion.edit_form:
+  route_name: entity.os2web_accordion.edit_form
+  base_route: entity.os2web_accordion.canonical
+  title: 'Edit'
+
+entity.os2web_accordion.delete_form:
+  route_name:  entity.os2web_accordion.delete_form
+  base_route:  entity.os2web_accordion.canonical
+  title: Delete
+  weight: 10
