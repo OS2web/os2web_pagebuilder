@@ -5,17 +5,13 @@
  * Install, uninstall and update hooks for box paragraph module.
  */
 
-use Drupal\Core\Entity\Entity\EntityFormDisplay;
-use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\paragraphs\Entity\ParagraphsType;
 use Symfony\Component\Yaml\Yaml;
 use Drupal\field\Entity\FieldConfig;
 
-
-
 /**
- * Adding background color field to box paragraph.
+ * Adding OS2Web contact reference paragraph.
  */
 function os2web_contact_paragraph_update_8801() {
   $path = drupal_get_path('module', 'os2web_contact_paragraph');
