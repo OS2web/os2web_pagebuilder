@@ -11,7 +11,21 @@
       {# Begin - links #}
       <ul>
       {% for menu_link in _context['#menu_links'] %}
-        <li><a href="{{ menu_link.url }}">{{ menu_link.title }}</a></li>
+        <li>
+          <a href="{{ menu_link.url }}">{{ menu_link.title }}</a>
+          {% set rendered_content = menu_link.content.field_os2web_icon|render %}
+          {% if rendered_content %}
+            {{ rendered_content }}
+          {% endif %}
+          {% if menu_link['children']|length %}
+            <hr>
+            <ul>
+              {% for node_link in menu_link['children'] %}
+                <li><a href="{{ node_link.url }}">{{ node_link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
       {% endfor %}
       </ul>
       {# End - links #}
