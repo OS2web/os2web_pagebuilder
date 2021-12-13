@@ -11,7 +11,7 @@ entity_type: node
 bundle: os2web_page
 label: Nøgleord
 description: 'Flere nøgleord adskilles med komma'
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
