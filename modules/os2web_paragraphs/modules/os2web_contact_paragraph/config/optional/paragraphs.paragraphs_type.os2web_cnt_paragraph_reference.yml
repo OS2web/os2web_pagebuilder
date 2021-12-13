@@ -1,8 +1,8 @@
 langcode: da
 status: true
 dependencies: {  }
-id: os2web_section_paragraph
-label: 'Sektion'
+id: os2web_cnt_paragraph_reference
+label: 'Kontakt reference'
 icon_uuid: null
 icon_default: null
 description: ''

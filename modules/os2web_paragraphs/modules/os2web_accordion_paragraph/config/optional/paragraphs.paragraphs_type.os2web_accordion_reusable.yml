@@ -1,8 +1,8 @@
 langcode: da
 status: true
 dependencies: {  }
-id: os2web_section_paragraph
-label: 'Sektion'
+id: os2web_accordion_reusable
+label: 'Genbrugelig Accordion'
 icon_uuid: null
 icon_default: null
 description: ''

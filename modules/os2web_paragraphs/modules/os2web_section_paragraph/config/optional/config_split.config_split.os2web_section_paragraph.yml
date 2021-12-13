@@ -4,10 +4,13 @@ dependencies: {  }
 id: os2web_section_paragraph
 label: 'OS2Web section paragraph'
 description: ''
+weight: 0
+storage: folder
 folder: modules/contrib/os2web_pagebuilder/modules/os2web_paragraphs/modules/os2web_section_paragraph/config/optional
-module: {  }
+module:
+  os2web_section_paragraph: 0
 theme: {  }
-blacklist:
+complete_list:
   - 'os2web_section_paragraph*'
   - '*os2web_section_paragraph'
   - '*os2web_section_paragraph*'
@@ -15,7 +18,4 @@ blacklist:
   - '*os2web_section_promoted_pages'
   - '*os2web_section_promoted_pages*'
   - '*field_os2web_section_par*'
-graylist: {  }
-graylist_dependents: false
-graylist_skip_equal: false
-weight: 0
+partial_list: {  }

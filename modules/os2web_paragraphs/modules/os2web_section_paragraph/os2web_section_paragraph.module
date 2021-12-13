@@ -6,7 +6,13 @@
  */
 
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
+use Drupal\views\Views;
+use Drupal\paragraphs\ParagraphInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\views\ViewExecutable;
+
+define('OS2WEB_SECTION_PARAGRAPH_VIEW', 'os2web_page_content');
 
 /**
  * Implements hook_preprocess_HOOK().
@@ -36,17 +42,29 @@ function os2web_section_paragraph_preprocess_paragraph(&$variables) {
 
   // Paragraph: os2web_section_paragraph
   if ($paragraph->bundle() == 'os2web_section_paragraph') {
-    $child_term_links = [];
-
-    /** @var \Drupal\taxonomy\TermInterface $child_term */
-    foreach ($child_terms as $child_term) {
-      $child_term_links[$child_term->id()] = [
-        'title' => $child_term->label(),
-        'url' => $child_term->toUrl(),
-      ];
+    $list_type = $paragraph->hasField('field_os2web_section_par_type') ? $paragraph->get('field_os2web_section_par_type')->getValue() : NULL;
+    if (!empty($list_type[0]['value'])) {
+      $list_type = $list_type[0]['value'];
     }
 
-    $variables['#child_term_links'] = $child_term_links;
+    $view = Views::getView(OS2WEB_SECTION_PARAGRAPH_VIEW);
+    if ($list_type == 'child_term_links' || empty($list_type)) {
+      $child_term_links = [];
+
+      /** @var \Drupal\taxonomy\TermInterface $child_term */
+      foreach ($child_terms as $child_term) {
+        $child_term_links[$child_term->id()] = [
+          'title' => $child_term->label(),
+          'url' => $child_term->toUrl(),
+        ];
+      }
+
+      $variables['#child_term_links'] = $child_term_links;
+    }
+    else if ($view || $view->access($list_type)) {
+      $variables['#list_type'] = $list_type;
+      $variables['content'][] = views_embed_view(OS2WEB_SECTION_PARAGRAPH_VIEW, $list_type, $section_term_id);
+    }
   }
 
   // Paragraph: os2web_section_promoted_pages
@@ -90,4 +108,53 @@ function os2web_section_paragraph_theme($existing, $type, $theme, $path) {
       'base hook' => 'paragraph',
     ],
   ];
+}
+
+function os2web_section_paragraph_theme_suggestions_paragraph(array $variables) {
+  $suggestions = [];
+  $paragraph = $variables['elements']['#paragraph'];
+  if ($paragraph instanceof ParagraphInterface && $paragraph->bundle() == 'os2web_section_paragraph') {
+    $suggestions[] = 'paragraph__os2web_section_paragraph__' . $variables['elements']['#view_mode'] . '__child_term_links';
+    $view = Views::getView(OS2WEB_SECTION_PARAGRAPH_VIEW);
+    if ($view instanceof ViewExecutable) {
+      $displays = os2web_section_paragraph_get_view_displays($view);
+      foreach ($displays as $id => $display) {
+        $suggestions[] = 'paragraph__os2web_section_paragraph__' . $variables['elements']['#view_mode'] . '__' . $id;
+      }
+    }
+  }
+  return $suggestions;
+}
+
+/**
+ * Customer callback to get allowed values on section paragraph list type.
+ */
+function os2web_section_paragraph_section_styles_allowed_values(FieldStorageDefinitionInterface $definition, FieldableEntityInterface $entity = NULL, &$cacheable = NULL) {
+  $values = [
+    'child_term_links' => t('Undersektionstermer linker')
+  ];
+  $view = Views::getView(OS2WEB_SECTION_PARAGRAPH_VIEW);
+  if (empty($view)) {
+    return $values;
+  }
+
+  $views_data = \Drupal::service('views.views_data');
+  $data = $views_data->get($view->storage->get('base_table'));
+  $displays = os2web_section_paragraph_get_view_displays($view);
+  foreach ($displays as $id => $display) {
+    if ($id == 'default') {
+      continue;
+    }
+    $values[$id] = $data['table']['base']['title'] . ' - ' . $display['display_title'];
+  }
+
+  return $values;
+}
+
+function os2web_section_paragraph_get_view_displays(ViewExecutable $view) {
+  $displays = $view->storage->get('display');
+  uasort($displays, function ($a, $b) {
+    return ( $a['position'] > $b['position'] ? 1 : -1 );
+  });
+  return $displays;
 }

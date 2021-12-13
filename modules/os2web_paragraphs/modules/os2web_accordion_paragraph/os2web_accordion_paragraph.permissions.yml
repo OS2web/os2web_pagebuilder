@@ -1,0 +1,19 @@
+add os2web accordion entities:
+  title: 'Create new OS2Web Accordion entities'
+
+administer os2web accordion entities:
+  title: 'Administer OS2Web Accordion entities'
+  description: 'Allow to access the administration form to configure OS2Web Accordion entities.'
+  restrict access: true
+
+delete os2web accordion entities:
+  title: 'Delete OS2Web Accordion entities'
+
+edit os2web accordion entities:
+  title: 'Edit OS2Web Accordion entities'
+
+view published os2web accordion entities:
+  title: 'View published OS2Web Accordion entities'
+
+view unpublished os2web accordion entities:
+  title: 'View unpublished OS2Web Accordion entities'

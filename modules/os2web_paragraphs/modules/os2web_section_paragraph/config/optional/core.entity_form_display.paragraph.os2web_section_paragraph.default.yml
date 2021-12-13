@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.os2web_section_paragraph.field_os2web_section_par_section
+    - field.field.paragraph.os2web_section_paragraph.field_os2web_section_par_type
     - paragraphs.paragraphs_type.os2web_section_paragraph
 id: paragraph.os2web_section_paragraph.default
 targetEntityType: paragraph
@@ -11,6 +12,16 @@ mode: default
 content:
   field_os2web_section_par_section:
     weight: 0
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_os2web_section_par_type:
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select

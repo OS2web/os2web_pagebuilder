@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update hooks for box paragraph module.
+ */
+
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\paragraphs\Entity\ParagraphsType;
+use Symfony\Component\Yaml\Yaml;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Adding OS2Web contact reference paragraph.
+ */
+function os2web_contact_paragraph_update_8801() {
+  $path = drupal_get_path('module', 'os2web_contact_paragraph');
+
+  // Creating paragraph.
+  $paragraph_yml = Yaml::parse(file_get_contents($path . '/config/optional/paragraphs.paragraphs_type.os2web_cnt_paragraph_reference.yml'));
+  if (!ParagraphsType::load('os2web_cnt_paragraph_reference')) {
+    ParagraphsType::create($paragraph_yml)->save();
+  }
+
+  // Loading field storage data.
+  $field_storage_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.storage.paragraph.field_os2web_cnt_par_ref.yml'));
+
+  // Create field storage.
+  if (!FieldStorageConfig::loadByName('paragraph', 'field_os2web_cnt_par_ref')) {
+    FieldStorageConfig::create($field_storage_yml)->save();
+  }
+
+  // Create field instance.
+  $field_os2web_accordion_item_ref_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.field.paragraph.os2web_cnt_paragraph_reference.field_os2web_cnt_par_ref.yml'));
+  if (!FieldConfig::loadByName($field_os2web_accordion_item_ref_yml['entity_type'], $field_os2web_accordion_item_ref_yml['bundle'], $field_os2web_accordion_item_ref_yml['field_name'])) {
+    FieldConfig::create($field_os2web_accordion_item_ref_yml)->save();
+  }
+
+  $configs = [
+    'core.entity_form_display.paragraph.os2web_cnt_paragraph_reference.default',
+    'core.entity_view_display.paragraph.os2web_cnt_paragraph_reference.default',
+    'core.entity_view_display.paragraph.os2web_cnt_paragraph_reference.preview'
+  ];
+
+  /** @var \Drupal\Core\Config\StorageInterface $active_storage */
+  $active_storage = \Drupal::service('config.storage');
+  foreach ($configs as $config_name) {
+    $active_storage->write($config_name, Yaml::parse(file_get_contents($path . '/config/optional/' . $config_name . '.yml')));
+  }
+}

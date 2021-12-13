@@ -1,0 +1,45 @@
+name: PHP Composer
+
+on:
+  push:
+    branches:
+    - master
+    - develop
+    - gitHub-actions
+  pull_request:
+    branches:
+    - master
+    - develop
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Module install test
+      run: |
+        cd ../ && composer create-project drupal-composer/drupal-project:9.x-dev drupal --no-interaction
+        cd drupal
+        DRUPAL_ROOT=$(pwd)
+        export REPOSITORIES='"repositories":\ \['
+        export REPOSITORIES_REPLACE='"repositories":\[\{"type":"path","url":"..\/os2web_pagebuilder","options":\{"symlink":false\}\},'
+        export REQUIRE='"require":\ {'
+        export REQUIRE_REPLACE='"require":{"os2web\/os2web_pagebuilder":"\*",'
+        sed -i "s/$REPOSITORIES/$REPOSITORIES_REPLACE/g" composer.json
+        sed -i "s/$REQUIRE/$REQUIRE_REPLACE/g" composer.json
+        composer update os2web/os2web_pagebuilder
+        PROJECT_PATH=$DRUPAL_ROOT/web/modules/contrib/os2web_pagebuilder
+        ./vendor/bin/drush site-install --verbose --yes --db-url=sqlite://tmp/site.sqlite
+        ./vendor/bin/drush --verbose en os2web_pagebuilder --yes

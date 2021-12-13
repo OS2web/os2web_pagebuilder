@@ -9,3 +9,4 @@ dependencies:
   - crop
   - image_widget_crop
   - paragraphs
+  - os2web_contact
