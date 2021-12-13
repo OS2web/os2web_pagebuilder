@@ -5,9 +5,13 @@
  * OS2Web gis map paragraph module file.
  */
 
+use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\menu_item_extras\Utility\Utility;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\taxonomy\Entity\Term;
 
 /**
@@ -25,7 +29,12 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
     return;
   }
 
+  // Shows list of children menu item link
+  // if it's referenced node has been marked as promoted page.
   $include_promoted_pages = $paragraph->get('field_os2web_menu_links_inc_pr_p')->value;
+
+  // Defined view mode for menu items.
+  $view_mode = $paragraph->hasField('field_os2web_menu_links_vm') ? $paragraph->get('field_os2web_menu_links_vm')->value : 'default';
 
   $menu_links = [];
 
@@ -98,10 +107,26 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
       }
     }
 
+    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
+    $entity_type_manager = \Drupal::entityTypeManager();
+    /** @var \Drupal\Core\Entity\EntityViewBuilderInterface $viewBuilder */
+    $viewBuilder = $entity_type_manager->getViewBuilder('menu_link_content');
     if ($item->access->isAllowed()) {
+      $metadata = $item->link->getMetaData();
+      $content = [];
+      if (isset($metadata['entity_id'])) {
+        $entity = MenuLinkContent::load($metadata['entity_id']);
+        $render_output = $viewBuilder->view($entity, $view_mode);
+        // Build the entity view ourselves and unset the #pre_render so that it
+        // doesn't run twice later on, when rendered.
+        // This gives us access to all fields immediately in the menu template.
+        $content = $viewBuilder->build($render_output);
+        array_pop($content['#pre_render']);
+      }
       $menu_links[] = [
         'title' => $item->link->getTitle(),
         'url' => $item->link->getUrlObject(),
+        'content' => $content,
         'children' => $children_links,
       ];
     }
