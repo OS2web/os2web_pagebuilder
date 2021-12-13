@@ -5,6 +5,7 @@
  * OS2Web gis map paragraph module file.
  */
 
+use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -111,7 +112,8 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
     $entity_type_manager = \Drupal::entityTypeManager();
     /** @var \Drupal\Core\Entity\EntityViewBuilderInterface $viewBuilder */
     $viewBuilder = $entity_type_manager->getViewBuilder('menu_link_content');
-    if ($item->access->isAllowed()) {
+    $urlObject = $item->link->getUrlObject();
+    if (($item->access instanceof AccessResultInterface && $item->access->isAllowed()) || $urlObject->isExternal()) {
       $metadata = $item->link->getMetaData();
       $content = [];
       if (isset($metadata['entity_id'])) {
