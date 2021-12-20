@@ -30,15 +30,14 @@ function os2web_section_paragraph_preprocess_paragraph(&$variables) {
     $section_term_id = $paragraph->get('field_os2web_section_par_section')->target_id;
   }
 
-  // Return on empty section.
-  if (!$section_term_id) {
-    return;
-  }
+  $child_terms = [];
 
   // Loading child terms.
-  $child_terms = \Drupal::entityTypeManager()
-    ->getStorage('taxonomy_term')
-    ->loadChildren($section_term_id);
+  if (!empty($section_term_id)) {
+    $child_terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadChildren($section_term_id);
+  }
 
   // Paragraph: os2web_section_paragraph
   if ($paragraph->bundle() == 'os2web_section_paragraph') {
