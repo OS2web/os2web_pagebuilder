@@ -64,8 +64,8 @@ class NodeMenuImageFormatter extends EntityReferenceEntityFormatter {
             ],
           ]);
         }
-        else if ($node->hasField('field_os2web_page_paragraph_bann')
-          && $node->field_os2web_page_paragraph_bann instanceof EntityReferenceFieldItemListInterface
+        else if ($node->hasField('field_os2web_page_primaryimage')
+          && $node->field_os2web_page_primaryimage instanceof EntityReferenceFieldItemListInterface
           && $node->field_os2web_page_primaryimage->referencedEntities()){
           $elements[0]['image'] = $node->field_os2web_page_primaryimage->view([
             'label' => 'hidden',
@@ -76,6 +76,9 @@ class NodeMenuImageFormatter extends EntityReferenceEntityFormatter {
           ]);
         }
       }
+    } else {
+      $elements[0]['#prefix'] = '<div class="menu-icon-wrapper">';
+      $elements[0]['#suffix'] = '</div>';
     }
     return $elements;
   }
