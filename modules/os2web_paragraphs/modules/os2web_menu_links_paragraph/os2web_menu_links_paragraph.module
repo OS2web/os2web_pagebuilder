@@ -11,6 +11,7 @@ use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\paragraphs\ParagraphInterface;
 use Drupal\menu_item_extras\Utility\Utility;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\taxonomy\Entity\Term;
@@ -35,7 +36,11 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
   $include_promoted_pages = $paragraph->get('field_os2web_menu_links_inc_pr_p')->value;
 
   // Defined view mode for menu items.
-  $view_mode = $paragraph->hasField('field_os2web_menu_links_vm') ? $paragraph->get('field_os2web_menu_links_vm')->value : 'default';
+  $view_mode = 'default';
+  if ($paragraph->hasField('field_os2web_menu_links_vm') && !empty($paragraph->get('field_os2web_menu_links_vm')->value)) {
+    $view_mode = $paragraph->get('field_os2web_menu_links_vm')->value;
+  }
+  $variables['attributes']['class'][] = 'paragraph--menu-link--view-mode--' . $view_mode;
 
   $menu_links = [];
 
@@ -181,4 +186,23 @@ function os2web_menu_links_find_child_nids($linksTreeElements) {
   }
 
   return $nids;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function os2web_menu_links_paragraph_theme_suggestions_paragraph(array $variables) {
+  $suggestions = [];
+  $paragraph = $variables['elements']['#paragraph'];
+  if (!($paragraph instanceof ParagraphInterface) || $paragraph->bundle() != 'os2web_menu_links_paragraph') {
+    return [];
+  }
+
+  $field_os2web_menu_links_vm = $paragraph->get('field_os2web_menu_links_vm')->value;
+  if (empty($field_os2web_menu_links_vm) || !is_string($field_os2web_menu_links_vm)) {
+    return [];
+  }
+  $suggestions[] = 'paragraph__os2web_menu_links_paragraph__' . $variables['elements']['#view_mode'] . '__menu_link_' . $field_os2web_menu_links_vm;
+
+  return $suggestions;
 }
