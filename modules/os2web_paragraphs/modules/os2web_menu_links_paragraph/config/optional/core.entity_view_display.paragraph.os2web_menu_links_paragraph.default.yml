@@ -3,10 +3,9 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.os2web_menu_links_paragraph.field_os2web_menu_links_inc_pr_p
+    - field.field.paragraph.os2web_menu_links_paragraph.field_os2web_menu_links_show_int
     - field.field.paragraph.os2web_menu_links_paragraph.field_os2web_menu_links_vm
     - paragraphs.paragraphs_type.os2web_menu_links_paragraph
-  module:
-    - options
 id: paragraph.os2web_menu_links_paragraph.default
 targetEntityType: paragraph
 bundle: os2web_menu_links_paragraph
@@ -22,12 +21,16 @@ content:
     third_party_settings: {  }
     type: boolean
     region: content
-  field_os2web_menu_links_vm:
+  field_os2web_menu_links_show_int:
+    type: boolean
     weight: 1
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
     region: content
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
 hidden:
+  field_os2web_menu_links_vm: true
   search_api_excerpt: true
