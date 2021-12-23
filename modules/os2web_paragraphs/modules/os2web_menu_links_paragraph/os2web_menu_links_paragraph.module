@@ -189,10 +189,9 @@ function os2web_menu_links_find_child_nids($linksTreeElements) {
 }
 
 /**
- * Implements hook_theme_suggestions_HOOK().
+ * Implements hook_theme_suggestions_HOOK_alter().
  */
-function os2web_menu_links_paragraph_theme_suggestions_paragraph(array $variables) {
-  $suggestions = [];
+function os2web_menu_links_paragraph_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
   $paragraph = $variables['elements']['#paragraph'];
   if (!($paragraph instanceof ParagraphInterface) || $paragraph->bundle() != 'os2web_menu_links_paragraph') {
     return [];
@@ -203,6 +202,4 @@ function os2web_menu_links_paragraph_theme_suggestions_paragraph(array $variable
     return [];
   }
   $suggestions[] = 'paragraph__os2web_menu_links_paragraph__' . $variables['elements']['#view_mode'] . '__menu_link_' . $field_os2web_menu_links_vm;
-
-  return $suggestions;
 }
