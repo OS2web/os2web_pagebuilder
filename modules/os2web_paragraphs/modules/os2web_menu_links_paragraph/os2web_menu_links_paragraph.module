@@ -35,6 +35,8 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
   // if it's referenced node has been marked as promoted page.
   $include_promoted_pages = $paragraph->get('field_os2web_menu_links_inc_pr_p')->value;
 
+  $show_intro_text = $paragraph->hasField('field_os2web_menu_links_show_int') ? $paragraph->get('field_os2web_menu_links_show_int')->value : NULL;
+
   // Defined view mode for menu items.
   $view_mode = 'default';
   if ($paragraph->hasField('field_os2web_menu_links_vm') && !empty($paragraph->get('field_os2web_menu_links_vm')->value)) {
@@ -85,6 +87,13 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
   );
   $tree = $menu_tree->transform($tree, $manipulators);
 
+  /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
+  $entity_type_manager = \Drupal::entityTypeManager();
+  /** @var \Drupal\Core\Entity\EntityViewBuilderInterface $viewBuilder */
+  $menuItemViewBuilder = $entity_type_manager->getViewBuilder('menu_link_content');
+  /** @var \Drupal\Core\Entity\EntityViewBuilderInterface $viewBuilder */
+  $nodeViewBuilder = $entity_type_manager->getViewBuilder('node');
+
   /** @var \Drupal\Core\Menu\MenuLinkTreeElement $item */
   foreach ($tree as $item) {
     $children_links = [];
@@ -113,27 +122,35 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
       }
     }
 
-    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
-    $entity_type_manager = \Drupal::entityTypeManager();
-    /** @var \Drupal\Core\Entity\EntityViewBuilderInterface $viewBuilder */
-    $viewBuilder = $entity_type_manager->getViewBuilder('menu_link_content');
     $urlObject = $item->link->getUrlObject();
     if (($item->access instanceof AccessResultInterface && $item->access->isAllowed()) || $urlObject->isExternal()) {
       $metadata = $item->link->getMetaData();
       $content = [];
       if (isset($metadata['entity_id'])) {
         $entity = MenuLinkContent::load($metadata['entity_id']);
-        $render_output = $viewBuilder->view($entity, $view_mode);
+        $render_output = $menuItemViewBuilder->view($entity, $view_mode);
         // Build the entity view ourselves and unset the #pre_render so that it
         // doesn't run twice later on, when rendered.
         // This gives us access to all fields immediately in the menu template.
-        $content = $viewBuilder->build($render_output);
+        $content = $menuItemViewBuilder->build($render_output);
         array_pop($content['#pre_render']);
       }
+
+      $intro_text = NULL;
+      if ($show_intro_text) {
+        $params = $item->link->getRouteParameters();
+        if (isset($params['node'])) {
+          $node = Node::load($params['node']);
+          $intro_text = $node->hasField('field_os2web_page_intro') ? $nodeViewBuilder->viewField($node->get('field_os2web_page_intro'), 'full') : NULL;
+          $intro_text['#cache']['tags'] = $node->getCacheTags();
+        }
+      }
+
       $menu_links[] = [
         'title' => $item->link->getTitle(),
         'url' => $item->link->getUrlObject(),
         'content' => $content,
+        'intro_text' => $intro_text,
         'children' => $children_links,
       ];
     }
@@ -197,9 +214,21 @@ function os2web_menu_links_paragraph_theme_suggestions_paragraph_alter(array &$s
     return [];
   }
 
+  // Adding suggestion for paragraph with selected view mode.
   $field_os2web_menu_links_vm = $paragraph->get('field_os2web_menu_links_vm')->value;
-  if (empty($field_os2web_menu_links_vm) || !is_string($field_os2web_menu_links_vm)) {
-    return [];
+  if (!empty($field_os2web_menu_links_vm) && is_string($field_os2web_menu_links_vm)) {
+    $suggestions[] = 'paragraph__os2web_menu_links_paragraph__' . $variables['elements']['#view_mode'] . '__menu_link_' . $field_os2web_menu_links_vm;
   }
-  $suggestions[] = 'paragraph__os2web_menu_links_paragraph__' . $variables['elements']['#view_mode'] . '__menu_link_' . $field_os2web_menu_links_vm;
+
+  // Adding suggestion for paragraph with intro text shown.
+  $show_intro_text = $paragraph->hasField('field_os2web_menu_links_show_int') ? $paragraph->get('field_os2web_menu_links_show_int')->value : NULL;
+  if (!empty($show_intro_text)) {
+    $suggestions[] = 'paragraph__os2web_menu_links_paragraph__' . $variables['elements']['#view_mode'] . '__menu_link_with_intro_text';
+  }
+
+  // Adding suggestion for paragraph with promoted pages list.
+  $include_promoted_pages = $paragraph->hasField('field_os2web_menu_links_inc_pr_p') ? $paragraph->get('field_os2web_menu_links_inc_pr_p')->value : NULL;
+  if (!empty($include_promoted_pages)) {
+    $suggestions[] = 'paragraph__os2web_menu_links_paragraph__' . $variables['elements']['#view_mode'] . '__menu_link_with_promoted_pages';
+  }
 }

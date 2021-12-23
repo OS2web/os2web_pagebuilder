@@ -17,6 +17,9 @@
           {% if rendered_content %}
             {{ rendered_content }}
           {% endif %}
+          {% if menu_link['intro_text']|length %}
+            {{ menu_link['intro_text'] }}
+          {% endif %}
           {% if menu_link['children']|length %}
             <hr>
             <ul>
