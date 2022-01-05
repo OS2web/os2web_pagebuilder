@@ -36,11 +36,15 @@ function os2web_section_paragraph_preprocess_paragraph(&$variables) {
 
   $child_terms = [];
 
-  // Loading child terms.
+  // Loading child terms sorted by weight.
   if (!empty($term_id)) {
+    $query = \Drupal::entityQuery('taxonomy_term')
+      ->condition('parent', $term_id)
+      ->sort('weight');
+
     $child_terms = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
-      ->loadChildren($term_id);
+      ->loadMultiple($query->execute());
   }
 
   // Paragraph: os2web_section_paragraph
