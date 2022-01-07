@@ -87,6 +87,11 @@ class NodeMenuImageFormatter extends EntityReferenceEntityFormatter {
    * {@inheritdoc}
    */
   public static function isApplicable(FieldDefinitionInterface $field_definition) {
+    // This format is supposed to be used only for configurable fields;
+    if (! ($field_definition instanceof FieldConfig)) {
+      return FALSE;
+    }
+
     // This formatter is only available for menu_link_content entity of main
     // bundle with available field_os2web_icon as entity reference type.
     return $field_definition->id() == 'menu_link_content.main.field_os2web_icon' && $field_definition->getType() == 'entity_reference';
