@@ -1,0 +1,9 @@
+name: OS2Web video paragraphs
+type: module
+description: Paragraph with video view for the OS2Web paragraphs system.
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: OS2Web
+dependencies:
+  - os2web_paragraphs
+  - video

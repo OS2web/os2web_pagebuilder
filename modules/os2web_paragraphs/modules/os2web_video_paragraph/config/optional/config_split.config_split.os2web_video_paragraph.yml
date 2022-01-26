@@ -1,0 +1,20 @@
+langcode: da
+status: true
+dependencies:
+  module:
+    - config_split
+id: os2web_video_paragraph
+label: 'OS2Web video paragraph'
+description: ''
+folder: modules/contrib/os2web_pagebuilder/modules/os2web_paragraphs/modules/os2web_video_paragraph/config/optional
+module: {  }
+theme: {  }
+blacklist:
+  - 'os2web_video*'
+  - '*os2web_video'
+  - '*os2web_video*'
+  - 'field.storage.media.field_media_video_file'
+graylist: {  }
+graylist_dependents: false
+graylist_skip_equal: false
+weight: 0
