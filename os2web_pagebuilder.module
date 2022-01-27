@@ -10,6 +10,7 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\node\NodeInterface;
 use Drupal\os2web_pagebuilder\Form\SettingsForm;
 use Symfony\Component\Yaml\Yaml;
 
@@ -127,6 +128,20 @@ function os2web_pagebuilder_section_page_node_form_validate($form, FormStateInte
   foreach ($errors as $element => $error) {
     if ($element != 'field_os2web_page_description' && $element != 'field_os2web_page_intro') {
       $form_state->setErrorByName($element, $error);
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * On a new node save copies header from title if header value is empty.
+ */
+function os2web_pagebuilder_node_presave(NodeInterface $node) {
+  if ($node->isNew() && $node->getType() == 'os2web_page') {
+    // If header is empty, use the title.
+    if (empty($node->field_os2web_page_heading->value)) {
+      $node->field_os2web_page_heading->value = $node->label();
     }
   }
 }
