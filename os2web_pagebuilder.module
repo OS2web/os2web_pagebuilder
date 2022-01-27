@@ -93,6 +93,42 @@ function os2web_pagebuilder_form_alter(&$form, FormStateInterface $form_state, $
       $form['field_os2web_page_paragraph_left']['#access'] = FALSE;
     }
   }
+
+  // Making field optional only for Section pages.
+  if ($form_id == 'node_os2web_page_edit_form') {
+    /** @var NodeInterface $node */
+    $node = $form_state->getFormObject()->getEntity();
+
+    $config = \Drupal::config(SettingsForm::$configName);
+    $sectionPageIds = array_column($config->get('os2web_section_pages'), 'target_id');
+
+    if (in_array($node->id(), $sectionPageIds)) {
+      $form['field_os2web_page_intro']['widget'][0]['value']['#required'] = FALSE;
+      $form['field_os2web_page_description']['widget'][0]['#required'] = FALSE;
+      $form['#validate'][] = 'os2web_pagebuilder_section_page_node_form_validate';
+    }
+  }
+}
+
+/**
+ * Custom validate function for section pages.
+ *
+ * Removes the error related with fields that are optional for section page.
+ *
+ * @param $form
+ * @param FormStateInterface $form_state
+ */
+function os2web_pagebuilder_section_page_node_form_validate($form, FormStateInterface $form_state) {
+  // Clearing the errors and saving the for future.
+  $errors = $form_state->getErrors();
+  $form_state->clearErrors();
+
+  // Adding errors back, skipping those related with fields we made non-mandatory.
+  foreach ($errors as $element => $error) {
+    if ($element != 'field_os2web_page_description' && $element != 'field_os2web_page_intro') {
+      $form_state->setErrorByName($element, $error);
+    }
+  }
 }
 
 /**
