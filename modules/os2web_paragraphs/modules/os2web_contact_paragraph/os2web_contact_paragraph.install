@@ -49,7 +49,7 @@ function os2web_contact_paragraph_update_8801() {
   }
 }
 /**
- * Adding os2web_contact_open_hours field to os2wb_contact paragraph.
+ * Adding field_os2web_cnt_open_hours field to os2wb_contact paragraph.
  */
 function os2web_contact_paragraph_update_8802() {
 
@@ -75,12 +75,38 @@ function os2web_contact_paragraph_update_8802() {
 }
 
 /**
- * Adding field_os2web_contact_facebook, os2web_contact_website fields.
+ * Adding ffield_os2web_cnt_facebook, field_os2web_cnt_website fields.
  */
 function os2web_contact_paragraph_update_8803() {
   $fields = [
     'field_os2web_cnt_facebook',
     'field_os2web_cnt_website'
+  ];
+  $entity_type = 'paragraph';
+  $entity_bundle = 'os2web_cnt_paragraph';
+  $path = drupal_get_path('module', 'os2web_contact_paragraph');
+
+  foreach ($fields as $field_name) {
+    // Create field storage.
+    $field_storage_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.storage.' . $entity_type . '.' . $field_name . '.yml'));
+    if (!FieldStorageConfig::loadByName($entity_type, $field_name)) {
+      FieldStorageConfig::create($field_storage_yml)->save();
+    }
+    // Create field instance.
+    $field_instance_yml = Yaml::parse(file_get_contents($path . '/config/optional/field.field.' . $entity_type . '.' . $entity_bundle . '.' . $field_name . '.yml'));
+    if (!FieldConfig::loadByName($entity_type, $entity_bundle, $field_name)) {
+      FieldConfig::create($field_instance_yml)->save();
+    }
+  }
+}
+
+/**
+ * Adding field_os2web_cnt_email, field_os2web_cnt_phone fields.
+ */
+function os2web_contact_paragraph_update_8804() {
+  $fields = [
+    'field_os2web_cnt_email',
+    'field_os2web_cnt_phone'
   ];
   $entity_type = 'paragraph';
   $entity_bundle = 'os2web_cnt_paragraph';
