@@ -463,3 +463,12 @@ function os2web_pagebuilder_update_8015() {
   $database = \Drupal::database();
   $database->query("ALTER TABLE node_field_data MODIFY title VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_danish_ci;");
 }
+/**
+ * Add borgerdk_selfser_ref paragraph to field_os2web_page_paragraph_righ
+ */
+function os2web_pagebuilder_update_8016() {
+  $path = drupal_get_path('module', 'os2web_pagebuilder');
+  $active_storage = \Drupal::service('config.storage');
+  $config_name = "field.field.node.os2web_page.field_os2web_page_paragraph_righ";
+  $active_storage->write($config_name, Yaml::parse(file_get_contents($path . '/config/install/' . $config_name . '.yml')));
+}
