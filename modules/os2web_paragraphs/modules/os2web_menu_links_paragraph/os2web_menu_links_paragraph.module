@@ -1,3 +1,4 @@
+
 <?php
 
 /**
@@ -15,6 +16,7 @@ use Drupal\paragraphs\ParagraphInterface;
 use Drupal\menu_item_extras\Utility\Utility;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\taxonomy\Entity\Term;
+use  Drupal\Core\Cache\Cache;
 
 /**
  * Implements hook_preprocess_HOOK().
@@ -155,7 +157,7 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
       ];
     }
   }
-
+  $variables['#cache']['contexts'][] = 'route.menu_active_trails:main';
   $variables['#menu_links'] = $menu_links;
 }
 
