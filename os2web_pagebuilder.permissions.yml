@@ -4,3 +4,6 @@ os2web_page access sidebygger tab:
 os2web_page access sideafsnit tab:
   title: 'Access OS2Web Page Sideafsnit tab'
   description: 'Whether user can access "Sideafsnit" tab on OS2Web Indholdside edit form'
+os2web_page access instillinger tab:
+  title: 'Access OS2Web Page Indstillinger tab'
+  description: 'Whether user can access "Indstillinger" tab on OS2Web Indholdside edit form'
