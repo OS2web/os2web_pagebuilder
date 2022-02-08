@@ -1,0 +1,10 @@
+<?php
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function os2web_slideshow_paragraph_page_attachments_alter(array &$attachments)
+{
+  $config = \Drupal::config('os2web_slideshow_paragraph.settings');
+  $attachments['#attached']['drupalSettings']['os2web_slideshow_paragraph']['items'] = $config->get('os2web_slideshow_paragraph_items');
+}
+

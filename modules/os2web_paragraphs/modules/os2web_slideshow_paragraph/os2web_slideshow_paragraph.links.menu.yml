@@ -1,0 +1,5 @@
+os2web_slideshow_paragraph.settings:
+  title: OS2Web Slideshow paragraph settings
+  description: Settings for OS2Web Slideshow paragraph.
+  route_name: os2web_slideshow_paragraph.settings_form
+  parent: system.admin_config_content
