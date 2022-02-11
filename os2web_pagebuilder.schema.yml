@@ -1,0 +1,10 @@
+field.widget.settings.os2web_menu_item_reference_drop_down:
+  type: mapping
+  label: 'Menu item reference drop down widget settings'
+  mapping:
+    size:
+      type: integer
+      label: 'Size'
+    placeholder:
+      type: textfield
+      label: 'Placeholder'
