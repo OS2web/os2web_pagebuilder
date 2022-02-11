@@ -33,6 +33,7 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
   // Shows list of children menu item link
   // if it's referenced node has been marked as promoted page.
   $include_promoted_pages = $paragraph->get('field_os2web_menu_links_inc_pr_p')->value;
+  $show_promoted_pages_intro_text = $paragraph->hasField('field_os2web_menu_links_pp_intro') ? $paragraph->get('field_os2web_menu_links_pp_intro')->value : NULL;
 
   $show_intro_text = $paragraph->hasField('field_os2web_menu_links_show_int') ? $paragraph->get('field_os2web_menu_links_show_int')->value : NULL;
 
@@ -125,9 +126,15 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
         // Traversing through children keeping their position.
         foreach ($child_nids as $nid) {
           if (isset($nodes[$nid])) {
+            $intro_text = NULL;
+            if ($show_promoted_pages_intro_text && $nodes[$nid]->hasField('field_os2web_page_intro')) {
+              $intro_text = $nodeViewBuilder->viewField($nodes[$nid]->get('field_os2web_page_intro'), 'full');
+              $intro_text['#cache']['tags'] = $nodes[$nid]->getCacheTags();
+            }
             $children_links[] = [
               'title' => $nodes[$nid]->label(),
-              'url' => $nodes[$nid]->toUrl()
+              'url' => $nodes[$nid]->toUrl(),
+              'intro_text' => $intro_text,
             ];
           }
         }
