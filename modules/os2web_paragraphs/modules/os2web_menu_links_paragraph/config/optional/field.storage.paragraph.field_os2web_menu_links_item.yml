@@ -1,0 +1,19 @@
+langcode: da
+status: true
+dependencies:
+  module:
+    - os2web_pagebuilder
+    - paragraphs
+id: paragraph.field_os2web_menu_links_item
+field_name: field_os2web_menu_links_item
+entity_type: paragraph
+type: os2web_menu_item_reference_field
+settings:
+  max_length: 255
+module: os2web_pagebuilder
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
