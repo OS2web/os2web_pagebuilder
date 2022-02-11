@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.os2web_menu_links_paragraph.field_os2web_menu_links_inc_pr_p
+    - field.field.paragraph.os2web_menu_links_paragraph.field_os2web_menu_links_item
+    - field.field.paragraph.os2web_menu_links_paragraph.field_os2web_menu_links_pp_intro
     - field.field.paragraph.os2web_menu_links_paragraph.field_os2web_menu_links_show_int
     - field.field.paragraph.os2web_menu_links_paragraph.field_os2web_menu_links_vm
     - paragraphs.paragraphs_type.os2web_menu_links_paragraph
@@ -12,14 +14,29 @@ bundle: os2web_menu_links_paragraph
 mode: default
 content:
   field_os2web_menu_links_inc_pr_p:
-    weight: 0
+    weight: 1
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_os2web_menu_links_item:
+    type: os2web_menu_item_reference_drop_down
+    weight: 0
+    region: content
+    settings:
+      size: 2
+      placeholder: ''
+    third_party_settings: {  }
+  field_os2web_menu_links_pp_intro:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_os2web_menu_links_show_int:
-    weight: 1
+    weight: 2
     settings:
       display_label: true
     third_party_settings: {  }
@@ -27,7 +44,7 @@ content:
     region: content
   field_os2web_menu_links_vm:
     type: options_select
-    weight: 2
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
