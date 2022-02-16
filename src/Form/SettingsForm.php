@@ -94,6 +94,7 @@ class SettingsForm extends ConfigFormBase {
       '#title' => t('Section pages'),
       '#default_value' => ($config->get('os2web_section_pages')) ? Node::loadMultiple(array_column($config->get('os2web_section_pages'), 'target_id')) : NULL,
       '#tags' => TRUE,
+      '#size' => 1000,
       '#target_type' => 'node',
       '#selection_handler' => 'default',
       '#selection_settings' => [
