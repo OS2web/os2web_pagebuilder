@@ -118,6 +118,11 @@ function os2web_pagebuilder_form_alter(&$form, FormStateInterface $form_state, $
       }
     }
   }
+
+  // Changing media file field name.
+  if ($form_id == 'media_library_add_form_upload') {
+    $form['media'][0]['fields']['name']['widget'][0]['value']['#title'] = 'Linktekst';
+  }
 }
 
 /**
@@ -290,4 +295,3 @@ function os2web_pagebuilder_transliteration_overrides_alter(&$overrides, $langco
     }
   }
 }
-
