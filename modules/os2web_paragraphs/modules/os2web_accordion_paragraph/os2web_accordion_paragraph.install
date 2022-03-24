@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\paragraphs\Entity\ParagraphsType;
 use Symfony\Component\Yaml\Yaml;
@@ -147,5 +148,70 @@ function os2web_accordion_paragraph_update_8903() {
       'field_os2web_accordion_reus_targ' => 'content.field_os2web_accordion_reus_targ',
       'hidden' => 'hidden',
     ]);
+  }
+}
+
+/**
+ * Updating renaming accordion_paragraph_id to accordion_paragraph_ref.
+ */
+function os2web_accordion_paragraph_update_8904() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $bundle_of = 'os2web_accordion';
+
+  $storage = $entity_type_manager->getStorage($bundle_of);
+  $bundle_definition = $entity_type_manager->getDefinition($bundle_of);
+
+  $id_key = $bundle_definition->getKey('id');
+
+  // If there is no data table defined then use the base table.
+  $table_name = $storage->getDataTable() ?: $storage->getBaseTable();
+  $database = \Drupal::database();
+  $definition_manager = \Drupal::entityDefinitionUpdateManager();
+
+  // Store the existing values.
+  $field_values = $database->select($table_name)
+    ->fields($table_name, [$id_key, 'accordion_paragraph_id__target_id', 'accordion_paragraph_id__target_revision_id'])
+    ->execute()
+    ->fetchAllAssoc($id_key);
+
+  // Uninstall the field.
+  $field_storage_definition = $definition_manager->getFieldStorageDefinition('accordion_paragraph_id', $bundle_of);
+  if ($field_storage_definition) {
+    $definition_manager->uninstallFieldStorageDefinition($field_storage_definition);
+  }
+
+  // Create a new field definition.
+  $field_storage_definition = BaseFieldDefinition::create('entity_reference_revisions')
+    ->setLabel(t('Accordion paragraph'))
+    ->setDescription(t('Accordion paragraph entity.'))
+    ->setSetting('target_type', 'paragraph')
+    ->setSetting('handler', 'default:paragraph')
+    ->setSetting('handler_settings', ['target_bundles' => ['os2web_accordion' => 'os2web_accordion']])
+    ->setTranslatable(TRUE)
+    ->setDisplayOptions('view', [
+      'label' => 'hidden',
+      'type' => 'entity_reference_revisions_entity_view',
+      'weight' => 0,
+    ])
+    ->setDisplayOptions('form', [
+      'type' => 'paragraphs',
+      'weight' => 0,
+    ])
+    ->setRequired(TRUE)
+    ->setDisplayConfigurable('form', TRUE)
+    ->setDisplayConfigurable('view', TRUE);
+
+  // Install the new definition.
+  $definition_manager->installFieldStorageDefinition('accordion_paragraph_ref', $bundle_of, $bundle_of, $field_storage_definition);
+
+  // Restore the values.
+  foreach ($field_values as $id => $value) {
+    $database->update($table_name)
+      ->fields([
+        'accordion_paragraph_ref__target_id' => $value->accordion_paragraph_id__target_id,
+        'accordion_paragraph_ref__target_revision_id' => $value->accordion_paragraph_id__target_revision_id,
+      ])
+      ->condition($id_key, $id)
+      ->execute();
   }
 }

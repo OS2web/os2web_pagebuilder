@@ -186,7 +186,7 @@ class Accordion extends ContentEntityBase implements AccordionInterface {
       ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE);
 
-    $fields['accordion_paragraph_id'] = BaseFieldDefinition::create('entity_reference_revisions')
+    $fields['accordion_paragraph_ref'] = BaseFieldDefinition::create('entity_reference_revisions')
       ->setLabel(t('Accordion paragraph'))
       ->setDescription(t('Accordion paragraph entity.'))
       ->setSetting('target_type', 'paragraph')
