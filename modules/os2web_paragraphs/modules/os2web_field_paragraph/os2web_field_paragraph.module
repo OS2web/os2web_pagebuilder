@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * @file
+ * Contains os2web_field_paragraph.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\FieldConfigInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function os2web_field_paragraph_form_field_config_edit_form_alter(array &$form, FormStateInterface $form_state) {
+  /** @var \Drupal\field\FieldConfigInterface $field */
+  $field = $form_state->getFormObject()->getEntity();
+  if ($field->getTargetEntityTypeId() != 'node'
+    || in_array($field->getType(), ['entity_reference', 'entity_reference_revisions'])
+  ) {
+    return;
+  }
+
+  $form['os2web_field_paragraph'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable this field to be shown in OS2Web Node field paragraph'),
+    '#default_value' => $field->getThirdPartySetting('os2web_field_paragraph', 'enabled', FALSE),
+    '#weight' => -1,
+  ];
+  $form['actions']['submit']['#submit'][] = 'os2web_field_paragraph_field_config_edit_form_submit';
+}
+
+/**
+ * Form submission handler for "field_config_edit_form" alter.
+ *
+ * @param array $form
+ *   The form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function os2web_field_paragraph_field_config_edit_form_submit(array $form, FormStateInterface $form_state) {
+  $field = $form_state->getFormObject()->getEntity();
+  $form_fields = &$form_state->getValues();
+
+  // If the anonymous_subscription option is checked, update settings.
+  if ($form_fields['os2web_field_paragraph']) {
+    $field->setThirdPartySetting('os2web_field_paragraph', 'enabled', TRUE);
+    $field->save();
+  }
+  else {
+    $field->unsetThirdPartySetting('os2web_field_paragraph', 'enabled');
+    $field->save();
+  }
+}
+
+/**
+ * Implements hook_node_view_alter().
+ */
+function os2web_field_paragraph_node_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  $fields = array_filter($entity_field_manager->getFieldDefinitions('node', $entity->bundle()), function($field_config) {
+    return ($field_config instanceof FieldConfig) && $field_config->getType() == 'entity_reference_revisions';
+  });
+
+  foreach ($fields as $field) {
+    $referenced_entities = $entity->get($field->getName())->referencedEntities();
+    foreach ($referenced_entities as $referenced_entity) {
+      if ($referenced_entity->getEntityTypeId() == 'paragraph' && $referenced_entity->bundle() == 'os2web_field_paragraph') {
+        $field_name = $referenced_entity->field_os2web_field_field_name->value;
+        /** @var FieldConfigInterface $fieldDefinition */
+        $fieldDefinition = $entity->get($field_name)->getFieldDefinition();
+        if (isset($build[$field_name]) && $fieldDefinition->getThirdPartySetting('os2web_field_paragraph', 'enabled')) {
+          unset($build[$field_name]);
+        }
+      }
+    }
+  }
+}

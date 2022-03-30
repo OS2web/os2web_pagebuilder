@@ -1,0 +1,17 @@
+langcode: da
+status: true
+dependencies: {  }
+id: os2web_field_paragraph
+label: 'OS2Web field paragraphs'
+description: ''
+weight: 0
+stackable: false
+storage: folder
+folder: modules/contrib/os2web_pagebuilder/modules/os2web_paragraphs/modules/os2web_field_paragraph/config/optional
+module: {  }
+theme: {  }
+complete_list:
+  - 'os2web_field*'
+  - '*os2web_field'
+  - '*os2web_field*'
+partial_list: {  }

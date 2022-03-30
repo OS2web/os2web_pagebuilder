@@ -1,0 +1,8 @@
+name: 'os2web_field_paragraph'
+type: module
+description: 'OS2Web Node field paragraph'
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: 'OS2Web'
+dependencies:
+  - os2web_paragraphs
