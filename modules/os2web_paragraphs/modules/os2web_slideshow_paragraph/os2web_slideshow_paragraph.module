@@ -1,4 +1,7 @@
 <?php
+
+use Drupal\paragraphs\ParagraphInterface;
+
 /**
  * Implements hook_page_attachments_alter().
  */
@@ -8,3 +11,43 @@ function os2web_slideshow_paragraph_page_attachments_alter(array &$attachments)
   $attachments['#attached']['drupalSettings']['os2web_slideshow_paragraph']['items'] = $config->get('os2web_slideshow_paragraph_items');
 }
 
+/**
+ * Implements hook_preprocess_paragraph().
+ *
+ * Change referenced entity display.
+ */
+function os2web_slideshow_paragraph_preprocess_paragraph__os2web_slideshow(&$variables) {
+  $paragraph = $variables['paragraph'];
+
+  if ($paragraph->hasField('field_os2web_slideshow_view_mode') && !empty($paragraph->field_os2web_slideshow_view_mode->value)) {
+    $viewMode = $paragraph->field_os2web_slideshow_view_mode->value;
+    $elementsCount = $paragraph->field_os2web_slideshow_media_ref->count();
+    for ($i = 0; $i < $elementsCount; $i++) {
+      $media_reference =& $variables['content']['field_os2web_slideshow_media_ref'][$i];
+
+      // Replace view in caching keys.
+      $key = array_search($media_reference['#view_mode'], $media_reference['#cache']['keys']);
+      $media_reference['#cache']['keys'][$key] = $viewMode;
+
+      // Replace view mode.
+      $media_reference['#view_mode'] = $viewMode;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function os2web_slideshow_paragraph_preprocess_field(array &$variables) {
+  if ($variables['field_name'] !== 'field_os2web_slideshow_media_ref') {
+    return;
+  }
+
+  $viewMode = 'default';
+  $paragraph = $variables['element']['#object'];
+  if ($paragraph->hasField('field_os2web_slideshow_view_mode') && $paragraph->field_os2web_slideshow_view_mode->value) {
+    $viewMode = $paragraph->field_os2web_slideshow_view_mode->value;
+  }
+
+  $variables['view_mode'] = $viewMode;
+}
