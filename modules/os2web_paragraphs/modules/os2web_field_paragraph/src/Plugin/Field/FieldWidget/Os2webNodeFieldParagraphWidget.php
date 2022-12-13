@@ -46,9 +46,6 @@ class Os2webNodeFieldParagraphWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $buildInfo = $form_state->getBuildInfo();
-    $options = [
-      '' =>  $this->t('None'),
-    ];
     if ($buildInfo['callback_object'] instanceof NodeForm) {
       $node = $buildInfo['callback_object']->getEntity();
       $allowed_fields = array_filter($this->entityFieldManager->getFieldDefinitions('node', $node->bundle()), function($field_config) {
