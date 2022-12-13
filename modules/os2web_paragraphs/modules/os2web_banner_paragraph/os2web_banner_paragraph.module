@@ -1,0 +1,12 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+function os2web_banner_paragraph_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+    if (!\Drupal::currentUser()->hasPermission('create paragraph content os2web_banner_paragraph')) {
+        unset( $form['field_os2web_page_paragraph_bann'] );
+        return;
+    }
+
+}
