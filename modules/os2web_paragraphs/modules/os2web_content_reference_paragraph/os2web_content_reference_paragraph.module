@@ -13,12 +13,14 @@ function os2web_content_reference_paragraph_preprocess_paragraph__os2web_content
     for ($i = 0; $i < $elementsCount; $i++) {
       $content_reference =& $variables['content']['field_os2web_content_reference'][$i];
 
-      // Replace view in caching keys.
-      $key = array_search($content_reference['#view_mode'], $content_reference['#cache']['keys']);
-      $content_reference['#cache']['keys'][$key] = $viewMode;
+      if ($content_reference) {
+        // Replace view in caching keys.
+        $key = array_search($content_reference['#view_mode'], $content_reference['#cache']['keys']);
+        $content_reference['#cache']['keys'][$key] = $viewMode;
 
-      // Replace view mode.
-      $content_reference['#view_mode'] = $viewMode;
+        // Replace view mode.
+        $content_reference['#view_mode'] = $viewMode;
+      }
     }
   }
 }
