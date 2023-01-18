@@ -53,7 +53,18 @@ class NodeMenuImageFormatter extends EntityReferenceEntityFormatter {
       $params = $menuLink->getRouteParameters();
       $node = isset($params['node']) ? Node::load($params['node']) : NULL;
       if (!empty($node) && $node->bundle() == 'os2web_page') {
-        if ($node->hasField('field_os2web_page_paragraph_bann')
+
+        if ($node->hasField('field_os2web_page_primaryimage')
+          && $node->field_os2web_page_primaryimage instanceof EntityReferenceFieldItemListInterface
+          && $node->field_os2web_page_primaryimage->referencedEntities()){
+          $elements[0]['image'] = $node->field_os2web_page_primaryimage->view([
+            'label' => 'hidden' ,
+            'type' => 'image',
+            'settings' => [
+              'image_style' => 'os2web_normal_thumb'
+            ],
+          ]);
+        } else if ($node->hasField('field_os2web_page_paragraph_bann')
           && $node->field_os2web_page_paragraph_bann instanceof EntityReferenceFieldItemListInterface
           && $bannerParagraph = $node->field_os2web_page_paragraph_bann->referencedEntities()) {
           $paragraph = $bannerParagraph[0];
@@ -65,17 +76,7 @@ class NodeMenuImageFormatter extends EntityReferenceEntityFormatter {
             ],
           ]);
         }
-        else if ($node->hasField('field_os2web_page_primaryimage')
-          && $node->field_os2web_page_primaryimage instanceof EntityReferenceFieldItemListInterface
-          && $node->field_os2web_page_primaryimage->referencedEntities()){
-          $elements[0]['image'] = $node->field_os2web_page_primaryimage->view([
-            'label' => 'hidden',
-            'type' => 'image',
-            'settings' => [
-              'image_style' => 'os2web_normal_thumb'
-            ],
-          ]);
-        }
+
       }
     } else {
       $elements[0]['#prefix'] = '<div class="menu-icon-wrapper">';
