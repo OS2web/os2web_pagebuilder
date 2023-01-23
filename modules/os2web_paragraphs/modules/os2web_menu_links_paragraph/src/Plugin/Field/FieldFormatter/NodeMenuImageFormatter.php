@@ -54,16 +54,28 @@ class NodeMenuImageFormatter extends EntityReferenceEntityFormatter {
       $node = isset($params['node']) ? Node::load($params['node']) : NULL;
       if (!empty($node) && $node->bundle() == 'os2web_page') {
 
-        if ($node->hasField('field_os2web_page_primaryimage')
+        if ($node->hasField('field_os2web_icon')
+          && $node->field_os2web_icon instanceof EntityReferenceFieldItemListInterface
+          && $node->field_os2web_icon->referencedEntities()) {
+          $elements[0]['image'] = $node->field_os2web_icon->view([
+            'label' => 'hidden' ,
+            'type' => 'image',
+            'settings' => [
+              'image_style' => 'thumbnail'
+            ],
+          ]);
+
+        } elseif ($node->hasField('field_os2web_page_primaryimage')
           && $node->field_os2web_page_primaryimage instanceof EntityReferenceFieldItemListInterface
-          && $node->field_os2web_page_primaryimage->referencedEntities()){
+          && $node->field_os2web_page_primaryimage->referencedEntities()) {
           $elements[0]['image'] = $node->field_os2web_page_primaryimage->view([
             'label' => 'hidden' ,
             'type' => 'image',
             'settings' => [
-              'image_style' => 'os2web_normal_thumb'
+              'image_style' => 'os2web_normal'
             ],
           ]);
+
         } else if ($node->hasField('field_os2web_page_paragraph_bann')
           && $node->field_os2web_page_paragraph_bann instanceof EntityReferenceFieldItemListInterface
           && $bannerParagraph = $node->field_os2web_page_paragraph_bann->referencedEntities()) {
@@ -76,6 +88,7 @@ class NodeMenuImageFormatter extends EntityReferenceEntityFormatter {
             ],
           ]);
         }
+
 
       }
     } else {
