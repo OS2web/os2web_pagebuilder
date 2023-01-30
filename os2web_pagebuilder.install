@@ -463,3 +463,28 @@ function os2web_pagebuilder_update_8015() {
   $database = \Drupal::database();
   $database->query("ALTER TABLE node_field_data MODIFY title VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_danish_ci;");
 }
+
+function os2web_pagebuilder_update_8016() {
+
+  $path = drupal_get_path('module', 'os2web_pagebuilder');
+  // Create field storage.
+  $field_storage_yml = Yaml::parse(file_get_contents($path . '/config/install/field.storage.node.field_os2web_page_icon.yml'));
+  if (!FieldStorageConfig::loadByName($field_storage_yml['entity_type'], $field_storage_yml['field_name'])) {
+    FieldStorageConfig::create($field_storage_yml)->save();
+  }
+  // Create field instance.
+  $field_yml = Yaml::parse(file_get_contents($path . '/config/install/field.field.node.os2web_page.field_os2web_page_icon.yml'));
+  if (!FieldConfig::loadByName($field_yml['entity_type'], $field_yml['bundle'], $field_yml['field_name'])) {
+    FieldConfig::create($field_yml)->save();
+  }
+
+  os2web_pagebuilder_update_entity_from_yml(
+    'os2web_pagebuilder',
+    'core.entity_form_display.node.os2web_page.default',
+    'entity_form_display',
+    'node.os2web_page.default', [
+      'field_os2web_page_icon' => 'content.field_os2web_page_icon'
+  ]);
+
+}
+

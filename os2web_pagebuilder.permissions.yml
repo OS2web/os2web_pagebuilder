@@ -4,6 +4,9 @@ os2web_page access media tab:
 os2web_page access primaryimage field:
   title: 'Access OS2Web Page primary image field'
   description: 'Whether user can access primary image field on OS2Web Indholdside edit form'
+  os2web_page access icon field:
+    title: 'Access OS2Web Page icon field'
+    description: 'Whether user can access icon field on OS2Web Indholdside edit form'
 os2web_page access sidebygger tab:
   title: 'Access OS2Web Page Sidebygger tab'
   description: 'Whether user can access "Sidebygger" tab on OS2Web Indholdside edit form'
