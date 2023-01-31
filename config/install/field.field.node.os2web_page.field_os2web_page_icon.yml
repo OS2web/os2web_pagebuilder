@@ -2,7 +2,7 @@ langcode: da
 status: true
 dependencies:
   config:
-    - field.storage.node.field_os2web_page_icon
+    - field.storage.node.field_os2web_page_primaryicon
     - node.type.os2web_page
   module:
     - content_translation
@@ -13,8 +13,8 @@ third_party_settings:
       file: file
       alt: '0'
       title: '0'
-id: node.os2web_page.field_os2web_page_icon
-field_name: field_os2web_page_icon
+id: node.os2web_page.field_os2web_page_primaryicon
+field_name: field_os2web_page_primaryicon
 entity_type: node
 bundle: os2web_page
 label: Ikon
