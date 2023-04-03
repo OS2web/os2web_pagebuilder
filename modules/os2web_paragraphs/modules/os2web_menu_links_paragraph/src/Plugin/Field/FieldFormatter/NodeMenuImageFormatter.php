@@ -54,10 +54,10 @@ class NodeMenuImageFormatter extends EntityReferenceEntityFormatter {
       $node = isset($params['node']) ? Node::load($params['node']) : NULL;
       if (!empty($node) && $node->bundle() == 'os2web_page') {
 
-        if ($node->hasField('field_os2web_icon')
-          && $node->field_os2web_icon instanceof EntityReferenceFieldItemListInterface
-          && $node->field_os2web_icon->referencedEntities()) {
-          $elements[0]['image'] = $node->field_os2web_icon->view([
+        if ($node->hasField('field_os2web_page_primaryicon')
+          && $node->field_os2web_page_primaryicon instanceof EntityReferenceFieldItemListInterface
+          && $node->field_os2web_page_primaryicon->referencedEntities()) {
+          $elements[0]['image'] = $node->field_os2web_page_primaryicon->view([
             'label' => 'hidden' ,
             'type' => 'image',
             'settings' => [
