@@ -65,8 +65,10 @@ function os2web_pagebuilder_update_entity_from_yml($module_name, $ymlFileName, $
  * Implements hook_form_alter().
  */
 function os2web_pagebuilder_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
   // Hiding os2web_contact related fields, if setting tells us to.
   if ($form_id == 'node_os2web_page_form' || $form_id == 'node_os2web_page_edit_form') {
+
     // Hiding tab - Sidebygger.
     if (!\Drupal::currentUser()->hasPermission('os2web_page access sidebygger tab')) {
       $form['field_os2web_page_paragraph_wide']['#access'] = FALSE;
@@ -96,21 +98,29 @@ function os2web_pagebuilder_form_alter(&$form, FormStateInterface $form_state, $
       $form['field_os2web_page_related_hide']['#access'] = FALSE;
     }
 
-    if (\Drupal::config(SettingsForm::$configName)
-      ->get('hide_os2web_contact_fields')) {
+    if (\Drupal::config(SettingsForm::$configName)->get('hide_os2web_contact_fields')) {
       $form['field_os2web_page_contact']['#access'] = FALSE;
       $form['field_os2web_page_contact_hide']['#access'] = FALSE;
     }
 
-    if (\Drupal::config(SettingsForm::$configName)
-      ->get('hide_os2web_paragraph_banner_field')) {
+    if (\Drupal::config(SettingsForm::$configName)->get('hide_os2web_paragraph_banner_field')) {
       $form['field_os2web_page_paragraph_bann']['#access'] = FALSE;
     }
-    if (\Drupal::config(SettingsForm::$configName)
-      ->get('hide_os2web_content_page_section_tab')) {
+
+    if (\Drupal::config(SettingsForm::$configName)->get('hide_os2web_content_page_section_tab')) {
       $form['field_os2web_page_paragraph_righ']['#access'] = FALSE;
       $form['field_os2web_page_paragraph_left']['#access'] = FALSE;
     }
+
+    if (
+      !\Drupal::currentUser()->hasPermission('create os2web_borgerdk content') &&
+      !\Drupal::currentUser()->hasPermission('edit own os2web_borgerdk content')
+    ) {
+      if (!empty($form['field_selfbetjening_ref'])) {
+        $form['field_selfbetjening_ref']['#access'] = FALSE;
+      }
+    }
+
   }
 
   // Making field optional only for Section pages.
