@@ -2,7 +2,7 @@ name: OS2Web Paragraphs
 type: module
 description: A suite of Paragraph bundles made with "Det fælles designsystem".
 core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: OS2Web
 dependencies:
   - paragraphs:paragraphs
