@@ -66,6 +66,7 @@ class RelatedLinksBlock extends BlockBase {
       $keywordTermIds = array_column($fieldKeyword, 'target_id');
 
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(false)
         ->condition('status', 1)
         ->condition('type', 'os2web_page')
         ->condition('field_os2web_page_keyword', $keywordTermIds, 'IN')

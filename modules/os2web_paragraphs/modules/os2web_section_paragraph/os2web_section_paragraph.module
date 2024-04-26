@@ -39,6 +39,7 @@ function os2web_section_paragraph_preprocess_paragraph(&$variables) {
   // Loading child terms sorted by weight.
   if (!empty($term_id)) {
     $query = \Drupal::entityQuery('taxonomy_term')
+      ->accessCheck(false)
       ->condition('parent', $term_id)
       ->sort('weight');
 

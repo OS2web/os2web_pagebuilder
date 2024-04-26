@@ -59,6 +59,7 @@ function os2web_box_paragraph_update_8801() {
  */
 function os2web_box_paragraph_update_8802() {
   $pids = \Drupal::entityQuery('paragraph')
+    ->accessCheck(false)
     ->condition('type', 'os2web_box_paragraph')
     ->notExists('field_os2web_box_bg_color')
     ->execute();

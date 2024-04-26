@@ -113,7 +113,7 @@ function os2web_menu_links_paragraph_preprocess_paragraph(&$variables) {
     $child_nids = os2web_menu_links_find_child_nids($item->subtree);
 
     if (!empty($child_nids)) {
-      $query = \Drupal::entityQuery('node');
+      $query = \Drupal::entityQuery('node')->accessCheck(false)->accessCheck(false);
       $query->condition('status', 1);
       $query->condition('promote', 1);
       $query->condition('type', 'os2web_page');
