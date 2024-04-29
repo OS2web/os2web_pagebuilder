@@ -12,9 +12,9 @@
     "drupal/scheduler_content_moderation_integration": "*",
     "drupal/scheduled_transitions": "^2.0",
     "drupal/inline_entity_form": "^1.0@RC || ^3.0@RC",
-    "os2web/os2web_contact": "dev-master",
-    "os2web/os2web_hjemmeside": "dev-master",
-    "os2web/os2web_kle": "dev-master"
+    "os2web/os2web_contact": "dev-drupal10",
+    "os2web/os2web_hjemmeside": "dev-drupal10",
+    "os2web/os2web_kle": "dev-drupal10"
   },
   "license": "EUPL-1.2",
   "minimum-stability": "dev"
