@@ -9,7 +9,7 @@
     "drupal/field_group": "*",
     "drupal/image_widget_crop": "*",
     "drupal/svg_image": "*",
-    "drupal/scheduler_content_moderation_integration": "^1.x",
+    "drupal/scheduler_content_moderation_integration": "1.x",
     "drupal/scheduled_transitions": "^2.0",
     "drupal/inline_entity_form": "^3.0@RC",
     "os2web/os2web_contact": "dev-drupal10",
