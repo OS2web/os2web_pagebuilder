@@ -1,0 +1,13 @@
+langcode: da
+status: false
+dependencies:
+  module:
+    - taxonomy
+id: os2web_terms
+label: 'Ord i ordforråd'
+type: 'canonical_entities:taxonomy_term'
+pattern: '[term:parent:url:path]/[term:name]'
+selection_criteria: {  }
+selection_logic: and
+weight: 0
+relationships: {  }
