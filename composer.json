@@ -14,7 +14,8 @@
     "os2web/os2web_contact": "dev-drupal10",
     "os2web/os2web_hjemmeside": "dev-drupal10",
     "os2web/os2web_kle": "dev-drupal10",
-    "os2web/os2web_embedded_code":"dev-drupal10"
+    "os2web/os2web_embedded_code":"dev-drupal10",
+    "os2web/os2web_news":"dev-drupal10"
   },
   "license": "EUPL-1.2",
   "minimum-stability": "dev"
