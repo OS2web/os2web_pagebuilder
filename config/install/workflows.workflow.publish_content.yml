@@ -1,3 +1,4 @@
+uuid: 5e1bd13d-0dda-4a61-a822-9ec9cfdd3b31
 langcode: da
 status: true
 dependencies:
@@ -5,36 +6,53 @@ dependencies:
     - node.type.os2web_page
   module:
     - content_moderation
+_core:
+  default_config_hash: qIPNpGGr-8eFL-VAd4P6BQkIcbQsAIkaL2D-bTENe3o
 id: publish_content
 label: Indholdspublicering
 type: content_moderation
 type_settings:
   states:
     draft:
-      published: false
-      default_revision: false
       label: Kladde
       weight: 0
+      published: false
+      default_revision: false
     published:
-      published: true
-      default_revision: true
       label: Publiceret
       weight: 1
+      published: true
+      default_revision: true
+    upubliceret:
+      label: Upubliceret
+      weight: 2
+      published: false
+      default_revision: false
   transitions:
     create_new_draft:
-      label: 'Create New Draft'
+      label: Kladde
+      from:
+        - draft
+        - published
+        - upubliceret
       to: draft
       weight: 0
-      from:
-        - draft
-        - published
     publish:
       label: Publish
-      to: published
-      weight: 1
       from:
         - draft
         - published
+        - upubliceret
+      to: published
+      weight: 1
+    upubliceret:
+      label: Upubliceret
+      from:
+        - draft
+        - published
+        - upubliceret
+      to: upubliceret
+      weight: 2
   entity_types:
     node:
       - os2web_page
