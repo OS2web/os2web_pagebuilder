@@ -1,4 +1,3 @@
-uuid: 374a5e29-b585-42c9-bc70-17a55da7568e
 langcode: da
 status: true
 dependencies:
@@ -29,6 +28,7 @@ dependencies:
     - field_group
     - inline_entity_form
     - path
+    - scheduler
     - scheduler_content_moderation_integration
     - svg_image
     - text
@@ -150,6 +150,7 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: false
+_core:
 id: node.os2web_page.default
 targetEntityType: node
 bundle: os2web_page
@@ -349,7 +350,7 @@ content:
       display_label: true
     third_party_settings: {  }
   publish_on:
-    type: datetime_timestamp
+    type: datetime_timestamp_no_default
     weight: 14
     region: content
     settings: {  }
@@ -403,7 +404,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   unpublish_on:
-    type: datetime_timestamp
+    type: datetime_timestamp_no_default
     weight: 15
     region: content
     settings: {  }
