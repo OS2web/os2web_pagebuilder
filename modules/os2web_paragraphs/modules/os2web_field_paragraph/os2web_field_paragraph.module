@@ -56,23 +56,52 @@ function os2web_field_paragraph_field_config_edit_form_submit(array $form, FormS
 /**
  * Implements hook_node_view_alter().
  */
-function os2web_field_paragraph_node_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
-  $entity_field_manager = \Drupal::service('entity_field.manager');
-  $fields = array_filter($entity_field_manager->getFieldDefinitions('node', $entity->bundle()), function($field_config) {
-    return ($field_config instanceof FieldConfig) && $field_config->getType() == 'entity_reference_revisions';
-  });
+//function os2web_field_paragraph_node_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
+//  $entity_field_manager = \Drupal::service('entity_field.manager');
+//  $fields = array_filter($entity_field_manager->getFieldDefinitions('node', $entity->bundle()), function($field_config) {
+//    return ($field_config instanceof FieldConfig) && $field_config->getType() == 'entity_reference_revisions';
+//  });
+//
+//  foreach ($fields as $field) {
+//    $referenced_entities = $entity->get($field->getName())->referencedEntities();
+//    foreach ($referenced_entities as $referenced_entity) {
+//      if ($referenced_entity->getEntityTypeId() == 'paragraph' && $referenced_entity->bundle() == 'os2web_field_paragraph') {
+//        $field_name = $referenced_entity->field_os2web_field_field_name->value;
+//        /** @var FieldConfigInterface $fieldDefinition */
+//        $fieldDefinition = $entity->get($field_name)->getFieldDefinition();
+//        if (isset($build[$field_name]) && $fieldDefinition->getThirdPartySetting('os2web_field_paragraph', 'enabled')) {
+//          unset($build[$field_name]);
+//        }
+//      }
+//    }
+//  }
+//}
 
-  foreach ($fields as $field) {
-    $referenced_entities = $entity->get($field->getName())->referencedEntities();
-    foreach ($referenced_entities as $referenced_entity) {
-      if ($referenced_entity->getEntityTypeId() == 'paragraph' && $referenced_entity->bundle() == 'os2web_field_paragraph') {
-        $field_name = $referenced_entity->field_os2web_field_field_name->value;
-        /** @var FieldConfigInterface $fieldDefinition */
-        $fieldDefinition = $entity->get($field_name)->getFieldDefinition();
-        if (isset($build[$field_name]) && $fieldDefinition->getThirdPartySetting('os2web_field_paragraph', 'enabled')) {
-          unset($build[$field_name]);
-        }
-      }
+function os2web_field_paragraph_node_view_alter(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
+    $view_mode = $display->getMode();
+
+    // Only proceed if the view mode is not 'teaser'.
+    if ($view_mode == 'teaser') {
+        return;
     }
-  }
+
+    $entity_field_manager = \Drupal::service('entity_field.manager');
+    $fields = array_filter($entity_field_manager->getFieldDefinitions('node', $entity->bundle()), function($field_config) {
+        return ($field_config instanceof FieldConfig) && $field_config->getType() == 'entity_reference_revisions';
+    });
+
+    foreach ($fields as $field) {
+        $referenced_entities = $entity->get($field->getName())->referencedEntities();
+        foreach ($referenced_entities as $referenced_entity) {
+            if ($referenced_entity->getEntityTypeId() == 'paragraph' && $referenced_entity->bundle() == 'os2web_field_paragraph') {
+                $field_name = $referenced_entity->field_os2web_field_field_name->value;
+                /** @var FieldConfigInterface $fieldDefinition */
+                $fieldDefinition = $entity->get($field_name)->getFieldDefinition();
+                if (isset($build[$field_name]) && $fieldDefinition->getThirdPartySetting('os2web_field_paragraph', 'enabled')) {
+                    unset($build[$field_name]);
+                }
+            }
+        }
+    }
 }
+
