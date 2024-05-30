@@ -28,5 +28,5 @@ dependencies:
   - os2web_gis_map_paragraph
   - os2web_contact
   - os2web_kle
-  - os2web_news
+
 configure: os2web_pagebuilder.settings
